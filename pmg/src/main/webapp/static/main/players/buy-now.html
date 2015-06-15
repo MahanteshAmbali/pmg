@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ProMaGizmo | PMG</title>
+		<link rel="stylesheet" type="text/css" href="../../assets/buynow/css/checkout-sidebar.css" />
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body class="color-1">
+		<div class="container">
+			
+		<div class="grid">
+			<div class="grid__item color-3">
+				<a class="link link--nukun" href="player-dash.html"><span>P</span>ro<span>M</span>a<span>G</span>izmo</a>
+			</div>
+		</div>
+			<section class="content">
+			<article class="content__item">
+							<h1 class="title title--full">A little something in return</h1>
+							<div class="meta meta--full">
+							</div>
+							<p>Isn't it just wonderful? The journey that we have had together? PMG is pleased to see that people have actually made fortunes for themselves through this platform. Nothing pleases PMG more. </p>
+							<p>But as they say. Change is the only constant that there is. And as everything else, time has come for PMG to change too. Just that, change here is only for the better.</p>
+							<p>PMG has decided to upgrade itself. And for that matter, for the betterment in its services, PMG requires its wonderful players to pay a nominal amount to help it do so.</p>
+							<p>As PMG's players will appreciate, the subscription plans mentioned below are a tiny percentage of the earnings that you have made. Mind it, PMG DOES NOT OFFER ANY PAYBACKS!!</p>
+								<div class="checkout">
+								<a class="checkout__button" href="#">My First Month Subscription</a>
+								<div class="checkout__order">
+									<div class="checkout__order-inner">
+										<table class="checkout__summary">
+											<thead>
+										        <tr><th>My Subscription</th><th>Price</th></tr>
+										    </thead>
+										    <tfoot>
+										        <tr><th colspan="2">Total <span class="checkout__total">$27.97</span></th></tr>
+										    </tfoot>
+										    <tbody>
+												<tr><td><strong>First Month Subscription</strong></td><td><strong>$27.97</strong></td></tr>
+											</tbody>
+										</table><!-- /checkout__summary -->
+										
+									
+										<button class="checkout__option checkout__option--silent checkout__cancel"></i> Close</button><a href="http://www.paypal.com"><button class="checkout__option checkout__option--loud">Pay with PayPal</button></a>
+									</div><!-- /checkout__order-inner -->
+								</div><!-- /checkout__order -->
+							</div><!-- /checkout -->
+							<h1></h1>
+							<br/>
+							<section class="pmg-section pmg-section--dark">
+						<div class="pmg-content pmg-grid">
+							<h2 class="pmg-heading pmg-heading--single">Subscription Plans</h2>
+							<figure class="pmg-grid__item pmg-width--third">
+								<div class="pmg-pricing">
+									<h3 class="pmg-heading pmg-heading--box"><span>2th Month Onwards</span></h3>
+									<div class="pmg-bigtext"><span>$ 9.97</span></div>
+									<div class="pmg-list-wrap">
+										<ul class="pmg-list">
+											<li>1 brand</li>
+											<li>10 projects</li>
+											<li>Basic toolset</li>
+										</ul>
+									</div>
+									<a href="checkout.html">
+									<button class="pmg-button"><span>Buy Now</span></button></a>
+								</div>
+							</figure>
+							<figure class="pmg-grid__item pmg-width--third">
+								<div class="pmg-pricing">
+									<h3 class="pmg-heading pmg-heading--box "><span>Half Yearly</span></h3>
+									<div class="pmg-bigtext"><span>$47.97</span></div>
+									<div class="pmg-list-wrap ">
+										<ul class="pmg-list">
+											<li>10 brands</li>
+											<li>50 projects</li>
+											<li>Advanced toolset</li>
+										</ul>
+									</div>
+									<a href="checkout.html">
+									<button class="pmg-button "><span>Buy Now</span></button></a>
+								</div>
+							</figure>
+							<figure class="pmg-grid__item pmg-width--third">
+								<div class="pmg-pricing">
+									<h3 class="pmg-heading pmg-heading--box "><span>Yearly</span></h3>
+									<div class="pmg-bigtext"><span>$99.97</span></div>
+									<div class="pmg-list-wrap ">
+										<ul class="pmg-list">
+											<li>Unlimited brands</li>
+											<li>Unlimited projects</li>
+											<li>Full toolset</li>
+										</ul>
+									</div>
+									<a href="checkout.html">
+									<button class="pmg-button "><span>Buy Now</span></button></a>
+								</div>
+							</figure>
+						</div>
+					</section>
+							
+						</article>
+						<hr>
+						<article class="content__item color-2 mid">
+							<p> <a href="player-dash.html">Take Me Back</a> TO My Dashboard</p>
+						</article>
+			</section> 
+			
+		</div><!-- /container -->
+		<footer>&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.</footer>
+		<script src="../../assets/buynow/js/classie.js"></script>
+		<script>
+			(function() {
+				[].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+					var openCtrl = el.querySelector( '.checkout__button' ),
+						closeCtrls = el.querySelectorAll( '.checkout__cancel' );
+
+					openCtrl.addEventListener( 'click', function(ev) {
+						ev.preventDefault();
+						classie.add( el, 'checkout--active' );
+					} );
+
+					[].slice.call( closeCtrls ).forEach( function( ctrl ) {
+						ctrl.addEventListener( 'click', function() {
+							classie.remove( el, 'checkout--active' );
+						} );
+					} );
+				} );
+			})();
+		</script>
+		
+		<!--On top-->
+   <script type="text/javascript" src="../../assets/core/elevator/elevator.js"></script>
+    <script>
+            // elevator.
+            var elementButton = document.querySelector('footer');
+            var elevator = new Elevator({
+                element: elementButton,
+                mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
+                endAudio:  '../.././music/ding.mp3'
+            });
+			</script>
+	</body>
+</html>

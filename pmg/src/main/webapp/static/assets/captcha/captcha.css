@@ -1,0 +1,136 @@
+ body{
+                background-color: #2daebf;
+            }
+            form.registration{
+                width:600px;
+                margin: 10px auto;
+                padding:10px;
+                font-family: "Trebuchet MS";   
+            }
+            form.registration fieldset{
+                background-color:#707070;
+                border:none;
+                padding:10px;
+                -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -moz-border-radius: 15px;
+                -webkit-border-radius: 15px;				          
+                padding:6px;
+                margin:0px 30px 0px 0px;
+            }
+            form.registration legend{
+                text-align:left;
+                color:#fff;
+                font-size:14px;
+                padding:0px 4px 15px 4px;
+                margin-left:20px;
+                font-weight:bold;
+            }
+            form.registration label{
+                font-size: 18px;
+                width:200px;
+                float: left;
+                text-align: right;
+                clear:left;
+                margin:4px 4px 0px 0px;
+                padding:0px;
+                color: #FFF;
+                text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+            }
+            form.registration input{
+                font-family: "Trebuchet MS";
+                font-size: 18px;
+                float:left;
+                width:300px;
+                border:1px solid #cccccc;
+                margin:2px 0px 4px 2px;
+                color:#00abdf;
+                height:26px;
+                padding:3px;
+                -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+            }
+            form.registration input:focus, form.registration select:focus{
+                background-color:#E0E6FF;
+            }
+            form.registration select{
+                font-family: "Trebuchet MS";
+                font-size: 20px;
+                float:left;
+                border:1px solid #cccccc;
+                margin:2px 0px 2px 2px;
+                color:#00abdf;
+                height:32px;
+                -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+            }
+            .button, .button:visited{
+                float:right;
+                background: #0AC2D2; 
+                font-weight:bold;
+                display: inline-block; 
+                padding: 5px 10px 6px; 
+                color: #F3F68D; 
+                text-decoration: none;
+                -moz-border-radius: 5px; 
+                -webkit-border-radius: 5px;
+                -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+                border-bottom: 1px solid rgba(0,0,0,0.25);
+                cursor: pointer;
+                margin-top:95px;
+                margin-right:15px;
+            }
+            .button:hover{
+                background-color: #F68D8D;
+				color: #fff;
+            }
+            #sortable {
+                list-style-type: none;
+                margin: 5px 0px 0px 16px;
+                padding: 0;
+            }
+            #sortable li {
+                margin: 3px 3px 3px 0;
+                padding: 1px;
+                float: left;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+                text-align: center;
+                line-height:35px;
+                cursor:pointer;
+                -moz-border-radius:5px;
+                -webkit-border-radius:5px;
+                -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.5);
+                -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.5);
+                text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+                background:#2daebf url(images/overlay.png) repeat-x scroll 50% 50%;
+                color:#fff;
+                font-weight:normal;
+            }
+            .captcha_wrap{
+                border:1px solid #F3F68D;
+                -moz-border-radius:10px;
+                -webkit-border-radius:10px;
+				float:left;
+                height:120px;
+                overflow:auto;
+                width:150px;
+                overflow:hidden;
+                margin: 1px 0px 0px 475px;
+                background-color:#F3F68D;
+            }
+            .captcha{
+                -moz-border-radius:10px;
+                -webkit-border-radius:10px;
+                font-size:12px;
+                color:#404D5B;
+                text-align: center;
+                background-color:#F3F68D;
+            }
