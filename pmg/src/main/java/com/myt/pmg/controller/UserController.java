@@ -19,14 +19,12 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.myt.pmg.chat.XmppManager;
 import com.myt.pmg.common.UtilFunction;
 import com.myt.pmg.dto.QuestionDto;
 import com.myt.pmg.mail.VelocityTemplateMail;

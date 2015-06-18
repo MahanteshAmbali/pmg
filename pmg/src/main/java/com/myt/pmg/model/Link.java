@@ -13,6 +13,7 @@ public class Link extends BasicEntity {
 
 	private String userId;
 	private String url;
+	private int lid;
 	private boolean verified = false;
 	private boolean active = false;
 	private int approved = 0;
@@ -81,6 +82,20 @@ public class Link extends BasicEntity {
 				+ verified + ", active=" + active + ", approved=" + approved
 				+ ", creationTime=" + creationTime + ", lastTraveredTime="
 				+ lastTraveredTime + "]";
+	}
+
+	/**
+	 * @return the lid
+	 */
+	public int getLid() {
+		return lid;
+	}
+
+	/**
+	 * @param lid the lid to set
+	 */
+	public void setLid(int lid) {
+		this.lid = lid;
 	}
 
 }

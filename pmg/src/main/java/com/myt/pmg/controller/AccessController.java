@@ -1,5 +1,8 @@
 package com.myt.pmg.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.myt.pmg.common.UtilFunction;
 import com.myt.pmg.model.Link;
-import com.myt.pmg.model.User;
 import com.myt.pmg.service.LoginService;
+import com.myt.pmg.service.UserService;
 
 @Controller
 public class AccessController {
@@ -19,6 +23,9 @@ public class AccessController {
 	
 	@Autowired
 	private LoginService  loginservice;
+	
+	@Autowired
+	private UserService userservice;
 	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public String showLogin(
 			@RequestParam(value = "signupcomplete", required = false) String signupcomplete,
@@ -29,7 +36,7 @@ public class AccessController {
 			@RequestParam(value = "ipban", required = false) String ipban,
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "password", required = false) String password,
-			Model model) {
+			Model model, HttpServletRequest request) {
 		
 		//loginservice.loadUserByUsername(email);
 		logger.info("In access controller");
@@ -76,11 +83,15 @@ public class AccessController {
 			logger.info("Logout success.");
 		}
 		if (email != null) {
-			if (email.equalsIgnoreCase("pavan@gmail.com")
+			if (email.equalsIgnoreCase("pavancs045@gmail.com")
 					&& password.equalsIgnoreCase("pavan")) {
+				loginservice.loadUserByUsername("pavancs045@gmail.com");
+				com.myt.pmg.model.User user = userservice.findByEmail(email);
+				HttpSession httpSession = request.getSession();
 				System.out.println("here in Login Success");
-				model.addAttribute("user", new User());
+				model.addAttribute("user",user);
 				model.addAttribute("link", new Link());
+				UtilFunction.setCurrentUser(httpSession, user);
 				return "linkbroadcaster";
 			}
 		}

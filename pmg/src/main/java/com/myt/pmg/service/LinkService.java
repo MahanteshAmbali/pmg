@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,10 +62,18 @@ public class LinkService {
 			link.setUserId(user.getId());
 			link.setActive(true);
 			link.setCreationTime(new Date());
+			link.setLid(generateLID());
 			createLink(link);
 			return "Link submitted!!!";
 		} else
 			return "User Not Eligible For Link Submission!!!";
+	}
+
+	private int generateLID() {
+		Random rnd = new Random();
+		int n = 100000 + rnd.nextInt(900000);
+		System.out.println("LID generated for the Link>>>>" + n);
+		return n;
 	}
 
 	public boolean exists(Link link) {

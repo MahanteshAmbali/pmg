@@ -72,19 +72,33 @@ public class LinkController {
 
 //	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/linkbroadcaster", method = RequestMethod.POST)
-	public @ResponseBody String createNewLink(@RequestParam("url") String urls,
-			SessionStatus sessionStatus, HttpSession session) {
+	public String createNewLink(@RequestParam("url") String urls,@RequestParam("regenrateLId") String regenrateLId,
+			SessionStatus sessionStatus, HttpSession session, Model model) {
 		User user = UtilFunction.getCurrentUser(session);
 		if (null == user) {
 			// Send User to same Page showing user is not logged in
 			return "linkbroadcaster";
+		}
+		if(null != regenrateLId && regenrateLId.equalsIgnoreCase("true")){
+			//LID Already  generated
+			System.out.println("User ID::" + user.getId());
+			System.out.println("User ID in Link Service" + linkService.findById(user.getId()));
+			System.out.println("Links by UserId" + linkService.getLinksPostedByUser(user.getId()));
+			List<Link> linkLists = linkService.getLinksPostedByUser(user.getId());
+			for(Link link : linkLists){
+				System.out.println("LID Generated is >>>>>" + link.getLid());
+				model.addAttribute("lid", link.getLid());
+				model.addAttribute("url", link.getUrl());
+			}
+		
 		}
 		for (String url : urls.split(",")) {
 			Link link = new Link();
 			link.setUrl(url);
 			linkService.submitLink(link, user);
 		}
-		return "dashboard";
+		return "linkbroadcaster";
+		//return "dashboard";
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")

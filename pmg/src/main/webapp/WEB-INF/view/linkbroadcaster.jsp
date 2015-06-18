@@ -1,9 +1,16 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<!--[if lt IE 7]>  <html class="lt-ie7"> <![endif]-->
-<!--[if IE 7]>     <html class="lt-ie8"> <![endif]-->
-<!--[if IE 8]>     <html class="lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html>
+<!--[if lt IE 7]> <html class="ie ie6 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="ie ie7 lt-ie9 lt-ie8"        lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie ie8 lt-ie9"               lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="ie ie9"                      lang="en"> <![endif]-->
+<!--[if !IE]><!-->
+
+
+<html lang="en">
 <!--<![endif]-->
 
 <head>
@@ -198,20 +205,21 @@
 	
 	<div class="content">
 	<p><font color="black">Hi Player!! Welcome to PMG's Link Broadcaster. This is where all the action takes place. Submit your links, as many as you may like. Just keep PMG's RoE in mind.</font> </p>
-	
+	<form action="linkbroadcaster?regenrateLId=true" autocomplete="off" method="post">
 	<div class="row">
 	<div class="col s6 ">
 	<select>
      <option value="" disabled selected>Choose Money Site</option>
-     <option class="blue-text" value="1">domain1</option>
-     <option value="2">domain2</option>
-     <option value="3">domain3</option>
+     <!-- TODO: Change the hard coded value to fetch from DB during registration. -->
+     <option class="blue-text" value="1">http://gooooooogle.com</option>
+   <!-- <option value="2">domain2.com</option>
+     <option value="3">domain3</option> -->  
     </select>
     </div>
     </div>
     <div class="input-field">
      <i class="mdi-communication-chat prefix"></i>
-      <textarea id="textarea_icon" class="materialize-textarea"></textarea>
+      <input type="text" name="url" id="textarea_icon" class="materialize-textarea"/>
        <label for="textarea_icon">Submit Your Ad Containing Links To Broadcast</label>
     </div>
 	<div class="row">
@@ -219,12 +227,12 @@
 	 <ul class="note">
 			<li class="success right">
 			  <button class="btn waves-effect a1 waves-light tooltipped" data-position="left" data-delay="50" data-tooltip="Submit All The Links From the Selected Domain" type="submit" name="action">
-        Submit <i class="mdi-content-send right"></i>
+        Submit To generate LID <i class="mdi-content-send right"></i>
       </button>
 			</li>
 		  </ul>
 	</div>
-    </div>
+    </div></form>
 	</div>
 	</div>
 	
@@ -252,8 +260,12 @@
   <tbody>
     <tr>
       <th class="center">1</th>
-      <td class="center">#425894</td>
-      <td>abc.com/xzy.html</td>
+      <td class="center">
+      	<c:if test="${lid !=null }">
+      		<c:out value="${lid}"/></c:if>
+      </td>
+      <td><c:if test="${url !=null }">
+      		<c:out value="${url}"/></c:if></td>
       <td><div class="input-field">
        <input id="input_text" type="text" class="validate">
        <label for="input_text">Relevant Keyword</label>

@@ -1,7 +1,6 @@
 package com.myt.pmg.model;
 
 import java.util.Date;
-import java.util.Locale;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -192,6 +191,14 @@ public class User extends BasicEntity {
 
 	@Override
 	public String toString() {
+		System.out.println("Returning the >>>>>>>>" +   "User [username=" + username + ", email=" + email
+				+ ", password=" + password + ", active=" + active + ", banned="
+				+ banned + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", gender=" + gender + ", dob=" + dob + ", adUrl="
+				+ adUrl + ", country=" + country + ", picName=" + picName
+				+ ", remarks=" + remarks + ", level=" + level
+				+ ", registrationDate=" + registrationDate + ", registeredIp="
+				+ registeredIp + ", role=" + role + "]" );
 		return "User [username=" + username + ", email=" + email
 				+ ", password=" + password + ", active=" + active + ", banned="
 				+ banned + ", firstname=" + firstname + ", lastname="
