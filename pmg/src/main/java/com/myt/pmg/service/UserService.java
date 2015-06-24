@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -28,57 +29,51 @@ import com.myt.pmg.model.User.Level;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserDao userDao;
+
+	private ReportService reportService;
+	private ProofService proofService;
+	private SessionRegistryImpl sessionRegistry;
+	private FeedbackService feedbackService;
+	private UserLinkService userlinkService;
+	private IpService ipService;
+	private LinkService linkService;
+
+	private XmppManager xmppManager;
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 
-	private LinkService linkService;
-
 	public void setLinkService(LinkService linkService) {
 		this.linkService = linkService;
 	}
-
-	private ReportService reportService;
 
 	public void setReportService(ReportService reportService) {
 		this.reportService = reportService;
 	}
 
-	private ProofService proofService;
-
 	public void setProofService(ProofService proofService) {
 		this.proofService = proofService;
 	}
-
-	private SessionRegistryImpl sessionRegistry;
 
 	public void setSessionRegistry(SessionRegistryImpl sessionRegistry) {
 		this.sessionRegistry = sessionRegistry;
 	}
 
-	private FeedbackService feedbackService;
-
 	public void setFeedbackService(FeedbackService feedbackService) {
 		this.feedbackService = feedbackService;
 	}
-
-	private UserLinkService userlinkService;
 
 	public void setUserlinkService(UserLinkService userlinkService) {
 		this.userlinkService = userlinkService;
 	}
 
-	private IpService ipService;
-
 	public void setIpService(IpService ipService) {
 		this.ipService = ipService;
 	}
-
-	private XmppManager xmppManager;
 
 	public void setXmppManager(XmppManager xmppManager) {
 		this.xmppManager = xmppManager;
@@ -378,5 +373,28 @@ public class UserService {
 							.getId());
 		}
 		return pendingClicks;
+	}
+
+	public User getRandomUser(User user) {
+		Random random = new Random();
+		List<User> activeUsers = findAllActiveUsers();
+		int index = random.nextInt(activeUsers.size());
+		System.out.println("\nIndex :" + index);
+		System.out.println("Randomly Selected USer Email Address is "
+				+ activeUsers.get(index).getEmail());
+
+		return activeUsers.get(index);
+
+	}
+
+	public User getRandomUser() {
+		Random random = new Random();
+		List<User> activeUsers = findAllActiveUsers();
+		int index = random.nextInt(activeUsers.size());
+		System.out.println("\nIndex :" + index);
+		System.out.println("Randomly Selected USer Email Address is "
+				+ activeUsers.get(index).getEmail());
+
+		return activeUsers.get(index);
 	}
 }

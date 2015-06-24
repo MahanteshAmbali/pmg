@@ -58,11 +58,12 @@ public class LinkService {
 	// Save Link to database, create UserLink object
 	public String submitLink(Link link, User user) {
 		if (userService.isUserEligible(user)) {
-			System.out.println(link);
 			link.setUserId(user.getId());
 			link.setActive(true);
 			link.setCreationTime(new Date());
-			link.setLid(generateLID());
+			if(link.getLid() != 0 || link.getLid()<=0){
+				link.setLid(generateLID());
+			}
 			createLink(link);
 			return "Link submitted!!!";
 		} else
@@ -72,7 +73,6 @@ public class LinkService {
 	private int generateLID() {
 		Random rnd = new Random();
 		int n = 100000 + rnd.nextInt(900000);
-		System.out.println("LID generated for the Link>>>>" + n);
 		return n;
 	}
 
@@ -215,4 +215,11 @@ public class LinkService {
 	public Link findById(String id) {
 		return linkDao.findById(id);
 	}
+	
+	public Link findByUserId(String userid) {
+		
+		return linkDao.findByUserId(userid);
+	}
+	
+	
 }

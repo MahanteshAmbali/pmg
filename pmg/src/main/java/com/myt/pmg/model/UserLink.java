@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="userlink")
 public class UserLink extends BasicEntity {
+	
 	@Indexed(unique = false)
 	private String userId=null;
 	private String linkId=null;

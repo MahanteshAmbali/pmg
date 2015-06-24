@@ -1,277 +1,355 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="ie ie6 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="ie ie7 lt-ie9 lt-ie8"        lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="ie ie8 lt-ie9"               lang="en"> <![endif]-->
-<!--[if IE 9]>    <html class="ie ie9"                      lang="en"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" class="no-ie">
-<!--<![endif]-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ProMaGizmo | PMG</title>
+		<meta name="description" content="PMG | Your Profit Making Gizmo" />
+		<meta name="author" content="PMG" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/static/fonts/act/act.css" type="text/css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/front/sign/css/style.css" />
+		<script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/front/sign/js/modernizr.custom.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/captcha/jquery-1.3.2.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/captcha/ui.core.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/captcha/ui.sortable.js"></script>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/captcha/captcha.css" />
+		 <!--Alert-->
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.css" />
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/alert/alert.css" />
+		
+		<!-- IonIcons -->
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
+        <script type="text/javascript">
+            (
+            function($){
 
-<head>
-<!-- Meta-->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="author" content="">
-<title>ProMaGizmo | Profit Machine Gizmo</title>
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
-<!-- Bootstrap CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/app/css/bootstrap.css">
-<!-- Vendor CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/fontawesome/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/animo/animate+animo.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/slider/css/slider.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/chosen/chosen.min.css">
-<!-- App CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/app/css/app.css">
-<!-- Modernizr JS Script-->
-<script
-	src="${pageContext.request.contextPath}/static/vendor/modernizr/modernizr.js"
-	type="application/javascript"></script>
-<!-- FastClick for mobiles-->
-<script
-	src="${pageContext.request.contextPath}/static/vendor/fastclick/fastclick.js"
-	type="application/javascript"></script>
-</head>
-<body>
-	<!-- START wrapper-->
-	<div style="height: 100%; padding: 20px 0; background-color: #2c3037"
-		class="row row-table">
-		<div class="col-lg-3 col-md-6 col-sm-8 col-xs-12 align-middle">
-			<div data-toggle="play-animation" data-play="zoomIn" data-offset="0"
-				data-duration="300" class="panel b0">
-				<p class="text-center mb-lg">
-					<br> <a href="#"> <img
-						src="${pageContext.request.contextPath}/static/app/img/logo3.png"
-						alt="Image" class="block-center img-rounded">
-					</a>
-				</p>
-				<div id="accordion" data-toggle="collapse-autoactive"
-					class="panel-group">
-					<!-- START panel-->
-					<div class="panel radius-clear b0 shadow-clear">
-						<div class="panel-heading radius-clear panel-heading-active">
-							<a data-toggle="collapse" data-parent="#accordion"
-								href="#collapseTwo" class="text-muted btn-block text-center">SIGNUP
-								TO GET INSTANT ACCESS.</a>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<sf:form id="signupForm" role="form"
-									action="${pageContext.request.contextPath}/signup"
-									method="post" commandName="user"  class="mb-lg"
-									onsubmit="uploadPic()">
-									<div class="form-group has-feedback">
-										<label for="username">Username</label>
-										<sf:input id="username" path="username" type="username"
-											placeholder="username" class="form-control"
-											required="required"></sf:input>
-										<span class="fa fa-user form-control-feedback text-muted"></span>
+                $.fn.shuffle = function() {
+                    return this.each(function(){
+                        var items = $(this).children();
 
-									</div>
-									<div class="form-group has-feedback">
-										<label for="password">Password</label>
-										<sf:input id="password" path="password" type="password"
-											placeholder="Password" class="form-control"
-											required="required"></sf:input>
-										<span class="fa fa-lock form-control-feedback text-muted"></span>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="re-type Password">Re-Type Password</label> <input
-											id="re-type Password" name="confirmPassword" type="password"
-											placeholder="re-type Password" class="form-control" required></input>
-										<span class="fa fa-lock form-control-feedback text-muted"></span>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="email">Email Address</label>
-										<sf:input id="email" path="email" type="email"
-											placeholder="Email Address" class="form-control"
-											required="required"></sf:input>
-										<span class="fa fa-envelope form-control-feedback text-muted"></span>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="email">Confirm Email Address</label> <input
-											id="email" type="email" placeholder="Email Address"
-											class="form-control" required> <span
-											class="fa fa-envelope form-control-feedback text-muted"></span>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="money-site">Your Money Site</label>
-										<sf:input id="money-site" path="adUrl" type="text"
-											placeholder="example.com" class="form-control"
-											required="required" onsubmit="checkDomain()"></sf:input>
-										<span class="fa fa-sitemap form-control-feedback text-muted"></span>
-									</div>
-									<div class="form-group has-feedback">
-										<label for="money-site">Confirm Your Money Site</label> <input
-											id="money-site" type="text" placeholder="example.com"
-											class="form-control" required> <span
-											class="fa fa-sitemap form-control-feedback text-muted"></span>
-									</div>
+                        return (items.length)
+                            ? $(this).html($.shuffle(items,$(this)))
+                        : this;
+                    });
+                }
+
+                $.fn.validate = function() {
+                    var res = false;
+                    this.each(function(){
+                        var arr = $(this).children();
+                        res =    ((arr[0].innerHTML=="P")&&
+                            (arr[1].innerHTML=="ro")&&
+                            (arr[2].innerHTML=="Ma")&&
+                            (arr[3].innerHTML=="G")&&
+                            (arr[4].innerHTML=="iz")&&
+                            (arr[5].innerHTML=="mo"));
+                    });
+                    return res;
+                }
+
+                $.shuffle = function(arr,obj) {
+                    for(
+                    var j, x, i = arr.length; i;
+                    j = parseInt(Math.random() * i),
+                    x = arr[--i], arr[i] = arr[j], arr[j] = x
+                );
+                    if(arr[0].innerHTML=="P") obj.html($.shuffle(arr,obj))
+                    else return arr;
+                }
+
+            })(jQuery);
+
+            $(function() {
+                $("#sortable").sortable();
+                $("#sortable").disableSelection();
+                $('ul').shuffle();
+
+                $("#formsubmit").click(function(){
+                    ($('ul').validate()) ? swal("Yeah, You Spelled It Right!", "Enjoy The Ride :)") : swal("No, It Ain't Right!", "Try Again ;(");
+                });
+            });
+			
+        </script>
+	</head>
+	<body>
+		<div class="container">
+			<section class="content bgcolor-1">
+				<h2>ProMaGizmo | PMG  | Sign-UP</h2>
+				<form:form action="signup" method="post" commandName="user" modelAttribute="user1">
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="fullName" name="fullName" />
+					<label class="input__label input__label--nao" for="input-1">
+						<span class="input__label-content input__label-content--nao">FullName*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="username" name="username" />
+					<label class="input__label input__label--nao" for="input-1">
+						<span class="input__label-content input__label-content--nao">Username*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="email" name="email" />
+					<label class="input__label input__label--nao" for="input-2">
+						<span class="input__label-content input__label-content--nao">Email*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="remail" name="remail" />
+					<label class="input__label input__label--nao" for="input-3">
+						<span class="input__label-content input__label-content--nao">Re-Type Email*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+			
+				
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="password" name="password" />
+					<label class="input__label input__label--nao" for="input-1">
+						<span class="input__label-content input__label-content--nao">Password*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="cpassword" name="cpassword" />
+					<label class="input__label input__label--nao" for="input-2">
+						<span class="input__label-content input__label-content--nao">Confirm Passorwd*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="msite" name="adUrl" />
+					<label class="input__label input__label--nao" for="input-3">
+						<span class="input__label-content input__label-content--nao">Money Site (example.com)*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="rmsite" name="rmsite" />
+					<label class="input__label input__label--nao" for="input-3">
+						<span class="input__label-content input__label-content--nao">Re-Type Money Site*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+				<span class="input input--nao">
+					<input class="input__field input__field--nao" type="text" id="country" name="country" />
+					<label class="input__label input__label--nao" for="input-3">
+						<span class="input__label-content input__label-content--nao">Country*</span>
+					</label>
+					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+					</svg>
+				</span>
+					<fieldset>
+                <legend>Drag & Spell </b>"ProMaGizmo"</legend>
+				
+                <div class="captcha_wrap">
+                    
+                    <ul id="sortable">
+                        <li class="captchaItem">P</li>
+                        <li class="captchaItem">ro</li>
+                        <li class="captchaItem">Ma</li>
+                        <li class="captchaItem">G</li>
+                        <li class="captchaItem">iz</li>
+                        <li class="captchaItem">mo</li>
+                    </ul>
+                </div>
+                <input id="formsubmit" type="submit" class="button" value="Register">
+                
+            </fieldset>
+            </form:form>
+				<div class="morph-button morph-button-overlay morph-button-fixed">
+					<button type="button">PMG Terms</button>
+					<div class="morph-content">
+						<div>
+							<div class="content-style-overlay">
+								<span class="icon icon-close ion-close-round"></span>
+								<h2>Terms & Conditions</h2>
+								<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+								<p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.</p>
+								<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+								<p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.</p>
+								<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+								<p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.</p>
+								<section>
+								<form class="ac-custom ac-checkbox ac-checkmark" autocomplete="off">
+									<ul>
+										<li><input id="cb6" name="cb6" type="checkbox"><label for="cb6">I Have Understood and Agreed to PMG's Terms</label></li>
+									</ul>
+								</form>
+								</section>
 							</div>
 						</div>
 					</div>
-					<!-- END panel-->
-
-					<!-- START panel-->
-					<div class="panel radius-clear b0 shadow-clear">
-						<div class="panel-heading radius-clear">
-							<a data-toggle="collapse" data-parent="#accordion"
-								href="#collapseThree" class="text-muted btn-block text-center"><b>CONTINUE
-									SIGNING UP</b></a>
-						</div>
-						<div id="collapseThree" class="panel-collapse collapse">
-							<div class="panel-body">
-								<p class="text-center"></p>
-								<div class="form-group has-feedback">
-									<label for="pic">Profile Pic</label> <img id="dp" src=""
-										align="center" width="125" height="175" alt="Profile Pic" />
-									<input align="center" type="file"
-										onchange="setPicName();readURL(this);" id="pic" name="pic">
-									<sf:input type="hidden" path="picName" id="picName"
-										class="form-control"></sf:input>
-								</div>
-								<div class="form-group has-feedback">
-									<label for="first-name">First Name</label>
-									<sf:input id="first-name" path="firstname" type="text"
-										placeholder="First Name" class="form-control"></sf:input>
-									<span class="fa fa-anchor form-control-feedback text-muted"></span>
-								</div>
-								<div class="form-group has-feedback">
-									<label for="last-name">Last Name</label>
-									<sf:input id="last-name" path="lastname" type="text"
-										placeholder="Last Name" class="form-control"></sf:input>
-									<span class="fa fa-anchor form-control-feedback text-muted"></span>
-								</div>
-								<div class="form-group has-feedback">
-									<label for="gender">Gender</label>
-									<sf:radiobutton path="gender" value="Male" />
-									Male
-									<sf:radiobutton path="gender" value="Female" />
-									Female
-									<sf:radiobutton path="gender" value="Other" />
-									Other <span
-										class="fa fa-anchor form-control-feedback text-muted"></span>
-								</div>
-								<div class="form-group has-feedback">
-									<label for="country">Country</label>
-									<sf:select id="country" path="country" type="text"
-										items="${countryList}" placeholder="Last Name"
-										class="form-control">
-									</sf:select>
-									<sf:input path="registeredIp" id="ip" type="hidden"
-										class="form-control"></sf:input>
-									<span class="fa fa-anchor form-control-feedback text-muted"></span>
-								</div>
-
-								<button type="submit" class="btn btn-primary btn-block">SUBMIT</button>
-								</sf:form>
-							</div>
-						</div>
-					</div>
-					<!-- END panel-->
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- END wrapper-->
-	<!-- START Scripts-->
-	<!-- Main vendor Scripts-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!-- Plugins-->
-	<!-- Animo-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/animo/animo.min.js"></script>
-	<!-- Sparklines-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/sparklines/jquery.sparkline.min.js"></script>
-	<!-- Slimscroll-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/slimscroll/jquery.slimscroll.min.js"></script>
-	<!-- START Page Custom Script-->
-	<!-- MomentJs and Datepicker-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/moment/min/moment-with-langs.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<!-- END Page Custom Script-->
-	<!-- App Main-->
-	<script src="${pageContext.request.contextPath}/static/app/js/app.js"></script>
-	<!-- END Scripts-->
-	<script type="text/javascript">
-		function checkDomain() {
-			var domain = document.getElementById("money-site").val();
-			var re = new RegExp(
-					/^(?!:\/\/)([a-zA-Z0-9]+\.)?[a-zA-Z0-9][a-zA-Z0-9-]+\.[a-zA-Z]{2,6}?$/i);
-			if (!domain.match(re))
-				alert("domain name wrong");
-		}
-		function setCountry() {
-			$.get("http://ipinfo.io", function(response) {
-				$("#country").val(response.country);
-				$("#ip").val(response.ip);
-			}, "jsonp");
-		}
-		setCountry();
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#dp').attr('src', e.target.result).width(150)
-							.height(200);
-				};
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		function setPicName() {
-			$("input[name='pic']").each(
-					function() {
-						var fileName = $(this).val().split('/').pop().split(
-								'\\').pop();
-						var date = (new Date()).getTime();
-						fileName = date + fileName;
-						alert(fileName);
-						$("#picName").val(fileName);
-					});
-		}
-		function uploadPic() {
-			var fd = new FormData();
-			if (jQuery("#pic").get(0) != null) {
-				fd.append('pic', jQuery("#pic").get(0).files[0]);
-				fd.append('picName', jQuery("#picName").val())
-			}
-			$.ajax({
-				url : 'savepic',
-				data : fd,
-				processData : false,
-				contentType : false,
-				type : 'POST',
-				success : function(data) {
-					alert(data);
+				</div><!-- morph-button -->
+				
+			
+			</section>
+			<!-- Related demos -->
+		</div><!-- /container -->
+		<footer>&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.</footer>
+		<script src="${pageContext.request.contextPath}/static/assets/front/sign/js/classie.js"></script>
+		<script>
+			(function() {
+				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+				if (!String.prototype.trim) {
+					(function() {
+						// Make sure we trim BOM and NBSP
+						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+						String.prototype.trim = function() {
+							return this.replace(rtrim, '');
+						};
+					})();
 				}
-			});
-		}
-	</script>
-</body>
 
+				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+					// in case the input is already filled..
+					if( inputEl.value.trim() !== '' ) {
+						classie.add( inputEl.parentNode, 'input--filled' );
+					}
+
+					// events:
+					inputEl.addEventListener( 'focus', onInputFocus );
+					inputEl.addEventListener( 'blur', onInputBlur );
+				} );
+
+				function onInputFocus( ev ) {
+					classie.add( ev.target.parentNode, 'input--filled' );
+				}
+
+				function onInputBlur( ev ) {
+					if( ev.target.value.trim() === '' ) {
+						classie.remove( ev.target.parentNode, 'input--filled' );
+					}
+				}
+			})();
+		</script>
+		<script src="${pageContext.request.contextPath}/static/assets/front/sign/js/uiProgressButton.js"></script>
+		
+		<script>
+			[].slice.call( document.querySelectorAll( '.progress-button' ) ).forEach( function( bttn, pos ) {
+				new UIProgressButton( bttn, {
+					callback : function( instance ) {
+						var progress = 0,
+							interval = setInterval( function() {
+								progress = Math.min( progress + Math.random() * 0.1, 1 );
+								instance.setProgress( progress );
+
+								if( progress === 1 ) {
+									instance.stop( pos === 1 || pos === 3 ? -1 : 1 );
+									clearInterval( interval );
+								}
+							}, 150 );
+					}
+				} );
+			} );
+		</script>
+		 <!--Alert-->
+		<script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/front/sign/js/uiMorphingButton_fixed.js"></script>
+		<script>
+			(function() {	
+				var docElem = window.document.documentElement, didScroll, scrollPosition;
+
+				// trick to prevent scrolling when opening/closing button
+				function noScrollFn() {
+					window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
+				}
+
+				function noScroll() {
+					window.removeEventListener( 'scroll', scrollHandler );
+					window.addEventListener( 'scroll', noScrollFn );
+				}
+
+				function scrollFn() {
+					window.addEventListener( 'scroll', scrollHandler );
+				}
+
+				function canScroll() {
+					window.removeEventListener( 'scroll', noScrollFn );
+					scrollFn();
+				}
+
+				function scrollHandler() {
+					if( !didScroll ) {
+						didScroll = true;
+						setTimeout( function() { scrollPage(); }, 60 );
+					}
+				};
+
+				function scrollPage() {
+					scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+					didScroll = false;
+				};
+
+				scrollFn();
+				
+				var el = document.querySelector( '.morph-button' );
+				
+				new UIMorphingButton( el, {
+					closeEl : '.icon-close',
+					onBeforeOpen : function() {
+						// don't allow to scroll
+						noScroll();
+					},
+					onAfterOpen : function() {
+						// can scroll again
+						canScroll();
+						// add class "noscroll" to body
+						classie.addClass( document.body, 'noscroll' );
+						// add scroll class to main el
+						classie.addClass( el, 'scroll' );
+					},
+					onBeforeClose : function() {
+						// remove class "noscroll" to body
+						classie.removeClass( document.body, 'noscroll' );
+						// remove scroll class from main el
+						classie.removeClass( el, 'scroll' );
+						// don't allow to scroll
+						noScroll();
+					},
+					onAfterClose : function() {
+						// can scroll again
+						canScroll();
+					}
+				} );
+			})();
+		</script>
+		<script src="${pageContext.request.contextPath}/static/assets/front/sign/js/svgcheckbx.js"></script>
+		<!--On top-->
+   <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
+    <script>
+            // elevator.
+            var elementButton = document.querySelector('footer');
+            var elevator = new Elevator({
+                element: elementButton,
+                mainAudio: './music/elevator-music.mp3', // Music from http://www.bensound.com/
+                endAudio:  './music/ding.mp3'
+            });
+			</script>
+	</body>
 </html>

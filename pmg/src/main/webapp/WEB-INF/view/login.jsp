@@ -88,7 +88,7 @@
 			<section class="content bgcolor-1">
 				<h2>ProMaGizmo | PMG  | Sign-In</h2>
 				
-				<form action="login" autocomplete="off" method="post" >
+				<form action="<c:url value='/j_spring_security_check'/>" autocomplete="off" method="post" >
 				
 				<span class="input input--nao">
 					<input class="input__field input__field--nao" type="text" id="input-1" name="email" />

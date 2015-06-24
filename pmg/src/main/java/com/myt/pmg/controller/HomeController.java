@@ -60,11 +60,11 @@ public class HomeController {
 		this.xmppManager = xmppManager;
 	}
 
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String home(Model model, Principal principal,
 			HttpServletRequest request, HttpSession session) {
-		//User user = userService.findByUsername(principal.getName());
-		User user = userService.findByEmail("pavancs045@gmail.com");
+		User user = userService.findByUsername(principal.getName());
 		if (session.getAttribute(SESSION_OBJ) == null) {
 			UtilFunction.setCurrentUser(session, user);
 			String ipAddress = request.getHeader("X-FORWARDED-FOR");

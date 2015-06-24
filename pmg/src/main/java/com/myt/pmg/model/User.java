@@ -75,6 +75,7 @@ public class User extends BasicEntity {
 
 	public void setPassword(String password) {
 		this.password = DigestUtils.sha1Hex(password);
+		System.out.println("Setting password SHA " + password);
 	}
 
 	public boolean isActive() {

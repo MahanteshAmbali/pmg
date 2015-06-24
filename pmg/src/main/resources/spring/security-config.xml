@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<security:global-method-security
-		secured-annotations="disabled" />
+		secured-annotations="enabled" />
 
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider
@@ -21,7 +21,7 @@
 
 	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint"
 		use-expressions="true">
-	
+
 		<security:intercept-url pattern="/login*"
 			access="permitAll" />
 		<security:intercept-url pattern="/denied"
@@ -125,10 +125,10 @@
 
 		<security:intercept-url pattern="/broadcast"
 			access="hasRole('ROLE_USER')" />
-<!--
-	 <security:intercept-url pattern="/linkbroadcaster"
+
+		<security:intercept-url pattern="/linkbroadcaster"
 			access="hasRole('ROLE_USER')" />
- -->
+
 		<security:intercept-url pattern="/noofNotification"
 			access="hasRole('ROLE_USER')" />
 

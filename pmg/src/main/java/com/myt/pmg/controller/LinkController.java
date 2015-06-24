@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.myt.pmg.common.UtilFunction;
 import com.myt.pmg.dto.LUV;
@@ -28,10 +27,13 @@ import com.myt.pmg.model.Feedback;
 import com.myt.pmg.model.Link;
 import com.myt.pmg.model.User;
 import com.myt.pmg.model.UserLink;
+import com.myt.pmg.model.UserLinkBroadcaster;
 import com.myt.pmg.service.FeedbackService;
+import com.myt.pmg.service.LinkBroadcasterService;
 import com.myt.pmg.service.LinkService;
 import com.myt.pmg.service.ProofService;
 import com.myt.pmg.service.UserLinkService;
+import com.myt.pmg.service.UserService;
 
 @Controller
 public class LinkController {
@@ -45,6 +47,12 @@ public class LinkController {
 	private ProofService proofService;
 	@Autowired
 	private FeedbackService feedbackService;
+	
+	@Autowired
+	private LinkBroadcasterService linkBroadcasterService;
+	
+	@Autowired
+	private UserService userService;
 
 	public void setLinkService(LinkService linkService) {
 		this.linkService = linkService;
@@ -62,43 +70,80 @@ public class LinkController {
 		this.userLinkService = userLinkService;
 	}
 
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/linkbroadcaster", method = RequestMethod.GET)
 	public String showlinkbroadcaster(Model model, HttpSession session) {
 		User user = UtilFunction.getCurrentUser(session);
+		if (null == user) {
+			logger.debug("In-Valid User!!!!");
+			return "login";
+		}
+
+		// LID Already generated send the values LID, AD-URL to SAME PAGE
+		List<Link> linkLists = linkService.getLinksPostedByUser(user.getId());
+		model.addAttribute("linkLists", linkLists);
 		model.addAttribute("user", user);
-		model.addAttribute("link", new Link());
+
+		/*
+		 * for (Link link : linkLists) { model.addAttribute("lid",
+		 * link.getLid()); model.addAttribute("url", link.getUrl()); }
+		 * 
+		 * model.addAttribute("user", user); Link link =
+		 * linkService.findByUserId(user.getId()); model.addAttribute("link",
+		 * link);
+		 */
+
 		return "linkbroadcaster";
 	}
 
-//	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/linkbroadcaster", method = RequestMethod.POST)
-	public String createNewLink(@RequestParam("url") String urls,@RequestParam("regenrateLId") String regenrateLId,
-			SessionStatus sessionStatus, HttpSession session, Model model) {
+	public String createNewLink(
+			@RequestParam("regenrateLId") String regenrateLId,
+			HttpSession session, Model model, HttpServletRequest request) {
 		User user = UtilFunction.getCurrentUser(session);
+		String urls  =request.getParameter("urls");
+		String lid = request.getParameter("lid");
+		String adurl = request.getParameter("adurl");
 		if (null == user) {
 			// Send User to same Page showing user is not logged in
-			return "linkbroadcaster";
+			return "login";
 		}
-		if(null != regenrateLId && regenrateLId.equalsIgnoreCase("true")){
-			//LID Already  generated
-			System.out.println("User ID::" + user.getId());
-			System.out.println("User ID in Link Service" + linkService.findById(user.getId()));
-			System.out.println("Links by UserId" + linkService.getLinksPostedByUser(user.getId()));
-			List<Link> linkLists = linkService.getLinksPostedByUser(user.getId());
-			for(Link link : linkLists){
-				System.out.println("LID Generated is >>>>>" + link.getLid());
+
+		if (regenrateLId.equalsIgnoreCase("false")) {
+			//Logic to broadcast the link
+			System.out.println("Start Broadcasting");
+			System.out.println("*****Selecting the user to send the link**************");
+			User selecteduser  = userService.getRandomUser();
+			//Now save user and link broadcasteed.
+			UserLinkBroadcaster userLinkBroadcaster = new UserLinkBroadcaster();
+			userLinkBroadcaster.setBroadcastDate(new Date());
+			userLinkBroadcaster.setLid(Integer.valueOf(lid));
+			userLinkBroadcaster.setPostedBy(user);
+			userLinkBroadcaster.setPostedTo(selecteduser);
+			userLinkBroadcaster.setUrl(adurl);
+		
+			linkBroadcasterService.postLink(userLinkBroadcaster);
+			return "dashboard";
+		}
+		// regenrateLId --->true then generate the LID now.
+		if (regenrateLId.equalsIgnoreCase("true")) {
+
+			List<Link> linkLists = linkService.getLinksPostedByUser(user
+					.getId());
+			for (Link link : linkLists) {
 				model.addAttribute("lid", link.getLid());
 				model.addAttribute("url", link.getUrl());
 			}
-		
-		}
-		for (String url : urls.split(",")) {
-			Link link = new Link();
-			link.setUrl(url);
-			linkService.submitLink(link, user);
+
+			for (String url : urls.split(",")) {
+				Link link = new Link();
+				link.setUrl(url);
+				linkService.submitLink(link, user);
+			}
 		}
 		return "linkbroadcaster";
-		//return "dashboard";
+		// return "dashboard";
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")

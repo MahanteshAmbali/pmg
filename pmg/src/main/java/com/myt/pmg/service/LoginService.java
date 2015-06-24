@@ -33,6 +33,7 @@ public class LoginService implements UserDetailsService {
 		for (String role : user.getRole()) {
 			authorities.add(new SimpleGrantedAuthority(role));
 		}
+		
 		return new User(user.getUsername(), user.getPassword(),
 				user.isActive(), (!user.isBanned()), true, true, authorities);
 		

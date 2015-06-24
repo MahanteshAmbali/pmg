@@ -13,12 +13,14 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +41,7 @@ public class UserController {
 
 	static final Logger logger = Logger.getLogger(UserController.class);
 
+	@Autowired
 	private UserService userService;
 
 	public void setUserService(UserService userService) {
@@ -66,7 +69,7 @@ public class UserController {
 
 	@RequestMapping(value = "/roe", method = RequestMethod.GET)
 	public String showRoe() {
-		return "roe";
+		return "quest";
 	}
 
 	@RequestMapping(value = "/quest", method = RequestMethod.GET)
@@ -136,18 +139,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String createAccount(User user, BindingResult result) {
+	public String createAccount(User user2, BindingResult result, @ModelAttribute("user1") User user1) {
 
 		if (result.hasErrors()) {
 
 			return "signup";
 		}
-		if (!userService.usernameTaken(user.getUsername())) {
+		if (!userService.usernameTaken(user1.getUsername())) {
 			// result.rejectValue("name", );
+			System.out.println("Username  exists...!!!!!!!");
 			return "signup";
 		}
 		try {
-			userService.createUser(user);
+			userService.createUser(user1);
 		} catch (DuplicateKeyException e) {
 			// result.rejectValue("username", "DuplicateKey.user.username");
 			return "signup";

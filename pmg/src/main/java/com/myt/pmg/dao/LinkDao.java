@@ -126,4 +126,13 @@ public class LinkDao extends BasicDaoImpl<Link> {
 		return getMongoTemplate().find(query, Link.class);
 	}
 
+	public Link findByUserId(String userid) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("userId").is(userid));
+		//Presently It returns only one link for one user
+		System.out.println("super.findById(userid, Link.class)" + super.findById(userid, Link.class));
+		return super.findById(userid, Link.class);
+	}
+
+	
 }
