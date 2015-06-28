@@ -69,11 +69,23 @@ public class UserLinkService {
 	}
 
 	public boolean linkPosted(String userid, String linkid) {
-		return userLinkDao.linkPosted(userid, linkid);
+		UserLink userlink = new UserLink();
+		userlink.setUserId(userid);
+		userlink.setLinkId(linkid);
+		userlink.setClicked(true);
+		userlink.setVerified(true);
+		addUserLink(userlink);
+		//return userLinkDao.linkPosted(userid, linkid);
+		return true;
 	}
-
+	
+		
 	public UserLink findByLinkId(String linkid) {
 		return userLinkDao.findByLinkId(linkid);
+	}
+	
+	public UserLink findByUserid(String userid){
+		return userLinkDao.findByUserId(userid);
 	}
 
 	public void update(UserLink userlink) {

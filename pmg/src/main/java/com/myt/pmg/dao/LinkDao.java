@@ -42,8 +42,8 @@ public class LinkDao extends BasicDaoImpl<Link> {
 		List<Link> linkList = new ArrayList<Link>();
 		for (UserLink userLink : userlinkList) {
 			System.out.println(userLink);
-			if(!userLink.isClicked())
-			linkList.add(findById(userLink.getLinkId()));
+			if (!userLink.isClicked())
+				linkList.add(findById(userLink.getLinkId()));
 		}
 		for (Link link : linkList) {
 			System.out.println(link);
@@ -129,10 +129,11 @@ public class LinkDao extends BasicDaoImpl<Link> {
 	public Link findByUserId(String userid) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("userId").is(userid));
-		//Presently It returns only one link for one user
-		System.out.println("super.findById(userid, Link.class)" + super.findById(userid, Link.class));
-		return super.findById(userid, Link.class);
+		// Presently It returns only one link for one user
+		System.out.println("super.findById(userid, Link.class)"
+				+ super.findById(userid, Link.class));
+		// return super.findById(userid, Link.class);
+		return getMongoTemplate().find(query, Link.class).get(0);
 	}
 
-	
 }

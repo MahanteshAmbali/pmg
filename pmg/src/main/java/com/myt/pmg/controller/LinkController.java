@@ -47,10 +47,10 @@ public class LinkController {
 	private ProofService proofService;
 	@Autowired
 	private FeedbackService feedbackService;
-	
+
 	@Autowired
 	private LinkBroadcasterService linkBroadcasterService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -102,7 +102,7 @@ public class LinkController {
 			@RequestParam("regenrateLId") String regenrateLId,
 			HttpSession session, Model model, HttpServletRequest request) {
 		User user = UtilFunction.getCurrentUser(session);
-		String urls  =request.getParameter("urls");
+		String urls = request.getParameter("urls");
 		String lid = request.getParameter("lid");
 		String adurl = request.getParameter("adurl");
 		if (null == user) {
@@ -111,19 +111,30 @@ public class LinkController {
 		}
 
 		if (regenrateLId.equalsIgnoreCase("false")) {
-			//Logic to broadcast the link
+			// Logic to broadcast the link
 			System.out.println("Start Broadcasting");
-			System.out.println("*****Selecting the user to send the link**************");
-			User selecteduser  = userService.getRandomUser();
-			//Now save user and link broadcasteed.
-			UserLinkBroadcaster userLinkBroadcaster = new UserLinkBroadcaster();
-			userLinkBroadcaster.setBroadcastDate(new Date());
-			userLinkBroadcaster.setLid(Integer.valueOf(lid));
-			userLinkBroadcaster.setPostedBy(user);
-			userLinkBroadcaster.setPostedTo(selecteduser);
-			userLinkBroadcaster.setUrl(adurl);
-		
-			linkBroadcasterService.postLink(userLinkBroadcaster);
+			System.out
+					.println("*****Selecting the user to send the link**************");
+			User selecteduser = userService.getRandomUser();
+			String randomuserSelected = selecteduser.getId();
+			while(user.getId().equalsIgnoreCase(randomuserSelected)){
+				System.out.println("Generating the Random User......");
+				selecteduser = userService.getRandomUser();	
+				randomuserSelected = selecteduser.getId();
+			}
+			
+			if (!user.getId().equalsIgnoreCase(randomuserSelected)) {
+				Link link = linkService.findByUserId(user.getId());
+				userLinkService.linkPosted(randomuserSelected, link.getId());
+				System.out.println("LInk Broad Casted to User Email::"
+						+ selecteduser.getEmail());
+
+			} else {
+				System.out.println("Broadcaster and reciever are same........");
+				
+				return "dashboard";
+			}
+
 			return "dashboard";
 		}
 		// regenrateLId --->true then generate the LID now.
@@ -170,6 +181,7 @@ public class LinkController {
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/linkrecieverdata", produces = "application/json")
 	@ResponseBody
+	// @RequestMapping(value="/linkreciever")
 	public List<LinkReciever> linkReciever(HttpSession session,
 			HttpServletResponse response) {
 		// Here Add Logic to get top N Link and N will be coming from Requet
@@ -229,7 +241,16 @@ public class LinkController {
 		if (user == null) {
 			session.invalidate();
 		}
-		model.addAttribute("user", user);
+		//UserLinkBroadcaster obj = linkBroadcasterService.linkreciever(user);
+		
+		//userLinkService.findByLinkId(linkid);
+		UserLink userlink = userLinkService.findByUserid(user.getId());
+		String linkId = userlink.getLinkId();
+		Link link = linkService.findById(linkId);
+		User postedUser = userService.findById(link.getUserId());
+		model.addAttribute("link" , link);
+		model.addAttribute("posteduser" , postedUser);
+		//model.addAttribute("user", user);
 		return "linkreciever";
 	}
 

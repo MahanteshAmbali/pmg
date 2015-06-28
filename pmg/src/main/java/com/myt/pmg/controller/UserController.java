@@ -74,7 +74,7 @@ public class UserController {
 
 	@RequestMapping(value = "/quest", method = RequestMethod.GET)
 	public String showQuest(Model model) {
-		model.addAttribute("user",new User());
+		model.addAttribute("user", new User());
 		return "signup";
 	}
 
@@ -127,7 +127,7 @@ public class UserController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String showCreateAccount(Model model) {
-		model.addAttribute("user",new User());
+		model.addAttribute("user", new User());
 		String[] locales = Locale.getISOCountries();
 		Map<String, String> countries = new HashMap<String, String>();
 		for (String countryCode : locales) {
@@ -139,24 +139,25 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String createAccount(User user2, BindingResult result, @ModelAttribute("user1") User user1) {
+	public String createAccount(
+			@ModelAttribute("user") User user) {
 
-		if (result.hasErrors()) {
-
-			return "signup";
-		}
-		if (!userService.usernameTaken(user1.getUsername())) {
+		
+		if (!userService.usernameTaken(user.getUsername())) {
 			// result.rejectValue("name", );
 			System.out.println("Username  exists...!!!!!!!");
 			return "signup";
 		}
 		try {
-			userService.createUser(user1);
+			// TO DO set active after clicking the mail verification
+			user.setActive(true);
+			userService.createUser(user);
+			
 		} catch (DuplicateKeyException e) {
 			// result.rejectValue("username", "DuplicateKey.user.username");
 			return "signup";
 		}
-	//	velocityTemplateMail.sendVerificationMail(user);
+		// velocityTemplateMail.sendVerificationMail(user);
 		return "redirect:/login?signupcomplete=true";
 
 	}
