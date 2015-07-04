@@ -36,6 +36,7 @@ public class User extends BasicEntity {
 
 	@Indexed(unique = true)
 	private String username;
+	@Indexed(unique = true)
 	private String email;
 	private String password;
 	private boolean active = false;
@@ -75,7 +76,6 @@ public class User extends BasicEntity {
 
 	public void setPassword(String password) {
 		this.password = DigestUtils.sha1Hex(password);
-		System.out.println("Setting password SHA " + password);
 	}
 
 	public boolean isActive() {
@@ -192,14 +192,7 @@ public class User extends BasicEntity {
 
 	@Override
 	public String toString() {
-		System.out.println("Returning the >>>>>>>>" +   "User [username=" + username + ", email=" + email
-				+ ", password=" + password + ", active=" + active + ", banned="
-				+ banned + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", gender=" + gender + ", dob=" + dob + ", adUrl="
-				+ adUrl + ", country=" + country + ", picName=" + picName
-				+ ", remarks=" + remarks + ", level=" + level
-				+ ", registrationDate=" + registrationDate + ", registeredIp="
-				+ registeredIp + ", role=" + role + "]" );
+
 		return "User [username=" + username + ", email=" + email
 				+ ", password=" + password + ", active=" + active + ", banned="
 				+ banned + ", firstname=" + firstname + ", lastname="

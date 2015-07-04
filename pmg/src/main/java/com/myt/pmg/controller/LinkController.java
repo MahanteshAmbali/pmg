@@ -27,9 +27,7 @@ import com.myt.pmg.model.Feedback;
 import com.myt.pmg.model.Link;
 import com.myt.pmg.model.User;
 import com.myt.pmg.model.UserLink;
-import com.myt.pmg.model.UserLinkBroadcaster;
 import com.myt.pmg.service.FeedbackService;
-import com.myt.pmg.service.LinkBroadcasterService;
 import com.myt.pmg.service.LinkService;
 import com.myt.pmg.service.ProofService;
 import com.myt.pmg.service.UserLinkService;
@@ -47,9 +45,6 @@ public class LinkController {
 	private ProofService proofService;
 	@Autowired
 	private FeedbackService feedbackService;
-
-	@Autowired
-	private LinkBroadcasterService linkBroadcasterService;
 
 	@Autowired
 	private UserService userService;
@@ -100,11 +95,9 @@ public class LinkController {
 	@RequestMapping(value = "/linkbroadcaster", method = RequestMethod.POST)
 	public String createNewLink(
 			@RequestParam("regenrateLId") String regenrateLId,
-			HttpSession session, Model model, HttpServletRequest request) {
+			@RequestParam("urls") String urls, HttpSession session, Model model) {
 		User user = UtilFunction.getCurrentUser(session);
-		String urls = request.getParameter("urls");
-		String lid = request.getParameter("lid");
-		String adurl = request.getParameter("adurl");
+		// String urls = request.getParameter("urls");
 		if (null == user) {
 			// Send User to same Page showing user is not logged in
 			return "login";
@@ -112,17 +105,14 @@ public class LinkController {
 
 		if (regenrateLId.equalsIgnoreCase("false")) {
 			// Logic to broadcast the link
-			System.out.println("Start Broadcasting");
-			System.out
-					.println("*****Selecting the user to send the link**************");
 			User selecteduser = userService.getRandomUser();
 			String randomuserSelected = selecteduser.getId();
-			while(user.getId().equalsIgnoreCase(randomuserSelected)){
+			while (user.getId().equalsIgnoreCase(randomuserSelected)) {
 				System.out.println("Generating the Random User......");
-				selecteduser = userService.getRandomUser();	
+				selecteduser = userService.getRandomUser();
 				randomuserSelected = selecteduser.getId();
 			}
-			
+
 			if (!user.getId().equalsIgnoreCase(randomuserSelected)) {
 				Link link = linkService.findByUserId(user.getId());
 				userLinkService.linkPosted(randomuserSelected, link.getId());
@@ -131,7 +121,7 @@ public class LinkController {
 
 			} else {
 				System.out.println("Broadcaster and reciever are same........");
-				
+
 				return "dashboard";
 			}
 
@@ -160,6 +150,36 @@ public class LinkController {
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping("/deletelink")
 	public void deleteLink() {
+	}
+
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@RequestMapping(value = "/linkverifier", method = RequestMethod.GET)
+	public String linkverifier(HttpSession session, Model model) {
+		User user = UtilFunction.getCurrentUser(session);
+		if(null == user){
+			session.invalidate();
+			return "login";
+		}
+		
+		Link link = linkService.findByUserId(user.getId());
+		UserLink userlink = userLinkService.findByLinkId(link.getId());
+		//System.out.println(""+ userlink.get);
+		User contribitor = userService.findById(link.getUserId());
+		model.addAttribute("link", link);
+		model.addAttribute("contributor", contribitor);
+		System.out.println("Contributor:" + contribitor.getFirstname());
+		System.out.println("Link LID " + link.getLid());
+		System.out.println("Link URL" + link.getUrl() );
+		System.out.println();
+		//serLink userlink = userLinkService.findByUserid(user.getId());
+		//String linkId = userlink.getLinkId();
+		//Link link = linkService.findById(linkId);
+//Con ID: link reciever
+//LID: link broadcaster
+//URL: link broadcaster
+//Ad URL: ll receive from link reciever
+		return "linkverifier";
+
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
@@ -241,16 +261,13 @@ public class LinkController {
 		if (user == null) {
 			session.invalidate();
 		}
-		//UserLinkBroadcaster obj = linkBroadcasterService.linkreciever(user);
-		
-		//userLinkService.findByLinkId(linkid);
-		UserLink userlink = userLinkService.findByUserid(user.getId());
-		String linkId = userlink.getLinkId();
-		Link link = linkService.findById(linkId);
+		Link link = linkService.findByUserId(user.getId());
+		UserLink userlink = userLinkService.findByLinkId(link.getId());
+	//	Link link = linkService.findById(linkId);
 		User postedUser = userService.findById(link.getUserId());
-		model.addAttribute("link" , link);
-		model.addAttribute("posteduser" , postedUser);
-		//model.addAttribute("user", user);
+		model.addAttribute("link", link);
+		model.addAttribute("posteduser", postedUser);
+		// model.addAttribute("user", user);
 		return "linkreciever";
 	}
 

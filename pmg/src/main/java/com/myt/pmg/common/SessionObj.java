@@ -4,7 +4,7 @@ import com.myt.pmg.model.User;
 
 public class SessionObj {
 
-	User user;
+	private User user;
 
 	public User getUser() {
 		return user;

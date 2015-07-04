@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -52,7 +50,7 @@ public class ProofController {
 		this.downloadHandler = downloadHandler;
 	}
 
-	@RequestMapping(value = "/linkverifier", method = RequestMethod.GET)
+	@RequestMapping(value = "/linkverifier1", method = RequestMethod.GET)
 	public String showCreateProof(Model model, HttpSession session) {
 		User user = UtilFunction.getCurrentUser(session);
 		if (user == null) {
@@ -62,7 +60,7 @@ public class ProofController {
 		return "linkverifier";
 	}
 
-	@RequestMapping(value = "/linkverifier", method = RequestMethod.POST)
+	@RequestMapping(value = "/linkverifier1", method = RequestMethod.POST)
 	@ResponseBody
 	public String createProof(HttpServletRequest request, HttpSession session)
 			throws IllegalStateException, IOException {

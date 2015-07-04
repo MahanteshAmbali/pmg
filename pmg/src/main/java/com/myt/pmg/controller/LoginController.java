@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class AccessController {
-	static final Logger logger = Logger.getLogger(AccessController.class);
+public class LoginController {
+	static final Logger logger = Logger.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLogin(
