@@ -3,6 +3,7 @@ package com.myt.pmg.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,8 +75,11 @@ public class LinkController {
 			return "login";
 		}
 
-		// LID Already generated send the values LID, AD-URL to SAME PAGE
+		// LID Already generated send the values LID, AD-URL to SAME PAGE (JSP)
+		// to display
 		List<Link> linkLists = linkService.getLinksPostedByUser(user.getId());
+		// Add null or empty checks
+		// How if we remove the line of code 85
 		model.addAttribute("linkLists", linkLists);
 		model.addAttribute("user", user);
 
@@ -94,17 +98,44 @@ public class LinkController {
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/linkbroadcaster", method = RequestMethod.POST)
 	public String createNewLink(
-			@RequestParam("regenrateLId") String regenrateLId,
-			@RequestParam("urls") String urls, HttpSession session, Model model) {
+			@RequestParam("generateLID") String generateLID,
+			HttpSession session, Model model, HttpServletRequest request) {
 		User user = UtilFunction.getCurrentUser(session);
-		// String urls = request.getParameter("urls");
+		// Works with only one link broadcast
+		String urls = request.getParameter("urls");
+
 		if (null == user) {
 			// Send User to same Page showing user is not logged in
 			return "login";
 		}
 
-		if (regenrateLId.equalsIgnoreCase("false")) {
+		// generateLID --->true then generate the LID now.
+		if (generateLID.equalsIgnoreCase("true")) {
+
+			/*
+			 * List<Link> linkLists = linkService.getLinksPostedByUser(user
+			 * .getId()); for (Link link : linkLists) {
+			 * model.addAttribute("lid", link.getLid());
+			 * model.addAttribute("url", link.getUrl()); }
+			 */
+
+			StringTokenizer strtkn = new StringTokenizer(urls, "\r\n");
+			while (strtkn.hasMoreElements()) {
+				String url = strtkn.nextToken();
+				Link link = new Link();
+				link.setUrl(url);
+
+				// Submit the link for Broadcast
+				linkService.submitLink(link, user);
+			}
+
+		}
+
+		if (generateLID.equalsIgnoreCase("false")) {
 			// Logic to broadcast the link
+			System.out.println("Start Broadcasting");
+			System.out
+					.println("*****Selecting the user to send the link**************");
 			User selecteduser = userService.getRandomUser();
 			String randomuserSelected = selecteduser.getId();
 			while (user.getId().equalsIgnoreCase(randomuserSelected)) {
@@ -115,7 +146,8 @@ public class LinkController {
 
 			if (!user.getId().equalsIgnoreCase(randomuserSelected)) {
 				Link link = linkService.findByUserId(user.getId());
-				userLinkService.linkPosted(randomuserSelected, link.getId());
+				userLinkService.linkPosted(randomuserSelected, link.getId(),
+						user.getId());
 				System.out.println("LInk Broad Casted to User Email::"
 						+ selecteduser.getEmail());
 
@@ -127,59 +159,13 @@ public class LinkController {
 
 			return "dashboard";
 		}
-		// regenrateLId --->true then generate the LID now.
-		if (regenrateLId.equalsIgnoreCase("true")) {
-
-			List<Link> linkLists = linkService.getLinksPostedByUser(user
-					.getId());
-			for (Link link : linkLists) {
-				model.addAttribute("lid", link.getLid());
-				model.addAttribute("url", link.getUrl());
-			}
-
-			for (String url : urls.split(",")) {
-				Link link = new Link();
-				link.setUrl(url);
-				linkService.submitLink(link, user);
-			}
-		}
-		return "linkbroadcaster";
+		return "redirect:/linkbroadcaster";
 		// return "dashboard";
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping("/deletelink")
 	public void deleteLink() {
-	}
-
-	@PreAuthorize(value = "hasRole('ROLE_USER')")
-	@RequestMapping(value = "/linkverifier", method = RequestMethod.GET)
-	public String linkverifier(HttpSession session, Model model) {
-		User user = UtilFunction.getCurrentUser(session);
-		if(null == user){
-			session.invalidate();
-			return "login";
-		}
-		
-		Link link = linkService.findByUserId(user.getId());
-		UserLink userlink = userLinkService.findByLinkId(link.getId());
-		//System.out.println(""+ userlink.get);
-		User contribitor = userService.findById(link.getUserId());
-		model.addAttribute("link", link);
-		model.addAttribute("contributor", contribitor);
-		System.out.println("Contributor:" + contribitor.getFirstname());
-		System.out.println("Link LID " + link.getLid());
-		System.out.println("Link URL" + link.getUrl() );
-		System.out.println();
-		//serLink userlink = userLinkService.findByUserid(user.getId());
-		//String linkId = userlink.getLinkId();
-		//Link link = linkService.findById(linkId);
-//Con ID: link reciever
-//LID: link broadcaster
-//URL: link broadcaster
-//Ad URL: ll receive from link reciever
-		return "linkverifier";
-
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
@@ -255,20 +241,61 @@ public class LinkController {
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
-	@RequestMapping("/linkreciever")
-	public String linkRecieverPage(HttpSession session, Model model) {
+	@RequestMapping(value = "/linkreciever", method = RequestMethod.GET)
+	public String linkRecieverPage(HttpSession session, Model model,
+			HttpServletRequest request) {
+		User user = UtilFunction.getCurrentUser(session);
+		if (user == null) {
+			session.invalidate();
+			return "login";
+		}
+		UserLink userlink = userLinkService.findByUserid(user.getId());
+		String linkId = userlink.getLinkId();
+		Link link = linkService.findById(linkId);
+		model.addAttribute("link", link);
+
+		User posteduser = userService.findById(link.getUserId());
+		model.addAttribute("posteduser", posteduser);
+
+		return "linkreciever";
+
+	}
+
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@RequestMapping(value = "/linkreciever", method = RequestMethod.POST)
+	public String linkVerification(HttpSession session) {
+		User user = UtilFunction.getCurrentUser(session);
+		if (user == null) {
+			session.invalidate();
+			return "login";
+		}
+		UserLink userlink = userLinkService.findByUserid(user.getId());
+
+		userlink.setClicked(true);
+		userLinkService.update(userlink);
+
+		return "dashboard";
+
+	}
+	
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@RequestMapping(value = "/proofresult", method = RequestMethod.GET)
+	public String showLinkVerifierPage(HttpServletRequest request,
+			HttpSession session, Model model) {
 		User user = UtilFunction.getCurrentUser(session);
 		if (user == null) {
 			session.invalidate();
 		}
-		Link link = linkService.findByUserId(user.getId());
-		UserLink userlink = userLinkService.findByLinkId(link.getId());
-	//	Link link = linkService.findById(linkId);
-		User postedUser = userService.findById(link.getUserId());
+		
+		UserLink userlink = userLinkService.findByBroadcasterId(user.getId());
+		String linkId = userlink.getLinkId();
+		Link link = linkService.findById(linkId);
 		model.addAttribute("link", link);
-		model.addAttribute("posteduser", postedUser);
-		// model.addAttribute("user", user);
-		return "linkreciever";
+
+		/*User posteduser = userService.findById(link.getUserId());
+		model.addAttribute("posteduser", posteduser);
+		*/
+		return "linkverifier";
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")

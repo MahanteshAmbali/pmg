@@ -8,7 +8,7 @@ public class UserLink extends BasicEntity {
 	
 	@Indexed(unique = false)
 	private String userId=null;
-	private String receiveruserId=null;
+	private String broadcasterUserId = null;
 	private String linkId=null;
 	private boolean verified = false;
 	private boolean clicked = false;
@@ -54,19 +54,19 @@ public class UserLink extends BasicEntity {
 		this.proofId = proofId;
 	}
 
-	public String getReceiveruserId() {
-		return receiveruserId;
-	}
-
-	public void setReceiveruserId(String receiveruserId) {
-		this.receiveruserId = receiveruserId;
-	}
-
 	@Override
 	public String toString() {
 		return "UserLink [userId=" + userId + ", linkId=" + linkId
 				+ ", verified=" + verified + ", clicked=" + clicked
 				+ ", proofId=" + proofId + "]";
+	}
+
+	public String getBroadcasterUserId() {
+		return broadcasterUserId;
+	}
+
+	public void setBroadcasterUserId(String broadcasterUserId) {
+		this.broadcasterUserId = broadcasterUserId;
 	}
 
 }

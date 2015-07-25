@@ -95,6 +95,12 @@ public class UserLinkDao extends BasicDaoImpl<UserLink> {
 		query.addCriteria(Criteria.where("userId").is(userid));
 		return getMongoTemplate().findOne(query, UserLink.class);
 	}
+	
+	public UserLink findByBroadcasterId(String broadcasterUserId) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("broadcasterUserId").is(broadcasterUserId));
+		return getMongoTemplate().findOne(query, UserLink.class);
+	}
 
 	public void update(UserLink userlink) {
 		getMongoTemplate().save(userlink);

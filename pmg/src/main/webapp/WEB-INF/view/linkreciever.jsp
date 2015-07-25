@@ -129,7 +129,72 @@
 				<!-- Sidebar toggle -->
 			</div>
 		</div>
-	<jsp:include page="left_menu.jsp"/>
+		<div class="nano z-depth-2">
+			<div class="nano-content">
+				<ul>
+					<li class="txt-weight blue-text label center">Menu</li>
+					<p></p>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip="Account Set-Up"><a href="account-setup.html"
+						class="waves-effect waves-blue"><i
+							class="mdi mdi-action-settings"></i> Account Set-Up</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip="Dashboard"><a href="player-dash.html"
+						class="waves-effect waves-blue"><i
+							class="mdi mdi-action-dashboard"></i> Dashboard</a></li>
+					<li><a class="yay-sub-toggle waves-effect waves-blue"><i
+							class="mdi mdi-action-wallet-travel"></i> Work Place<span
+							class="yay-collapse-icon mdi-navigation-expand-more"></span></a>
+						<ul class="tooltipped" data-position="top" data-delay="50"
+							data-tooltip="  Work Place">
+							<li><a href="player-lb.html" class="waves-effect waves-blue">
+									Link Broadcastor <span class="yellow badge new"></span>
+							</a></li>
+							<li><a href="player-lr.html" class="waves-effect waves-blue">
+									Link Reciever</a></li>
+							<li><a href="player-lv.html" class="waves-effect waves-blue">
+									Link Verifier</a></li>
+						</ul></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip="  My Links N Clicks Status"><a
+						href="linksnclicks-status.html" class="waves-effect waves-blue"><i
+							class="fa fa-link"></i> Links N Clicks</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip="  Contributor's Details"><a
+						href="contributors.html" class="waves-effect waves-blue"><i
+							class="mdi mdi-editor-insert-emoticon"></i> Contributors</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip=" Link Uniqueness Value (LUV)"><a
+						href="player-luv.html" class="waves-effect waves-blue"><i
+							class="mdi mdi-action-assessment"></i> Link Uniqueness Value</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip=" My Complaints History"><a
+						href="player-ch.html" class="waves-effect waves-red"><i
+							class="mdi  mdi-action-history"></i> Complaints History</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip=" Notification History"><a href="notify.html"
+						class="waves-effect waves-yellow"><i
+							class="ion-android-notifications"></i> Notification</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip=" Frequently Asked Questions"><a
+						href="FAQs.html" class="waves-effect waves-yellow"><i
+							class="fa fa-question-circle"></i> FAQs</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip=" Resources & Sucess Tips"><a
+						href="resources&success-tips.html"
+						class="waves-effect waves-yellow"><i
+							class="mdi mdi-action-thumb-up"></i> Resources & Sucess Tips</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip=" ProMaGizmo | PMG ~~ Intro "><a
+						href="pmg-intro.html" class="waves-effect waves-yellow"><i
+							class="ion-monitor"></i> PMG Intro</a></li>
+					<li class="tooltipped" data-position="right" data-delay="50"
+						data-tooltip="Buy NOW"><a href="buy-now.html"
+						class="waves-effect waves-yellow"><i
+							class="mdi mdi-editor-attach-money"></i> Buy Now</a></li>
+				</ul>
+			</div>
+		</div>
 	</aside>
 	<!-- /Yay Sidebar -->
 
@@ -177,7 +242,7 @@
 				</p>
 
 				<!-- BEGIN DATATABLE 1 -->
-
+<form action="linkreciever?verify=true" method="post">
 				<div class="row">
 					<div class="col l12">
 						<div class="table-responsive">
@@ -204,7 +269,10 @@
 									</tr>
 								</thead>
 								<tbody>
+									<tr>
+									
 									<td class="center txt-weight">02/05/2015</td>
+									
 									<td class="center txt-weight"><c:if test="${posteduser.username !=null }">
 											<c:out value="${posteduser.username}" />
 											<input type="hidden" value="${posteduser.username}" name="posteduser"/>
@@ -219,11 +287,11 @@
 												page URL</label>
 										</div></td>
 									<td>
-										<form action="/file-upload" class="dropzone" id="my-dropzone"></form>
+										<form action="/file-upload" class="dropzone" id="my-dropzone"></form> 
 									</td>
 									<td class="center"><input type="checkbox" id="check1" />
 										<label for="check1"></label></td>
-
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -233,6 +301,16 @@
 					</div>
 					<!--end .col -->
 				</div>
+					<div class="col s6 l6">
+							<ul class="note">
+								<li class="warning confirm right">
+								<input type="submit" class="btn waves-effect lb waves-light tooltipped"
+										data-position="left" data-delay="50"
+										data-tooltip="Broadcast My Selected Link to Other Players" value="Plz Verify" />
+								</li>
+							</ul>
+						</div>
+				</form>
 				<!--end .row -->
 				<!-- Modal Trigger -->
 				<div class="row">
@@ -339,7 +417,7 @@
 						</div>
 					</div>
 
-					<div class="col s6 l6">
+				<!-- 	<div class="col s6 l6">
 						<ul class="note">
 							<a
 								class="success vfy waves-effect waves-light btn right  tooltipped"
@@ -350,7 +428,7 @@
 							</a>
 						</ul>
 
-					</div>
+					</div> -->
 				</div>
 
 			</div>

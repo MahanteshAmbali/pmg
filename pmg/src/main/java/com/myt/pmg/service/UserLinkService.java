@@ -72,8 +72,21 @@ public class UserLinkService {
 		UserLink userlink = new UserLink();
 		userlink.setUserId(userid);
 		userlink.setLinkId(linkid);
-		userlink.setClicked(true);
-		userlink.setVerified(true);
+		//userlink.setBroadcasterUserId();
+		userlink.setClicked(false);
+		userlink.setVerified(false);
+		addUserLink(userlink);
+		//return userLinkDao.linkPosted(userid, linkid);
+		return true;
+	}
+	
+	public boolean linkPosted(String userid, String linkid, String broadcasteruserid) {
+		UserLink userlink = new UserLink();
+		userlink.setUserId(userid);
+		userlink.setLinkId(linkid);
+		userlink.setBroadcasterUserId(broadcasteruserid);
+		userlink.setClicked(false);
+		userlink.setVerified(false);
 		addUserLink(userlink);
 		//return userLinkDao.linkPosted(userid, linkid);
 		return true;
@@ -86,6 +99,10 @@ public class UserLinkService {
 	
 	public UserLink findByUserid(String userid){
 		return userLinkDao.findByUserId(userid);
+	}
+	
+	public UserLink findByBroadcasterId(String broadcasterId){
+		return userLinkDao.findByBroadcasterId(broadcasterId);
 	}
 
 	public void update(UserLink userlink) {

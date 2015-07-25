@@ -166,7 +166,7 @@
 						Broadcaster. This is where all the action takes place. Submit your
 						links, as many as you may like. Just keep PMG's RoE in mind.</font>
 				</p>
-				<form action="linkbroadcaster?regenrateLId=true" autocomplete="off"
+				<form action="linkbroadcaster?generateLID=true" autocomplete="off"
 					method="post">
 					<div class="row">
 						<div class="col s6 ">
@@ -205,7 +205,7 @@
 		</div>
 
 		<!--LB-->
-		<form action="linkbroadcaster?regenrateLId=false" method="post" >
+		<form action="linkbroadcaster?generateLID=false" method="post" >
 			<div class="card z-depth-2 col l12 m8 s6">
 				<div class="title blue white-text z-depth-1">
 					<h5>
@@ -242,23 +242,32 @@
 						<tbody>
 							<c:forEach items="${linkLists}" var="link">
 								<tr>
-									<th class="center"></th>
-									<td class="center"><c:if test="${link.lid !=null }">
+									<td class="center">1</td>
+									<td class="center">
+										<c:if test="${link.lid !=null }">
 											<c:out value="${link.lid}" />
 											<input type="hidden" value="${link.lid}" name="lid"/>
-										</c:if></td>
-									<td class="center"><c:if test="${link.url !=null }">
+										</c:if>
+									</td>
+									<td class="center">
+										<c:if test="${link.url !=null }">
 											<c:out value="${link.url}" />
 											<input type="hidden" value="${link.url}" name="adurl"/>
-										</c:if></td>
+										</c:if>
+									</td>
 									<td><div class="input-field">
-											<input id="input_text" type="text" class="validate">
+											<input id="input_text" type="text" name="keyword" class="validate">
 											<label for="input_text">Relevant Keyword</label>
 										</div></td>
-									<td class="center">04/Apr/2015</td>
-									<td class="center"><input class="check check-blue"
-										type="checkbox" id="checkbox1" /> <label
-										class="check check-blue" for="checkbox1"></label></td>
+									<td class="center"><c:if test="${link.creationTime !=null }">
+											<c:out value="${link.creationTime}" />
+											<input type="hidden" value="${link.creationTime}" name="ctime"/>
+										</c:if></td>
+									<td class="center">
+										<input class="check check-blue" type="checkbox" id="checkbox1" /> 
+										<label class="check check-blue" for="checkbox1"> </label>
+									
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
