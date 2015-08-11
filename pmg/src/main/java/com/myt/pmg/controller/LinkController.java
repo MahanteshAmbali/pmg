@@ -243,13 +243,17 @@ public class LinkController {
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/linkreciever", method = RequestMethod.GET)
 	public String linkRecieverPage(HttpSession session, Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws Exception {
 		User user = UtilFunction.getCurrentUser(session);
 		if (user == null) {
 			session.invalidate();
 			return "login";
 		}
+		
 		UserLink userlink = userLinkService.findByUserid(user.getId());
+		if(userlink == null){
+			throw new Exception("No links recieved");
+		}
 		String linkId = userlink.getLinkId();
 		Link link = linkService.findById(linkId);
 		model.addAttribute("link", link);
