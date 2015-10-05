@@ -1,317 +1,592 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="ie ie6 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="ie ie7 lt-ie9 lt-ie8"        lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="ie ie8 lt-ie9"               lang="en"> <![endif]-->
-<!--[if IE 9]>    <html class="ie ie9"                      lang="en"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" class="no-ie">
+<!--[if lt IE 7]>  <html class="lt-ie7"> <![endif]-->
+<!--[if IE 7]>     <html class="lt-ie8"> <![endif]-->
+<!--[if IE 8]>     <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html>
 <!--<![endif]-->
 
 <head>
-<!-- Meta-->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<meta name="author" content="">
-<title>ProMaGizmo | Profit Machine Gizmo</title>
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
-<!-- Bootstrap CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/app/css/bootstrap.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/app/css/chat.css">
-<!-- Vendor CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/fontawesome/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/animo/animate+animo.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/csspinner/csspinner.min.css">
-<!-- START Page Custom CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css">
-<!-- END Page Custom CSS-->
-<!-- App CSS-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/app/css/app.css">
-<!-- Modernizr JS Script-->
-<script
-	src="${pageContext.request.contextPath}/static/vendor/modernizr/modernizr.js"
-	type="application/javascript"></script>
-<!-- FastClick for mobiles-->
-<script
-	src="${pageContext.request.contextPath}/static/vendor/fastclick/fastclick.js"
-	type="application/javascript"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ProMaGizmo | PMG</title>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!--font-->	
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/fonts/Chant/chant.css"  charset="utf-8" />
+  
+   <!--Alert-->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.css" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/alert/alert.css" />
+  
+  <!-- DropZone -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/dropzone/dropzone.min.css" />
+
+  <!-- nanoScroller -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/nanoScroller/nanoscroller.css" />
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/font-awesome/css/font-awesome.min.css" />
+
+  <!-- Material Design Icons -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/material-design-icons/css/material-design-icons.min.css" />
+
+  <!-- IonIcons -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
+
+   <!-- Date -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/pikaday/pikaday.css">
+
+  <!-- Main -->
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/pmg/css/pmg.css" />
+  <!-- endbuild -->
+
 </head>
 
-<body>
-	<!-- START Main wrapper-->
-	<section class="wrapper">
-		<jsp:include page="headersandsidebars.jsp">
-			<jsp:param name="user" value="${user}"></jsp:param>
-		</jsp:include>
-		<!-- START Main section-->
-		<section>
-			<!-- START Page content-->
-			<section class="main-content">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="col-lg-7">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<form method="get" action="/" class="form-horizontal">
-										<h3>
-											<i class="fa fa-user"></i> ACCOUNT PROFILE
-										</h3>
-										<div class="simple-header"></div>
-										<div class="form-group">
-											<div class="col-md-1"></div>
-											<div class="col-md-5">
-												<img
-													src="${pageContext.request.contextPath}/static/app/img/user/${user.picName}"
-													alt="Avatar" width="150" height="50"
-													class="img-thumbnail img-circle">
+<body class="aside-toggled">
 
-											</div>
-											<div class="col-lg-6">
-												<div class="controls">
-													<address>
-														<h2>${user.firstname}${user.lastname}</h2>
-														<strong>CURRENT LEVEL:</strong> <strong><a
-															href="#">${user.level}</a></strong><br> <abbr
-															title="Work email">e-mail:</abbr> <strong><a
-															href="mailto:#">${user.email}</a></strong><br> <abbr
-															title="Estimated Earnings">Estimated Earning: <em
-															class="fa fa-dollar"></em>
-														</abbr> <strong><a href="#">2000</strong></a><br> <abbr
-															title="Total Links Served">Total Links Served: </abbr> <strong><a
-															href="#">200</strong></a><br> <abbr
-															title="Appreciation Gained">Appreciation Gained: </abbr>
-														<strong><a href="#">97</strong></a> <em
-															class="fa fa-star fa-sm text-warning inbox-mail-starred"></em>
-														<br>
-													</address>
-												</div>
-											</div>
-										</div>
-										<div class="simple-header"></div>
-										<p></p>
-										<form method="POST" id="editprofile" action="/profile"
-											class="form-horizontal">
-											<h3>
-												<i class="fa fa-user"></i> EDIT ACCOUNT PROFILE
-											</h3>
-											<div class="simple-header"></div>
-											<p></p>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Username</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<input type="text" value="${user.username}" disabled=""
-															class="form-control form-control-rounded">
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">First Name</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<input type="text" value="${user.firstname}"
-															class="form-control form-control-rounded">
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Last Name</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<input type="text" value="${user.lastname}"
-															class="form-control form-control-rounded">
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Date Of Birth</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<div data-pick-time="false"
-															class="datetimepicker input-group date mb-lg">
-															<input type="text"
-																class="form-control form-control-rounded"> <span
-																class="input-group-addon"> <span
-																class="fa-calendar fa"></span>
-															</span>
-														</div>
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Gender</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<p></p>
-														<label class="radio-inline c-radio"> <input
-															id="inlineradio1" type="radio" name="i-radio"
-															value="option1" checked=""> <span
-															class="fa fa-circle"></span>Male
-														</label> <label class="radio-inline c-radio"> <input
-															id="inlineradio1" type="radio" name="i-radio"
-															value="option1" checked=""> <span
-															class="fa fa-circle"></span>Female
-														</label> <label class="radio-inline c-radio"> <input
-															id="inlineradio1" type="radio" name="i-radio"
-															value="option1" checked=""> <span
-															class="fa fa-circle"></span>Other
-														</label>
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Email Address</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<input type="text" value="${user.email}" disabled=""
-															class="form-control form-control-rounded">
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Money Website</label>
-													<div class="col-md-1"></div>
-													<div class="col-md-6">
-														<input type="text" value="${user.adUrl}" disabled=""
-															class="form-control form-control-rounded">
-													</div>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="form-group">
-													<label class="col-lg-2 control-label">Country</label>
-													<div class="col-md-1"></div>
-													<div class="col-lg-6">
-														<input type="text" value="${user.country}" disabled=""
-															class="form-control form-control-rounded">
-													</div>
-												</div>
-											</fieldset>
+  <nav class="navbar-top">
+  <!-- START navbar header-->
+   <div class="navbar-header">
+	<a href="#" class="navbar-brand">
+	<div class="brand-logo">
+		ProMaGizmo
+	</div>
+	</a>
+   </div>
+<!-- END navbar header-->
+    <div class="nav-wrapper">
 
-											<button type="submit"
-												class="btn btn-primary btn-lg pull-right">
-												<b>SAVE THE CHANGES</b>
-											</button>
-										</form>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-5">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<form method="get" action="/" class="form-horizontal">
-										<h3>
-											<i class="fa fa-user"></i> CHANGE PASSWORD
-										</h3>
-										<div class="simple-header"></div>
+      <!-- Sidebar toggle -->
+      <a href="#" class="yay-toggle">
+        <div class="burg1"></div>
+        <div class="burg2"></div>
+        <div class="burg3"></div>
+      </a>
+      <!-- Sidebar toggle -->
+      <!-- Menu -->
+<ul>
+	  <li class="waves-effect waves-light"><a>Bolt &ensp; 67 <i class="fa fa-star yellow-text"></i></a>
+        </li>
+	  <li  class="waves-effect waves-light"><a class="tooltipped" data-position="buttom" data-delay="50" data-tooltip="Notification / Messages"><i class="fa fa-bell"></i><sup class="badge red white-text">1</sup></a>
+        </li>
+        <li class="user">
+          <a id="step4" class="dropdown-button" href="#!" data-activates="user-dropdown">
+            <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe" class="circle">John Doe<i class="mdi-navigation-expand-more right"></i>
+          </a>
+          <ul id="user-dropdown" class="dropdown-content">
+            <li  id="step3"><a href="profile.html"><i class="fa fa-user"></i> Profile</a>
+            </li>
+            <li><a href="notify.html"><i class="fa fa-envelope"></i> Notification <span class="badge new">2</span></a>
+            </li>
+            <li><a href="account-setup.html"><i class="fa fa-cogs"></i> Settings</a>
+            </li>
+			<li><a href="lock.html"><i class="mdi mdi-action-lock"></i> Lock Account</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="${pageContext.request.contextPath}/static/sign-in.html"><i class="mdi-action-settings-power"></i> Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- /Menu -->
+    </div>
+  </nav>
+  <!-- /Top Navbar -->
+  
+  <aside
+		class="yaybar yay-light yay-shrink yay-hide-to-small yay-gestures z-depth-2">
+		<div class="top">
+			<div>
+				<!-- Sidebar toggle -->
+				<a href="#" class="yay-toggle">
+					<div class="burg1"></div>
+					<div class="burg2"></div>
+					<div class="burg3"></div>
+				</a>
+				<!-- Sidebar toggle -->
+			</div>
+		</div>
+		<jsp:include page="left_menu.jsp" />
+	</aside>
 
+   <!-- /Yay Sidebar -->
 
-										<fieldset>
-											<div class="form-group">
-												<label class="col-lg-2 control-label">Current
-													Password</label>
-												<div class="col-md-1"></div>
-												<div class="col-md-8">
-													<input type="password"
-														class="form-control form-control-rounded">
-												</div>
-											</div>
-										</fieldset>
-										<fieldset>
-											<div class="form-group">
-												<label class="col-lg-2 control-label">New Password</label>
-												<div class="col-md-1"></div>
-												<div class="col-md-8">
-													<input type="password"
-														class="form-control form-control-rounded">
-												</div>
-											</div>
-										</fieldset>
-										<fieldset>
-											<div class="form-group">
-												<label class="col-lg-2 control-label">Retype New
-													Password</label>
-												<div class="col-md-1"></div>
-												<div class="col-md-8">
-													<input type="password"
-														class="form-control form-control-rounded">
-												</div>
-											</div>
-										</fieldset>
-
-										<button type="button"
-											class="btn btn-primary btn-lg pull-right">
-											<b>SAVE THE CHANGES</b>
-										</button>
-									</form>
-								</div>
-							</div>
-						</div>
-
-
+  <!-- Main Content -->
+  <section class="content-wrap">
+    <!-- Breadcrumb -->
+    <div class="page-title z-depth-1">
+	<div id="nt-title-container">
+	    				<ul id="nt-title">
+		    				<li>
+		    					A powerful, flexible and animated vertical news ticker plugin.
+		    				</li>
+		    				<li>
+		    					Provides hight flexibility thanks to numerous callbacks & methods.
+		    				</li>
+		    				<li>
+		    					Fully customizable to every kind of vertical scrolling need.
+		    				</li>
+		    				<li>
+		    					Light-weight and optimized JQuery plugin.
+		    				</li>
+	    				</ul>
+	    			</div>
+        <div class="col s12 m3 l2 right-align">
+		  <a class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"  data-tooltip="Chat with US" data-position="left">
+    <i class="fa fa-comments"></i>
+  </a>
+        </div>
+    </div>
+    <!-- /Breadcrumb -->
+	<div class="row">
+		<div class="col s12 m12 l12">
+			<div class="card-panel z-depth-2-hover">
+					
+			<div class="btn-group right">
+		<h5 class="center">Upload Photo</h5>
+			<form action="/photo-upload"
+      class="dropzone"
+      id="my-dropzone"></form>
+        </div>
+				<div class="col s3 m3 l3">
+					<div class="photo">
+						<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="Jogh Doe">
 					</div>
 				</div>
+				<div class="col s3 m4 l4">
+					<address><h2>Michael Berger</h2>
+                        <strong>CURRENT LEVEL:</strong> <strong><a href="javascript:void(0);">BOLT.</a></strong><br>
+                                 <abbr title="Work email">e-mail:</abbr> <strong><a href="mailto:#">michael.berger@shopgate.com</a></strong><br>
+								  <abbr title="Estimated Earnings">Estimated Earning: <em class="fa fa-dollar"></em> </abbr> <strong><a href="javascript:void(0);">2000</a></strong><br>
+								  <abbr title="Total Links Served">Total Links Served: </abbr> <strong><a href="javascript:void(0);">200</a></strong><br>
+								  <abbr title="Appreciation Gained">Appreciation Gained: </abbr> <strong><a href="javascript:void(0);">97</a></strong> <em class="fa fa-star fa-sm text-warning inbox-mail-starred"></em>  <br> 
+                     </address>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col s7 m7 l7">
+			<div class="card z-depth-3-hover">
+			
+			
+			
+			<div class="title blue white-text"><h3>Edit Account Details</h3> 
+			</div>
+			 <li class="divider line"></li>
+				<div class="content">
+				
+				
+			<div class="btn-group right">
+          
+          <a class="waves-effect waves-light btn btn-small deep-purple z-depth-2 tooltipped" data-position="top" data-delay="50" data-tooltip="Click To Edit Profile"><i class="mdi mdi-editor-mode-edit"></i></a>
 
+        </div>
+  
+  <div class="row">
+    <div class="col m12 s12">
+	<h4>Username</h4>
+      <div class="input-field">
+        <i class="fa fa-user prefix"></i>
+        <input id="input_fname" type="text" name="first_name">
+        <label for="input_fname">Username</label>
+      </div>
+    </div>
+	</div>
+	 <div class="row">
+    <div class="col m12 s12">
+	<h4>Full Name</h4>
+      <div class="input-field">
+        <i class="fa fa-user prefix"></i>
+        <input id="input_lname" type="email" name="last_name">
+        <label for="input_lname">Full Name</label>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row">
+    <div class="col m12 s12">
+	<h4>Registered E-Mail</h4>
+      <div class="input-field">
+        <i class="fa fa-envelope prefix"></i>
+        <input id="input_disabled" type="email" name="email" disabled>
+        <label for="input_disabled">abc@gmail.com</label>
+      </div>
+    </div>
+   
+  </div>
+  
+ <div class="row">
+    <div class="col m12 s12">
+	
+<h4>Registered Domain</h4>
+      <div class="input-field">
+        <i class="mdi mdi-av-web prefix"></i>
+        <input id="input_disabled" type="email" name="email" disabled>
+        <label for="input_disabled">abc.com</label>
+      </div>
+    </div>
+   
+  </div>
+ 
+  <hr>
+  <!-- Date -->
+  
+<h4>Date Of Birth</h4>
+<div class="input-field">
+	<i class="mdi mdi-action-accessibility prefix"></i>
+  <input id="masked-date" type="text" data-inputmask="'alias': 'date'">
+  <label for="masked-date"></label>
+</div>
+<!-- /Date -->
+ 
+ 
 
+ 
+  <hr>
+ 
+  <p>
+  <h4>Gender</h4>
+  <p></p>
+    <input name="pay-type" type="radio" id="male" checked />
+    <label class="blue-text" for="male">Male</label>
+ 
+    <input name="pay-type" type="radio" id="female" />
+    <label class="blue-text" for="female">Female</label>
+ 
+    <input name="pay-type" type="radio" id="other" />
+    <label class="blue-text" for="other">Other</label>
+  </p>
+  
+   <div class="row">
+    <div class="col m12 s12">
+	<h4>Country</h4>
+      <div class="input-field">
+        <i class="fa fa-globe prefix"></i>
+        <input id="input_disabled" type="email" name="email" disabled>
+        <label for="input_disabled">India</label>
+      </div>
+    </div>
+   
+  </div>
+  <div class="row">
+    <div class="col s6 l6"> 
+	 <ul class="note">
+			<li class="success">
+			  <button class="btn waves-effect up waves-light white-text blue tooltipped" data-position="top" data-delay="50" data-tooltip="Update Profile" type="submit" name="action">
+        Update
+      </button>
+			</li>
+		  </ul>
+	</div>
+  </div>
+ 
+</div>
 
+			</div>
+		</div>
+	
+	
+		<div class="col s15 m5 l5">
+			<div class="card z-depth-3-hover">
+			
+			
+			
+			<div class="title blue white-text"><h3>Reset Password</h3> 
+			</div>
+			 <li class="divider"></li>
+				<div class="content">
+				
+			
+  
+  <div class="row">
+    <div class="col m12 s12">
+	<h4>Current Password</h4>
+      <div class="input-field">
+        <i class="fa fa-user prefix"></i>
+        <input id="c_password" type="password" class="validate" name="c_password">
+        <label for="c_password">Current Password</label>
+      </div>
+    </div>
+	</div>
+	 <hr>
+ 
+ <div class="row">
+    <div class="col m12 s12">
+	<h4>New Password</h4>
+      <div class="input-field">
+        <i class="fa fa-user prefix"></i>
+        <input id="n_password" type="password" class="validate" name="n_password">
+        <label for="n_password">New Password</label>
+      </div>
+    </div>
+	</div>
+  
+ <div class="row">
+    <div class="col m12 s12">
+	<h4>Re-Type New Password</h4>
+      <div class="input-field">
+        <i class="fa fa-user prefix"></i>
+        <input id="rn_password" type="password" class="validate" name="rn_password" required>
+        <label for="rn_password">Re-Type New Password</label>
+      </div>
+    </div>
+	</div>
+ 
+ 
+  
+  <div class="row">
+    <div class="col">
+	
+	<ul class="note">
+			<li class="success">
+			  <button class="btn waves-effect set waves-light white-text blue tooltipped" data-position="top" data-delay="50" data-tooltip="Reset Password" type="submit" name="action">
+        Reset
+      </button>
+			</li>
+		  </ul>
+      
+    </div>
+  </div>
+ 
+</div>
 
+			</div>
+		</div>
+	</div>
+ 
+	
+	
+	
+  </section>
+  <!-- /Main Content -->
 
-			</section>
-			<!-- END Page content-->
-		</section>
-		<!-- END Main section-->
-	</section>
-	<!-- END Main wrapper-->
-	<!-- START Scripts-->
-	<!-- Main vendor Scripts-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!-- Plugins-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/chosen/chosen.jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/slider/js/bootstrap-slider.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/filestyle/bootstrap-filestyle.min.js"></script>
-	<!-- Animo-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/animo/animo.min.js"></script>
-	<!-- Sparklines-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/sparklines/jquery.sparkline.min.js"></script>
-	<!-- Slimscroll-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/slimscroll/jquery.slimscroll.min.js"></script>
-	<!-- START Page Custom Script-->
-	<!-- MomentJs and Datepicker-->
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/moment/min/moment-with-langs.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-	<!-- END Page Custom Script-->
-	<!-- App Main-->
-	<script src="${pageContext.request.contextPath}/static/app/js/app.js"></script>
-	<!-- END Scripts-->
+ 
+  <!-- Chat.chat-light - light color scheme-->
+  <div class="chat z-depth-4-hover">
+    <div class="layer-overlay"></div>
+    <div class="layer-content">
+      <!-- Contacts -->
+      <div class="contacts">
+        <!-- Top Bar -->
+        <div class="topbar">
+          <a href="#!" class="text">Chat</a>
+          <a href="#!" class="chat-toggle"><i class="mdi-navigation-close"></i></a>
+        </div>
+        <!-- /Top Bar -->
+        <div class="nano">
+          <div class="nano-content">
+            <span class="label">Share - Suggest</span>
+            <div class="user">
+              <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="Felecia Castro" class="circle photo">
+              <div class="name">The CREATOR</div>
+              <div class="status">Chat with Me!</div>
+              <div class="online"><i class="ongreen-text fa fa-circle"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Contacts -->
+
+      <!-- Messages -->
+      <div class="messages">
+
+        <!-- Top Bar with back link -->
+        <div class="topbar">
+          <a href="#!" class="chat-toggle"><i class="mdi-navigation-close"></i></a>
+          <a href="#!" class="chat-back"><i class="mdi-hardware-keyboard-arrow-left"></i> Back</a>
+        </div>
+        <!-- /Top Bar with back link -->
+
+        <!-- All messages list -->
+        <div class="list">
+          <div class="nano scroll-bottom">
+            <div class="nano-content">
+
+              <div class="date">Monday, Feb 23, 8:23 pm</div>
+
+              <div class="from-me">
+                Hi, Felicia.
+                <br>How are you?
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-them">
+                <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe" class="circle photo">Hi! I am good!
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-me">
+                Glad to see you :)
+                <br>This long text is intended to show how the chat will display it.
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-them">
+                <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe" class="circle photo">Also, we will send the longest word to show how it will fit in the chat window: <strong>Pneumonoultramicroscopicsilicovolcanoconiosis</strong>
+              </div>
+
+              <div class="date">Friday, Mar 10, 5:07 pm</div>
+
+              <div class="from-me">
+                Hi again!
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-them">
+                <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe" class="circle photo">Hi! Glad to see you.
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-me">
+                I want to add you in my Facebook.
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-me">
+                Can you give me your page?
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-them">
+                <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe" class="circle photo">I do not use Facebook. But you can follow me in Twitter.
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-me">
+                It's good idea!
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="from-them">
+                <img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe" class="circle photo">You can find me here - <a href="https://twitter.com/nkdevv">https://twitter.com/nkdevv</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /All messages list -->
+
+        <!-- Send message -->
+        <div class="send">
+          <form action="#!">
+            <div class="input-field">
+              <input id="chat-message" type="text" name="chat-message">
+            </div>
+
+            <button class="btn waves-effect z-depth-2"><i class="mdi-content-send"></i>
+            </button>
+          </form>
+        </div>
+        <!-- /Send message -->
+
+      </div>
+      <!-- /Messages -->
+    </div>
+
+  </div>
+  <!-- /Chat -->
+  <footer class="z-depth-3">&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.</footer>
+  
+  <!-- jQuery -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/jquery/jquery.min.js"></script>
+
+  <!-- jQuery RAF (improved animation performance) -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/jqueryRAF/jquery.requestAnimationFrame.min.js"></script>
+
+  <!-- Date -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/pikaday/pikaday.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/pikaday/pikaday.jquery.js"></script>
+  
+  <!-- nanoScroller -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/nanoScroller/jquery.nanoscroller.min.js"></script>
+  
+  
+   <!--News-->
+   <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/news/jquery.newsTicker.js"></script>
+
+  <!-- Materialize -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/materialize/js/materialize.min.js"></script>
+
+  <!-- Sortable -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/sortable/Sortable.min.js"></script>
+  
+  <!-- Masked Input -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/jquery-input-mask/jquery.inputmask.bundle.min.js"></script>
+
+  <!-- DropZone -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/dropzone/dropzone.min.js"></script>
+  
+  
+  <!-- Main -->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/pmg/js/pmg.min.js"></script>
+  
+    <!--Alert-->
+  <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.min.js"></script>
+  
+   <!--On top-->
+   <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
+  
+  <!-- endbuild -->
+	 <script>
+            // elevator.
+            var elementButton = document.querySelector('footer');
+            var elevator = new Elevator({
+                element: elementButton,
+                mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
+                endAudio:  '../.././music/ding.mp3'
+            });
+				// update
+			document.querySelector('ul.note li.success button.up').onclick = function(){
+		swal({ 
+		title:  "Well Done Username",
+		text: "Your Profile is Successfully Updated !!!",
+		timer: 3000,
+		type: "success",
+		showConfirmButton: false
+		
+	});
+};
+			// reset
+			document.querySelector('ul.note li.success button.set').onclick = function(){
+		swal({ 
+		title:  "Well Done Username",
+		text: "Password Successfully Updated !!!",
+		timer: 3000,
+		type: "success",
+		showConfirmButton: false
+		
+	});
+};
+  </script>
+	 <script>
+    		
+    		$(window).load(function(){
+	            $('code.language-javascript').mCustomScrollbar();
+	        });
+            var nt_title = $('#nt-title').newsTicker({
+                row_height: 40,
+                max_rows: 1,
+                duration: 3000,
+                pauseOnHover: 1
+            });
+        </script>
+  
+
 </body>
 
 </html>

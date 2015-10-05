@@ -3,6 +3,7 @@ package com.myt.pmg.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -65,4 +66,11 @@ public class NotificationController {
 		return notifications;
 
 	}
+	
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@RequestMapping(value = "/notify", method = RequestMethod.GET)
+	public String notify(HttpServletRequest req){
+		return "notify";
+	}
+	
 }

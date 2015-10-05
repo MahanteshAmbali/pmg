@@ -44,18 +44,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
+	@Autowired
 	private VelocityTemplateMail velocityTemplateMail;
+	
+	private QuestionnaireService questionnaireService;
 
 	public void setVelocityTemplateMail(
 			VelocityTemplateMail velocityTemplateMail) {
 		this.velocityTemplateMail = velocityTemplateMail;
 	}
-
-	private QuestionnaireService questionnaireService;
+	
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	public void setQuestionnaireService(
 			QuestionnaireService questionnaireService) {
@@ -140,7 +141,7 @@ public class UserController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String createAccount(
-			@ModelAttribute("user") User user) {
+			@ModelAttribute("user") User user, HttpServletRequest request) {
 
 		
 		if (!userService.usernameTaken(user.getUsername())) {
@@ -150,14 +151,17 @@ public class UserController {
 		}
 		try {
 			// TO DO set active after clicking the mail verification
-			user.setActive(true);
+		//	user.setActive(true);
 			userService.createUser(user);
-			
+			velocityTemplateMail.sendVerificationMail(user,request);
 		} catch (DuplicateKeyException e) {
 			// result.rejectValue("username", "DuplicateKey.user.username");
 			return "signup";
+		}catch(Exception e){
+			//userService.createUser(null);
+			return "redirect:/login?signupcomplete=false";
 		}
-		// velocityTemplateMail.sendVerificationMail(user);
+		 
 		return "redirect:/login?signupcomplete=true";
 
 	}

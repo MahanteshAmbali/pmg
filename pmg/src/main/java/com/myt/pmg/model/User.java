@@ -52,7 +52,7 @@ public class User extends BasicEntity {
 	private Level level = Level.SNAIL;
 	private Date registrationDate = new Date();
 	private String registeredIp;
-	private String[] role = { "ROLE_USER" };
+	private String[] role ;
 
 	public String getUsername() {
 		return username;

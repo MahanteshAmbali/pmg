@@ -21,7 +21,8 @@
 
 <!--font-->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/fonts/Chant/chant.css" charset="utf-8" />
+	href="${pageContext.request.contextPath}/fonts/Chant/chant.css"
+	charset="utf-8" />
 
 <!--Alert-->
 <link rel="stylesheet" type="text/css"
@@ -93,8 +94,8 @@
 						class="badge red white-text">1</sup></a></li>
 				<li class="user"><a id="step4" class="dropdown-button"
 					href="#!" data-activates="user-dropdown"> <img
-						src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe"
-						class="circle">John Doe<i
+						src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+						alt="John Doe" class="circle">John Doe<i
 						class="mdi-navigation-expand-more right"></i>
 				</a>
 					<ul id="user-dropdown" class="dropdown-content">
@@ -129,72 +130,7 @@
 				<!-- Sidebar toggle -->
 			</div>
 		</div>
-		<div class="nano z-depth-2">
-			<div class="nano-content">
-				<ul>
-					<li class="txt-weight blue-text label center">Menu</li>
-					<p></p>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip="Account Set-Up"><a href="account-setup.html"
-						class="waves-effect waves-blue"><i
-							class="mdi mdi-action-settings"></i> Account Set-Up</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip="Dashboard"><a href="player-dash.html"
-						class="waves-effect waves-blue"><i
-							class="mdi mdi-action-dashboard"></i> Dashboard</a></li>
-					<li><a class="yay-sub-toggle waves-effect waves-blue"><i
-							class="mdi mdi-action-wallet-travel"></i> Work Place<span
-							class="yay-collapse-icon mdi-navigation-expand-more"></span></a>
-						<ul class="tooltipped" data-position="top" data-delay="50"
-							data-tooltip="  Work Place">
-							<li><a href="player-lb.html" class="waves-effect waves-blue">
-									Link Broadcastor <span class="yellow badge new"></span>
-							</a></li>
-							<li><a href="player-lr.html" class="waves-effect waves-blue">
-									Link Reciever</a></li>
-							<li><a href="player-lv.html" class="waves-effect waves-blue">
-									Link Verifier</a></li>
-						</ul></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip="  My Links N Clicks Status"><a
-						href="linksnclicks-status.html" class="waves-effect waves-blue"><i
-							class="fa fa-link"></i> Links N Clicks</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip="  Contributor's Details"><a
-						href="contributors.html" class="waves-effect waves-blue"><i
-							class="mdi mdi-editor-insert-emoticon"></i> Contributors</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip=" Link Uniqueness Value (LUV)"><a
-						href="player-luv.html" class="waves-effect waves-blue"><i
-							class="mdi mdi-action-assessment"></i> Link Uniqueness Value</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip=" My Complaints History"><a
-						href="player-ch.html" class="waves-effect waves-red"><i
-							class="mdi  mdi-action-history"></i> Complaints History</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip=" Notification History"><a href="notify.html"
-						class="waves-effect waves-yellow"><i
-							class="ion-android-notifications"></i> Notification</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip=" Frequently Asked Questions"><a
-						href="FAQs.html" class="waves-effect waves-yellow"><i
-							class="fa fa-question-circle"></i> FAQs</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip=" Resources & Sucess Tips"><a
-						href="resources&success-tips.html"
-						class="waves-effect waves-yellow"><i
-							class="mdi mdi-action-thumb-up"></i> Resources & Sucess Tips</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip=" ProMaGizmo | PMG ~~ Intro "><a
-						href="pmg-intro.html" class="waves-effect waves-yellow"><i
-							class="ion-monitor"></i> PMG Intro</a></li>
-					<li class="tooltipped" data-position="right" data-delay="50"
-						data-tooltip="Buy NOW"><a href="buy-now.html"
-						class="waves-effect waves-yellow"><i
-							class="mdi mdi-editor-attach-money"></i> Buy Now</a></li>
-				</ul>
-			</div>
-		</div>
+		<jsp:include page="left_menu.jsp" />
 	</aside>
 	<!-- /Yay Sidebar -->
 
@@ -242,74 +178,78 @@
 				</p>
 
 				<!-- BEGIN DATATABLE 1 -->
-<form action="linkreciever?verify=true" method="post">
-				<div class="row">
-					<div class="col l12">
-						<div class="table-responsive">
-							<table id="datatable1" class="table table-bordered">
-								<thead class="blue white-text">
-									<tr>
-										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Recieving Date"
-											style="width: 10%">Date</th>
-										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Broadcaster's Username"
-											style="width: 10%">Username</th>
-										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="URL's ID" style="width: 10%">LID</th>
-										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Enter Visited Ad page URL">Ad
-											URL</th>
-										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Upload Video for verification">Upload</th>
-										<th class="center tooltipped" data-position="top"
-											data-delay="50"
-											data-tooltip="Check and Send for Verification "
-											style="width: 5%">Check</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-									
-									<td class="center txt-weight">02/05/2015</td>
-									
-									<td class="center txt-weight"><c:if test="${posteduser.username !=null }">
-											<c:out value="${posteduser.username}" />
-											<input type="hidden" value="${posteduser.username}" name="posteduser"/>
-										</c:if></td>
-									<td class="center txt-weight"><c:if test="${link.lid !=null }">
-											<c:out value="${link.lid}" />
-											<input type="hidden" value="${link.lid}" name="lid"/>
-										</c:if></td>
-									<td><div class="input-field">
-											<input id="input_text" type="text" class="validate">
-											<label for="input_text" class="">Enter Visited Ad
-												page URL</label>
-										</div></td>
-									<td>
-										<form action="/file-upload" class="dropzone" id="my-dropzone"></form> 
-									</td>
-									<td class="center"><input type="checkbox" id="check1" />
-										<label for="check1"></label></td>
-									</tr>
-								</tbody>
-							</table>
+				<form action="linkreciever?verify=true" method="post">
+					<div class="row">
+						<div class="col l12">
+							<div class="table-responsive">
+								<table id="datatable1" class="table table-bordered">
+									<thead class="blue white-text">
+										<tr>
+											<th class="center tooltipped" data-position="top"
+												data-delay="50" data-tooltip="Recieving Date"
+												style="width: 10%">Date</th>
+											<th class="center tooltipped" data-position="top"
+												data-delay="50" data-tooltip="Broadcaster's Username"
+												style="width: 10%">Username</th>
+											<th class="center tooltipped" data-position="top"
+												data-delay="50" data-tooltip="URL's ID" style="width: 10%">LID</th>
+											<th class="center tooltipped" data-position="top"
+												data-delay="50" data-tooltip="Enter Visited Ad page URL">Ad
+												URL</th>
+											<th class="center tooltipped" data-position="top"
+												data-delay="50" data-tooltip="Upload Video for verification">Upload</th>
+											<th class="center tooltipped" data-position="top"
+												data-delay="50"
+												data-tooltip="Check and Send for Verification "
+												style="width: 5%">Check</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+
+											<td class="center txt-weight">02/05/2015</td>
+
+											<td class="center txt-weight"><c:if
+													test="${posteduser.username !=null }">
+													<c:out value="${posteduser.username}" />
+													<input type="hidden" value="${posteduser.username}"
+														name="posteduser" />
+												</c:if></td>
+											<td class="center txt-weight"><c:if
+													test="${link.lid !=null }">
+													<c:out value="${link.lid}" />
+													<input type="hidden" value="${link.lid}" name="lid" />
+												</c:if></td>
+											<td><div class="input-field">
+													<input id="input_text" type="text" class="validate">
+													<label for="input_text" class="">Enter Visited Ad
+														page URL</label>
+												</div></td>
+											<td>
+												<form action="/file-upload" class="dropzone"
+													id="my-dropzone"></form>
+											</td>
+											<td class="center"><input type="checkbox" id="check1" />
+												<label for="check1"></label></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!--end .table-responsive -->
+							<!-- Textarea with Icon -->
+							<!-- /Textarea with Icon -->
 						</div>
-						<!--end .table-responsive -->
-						<!-- Textarea with Icon -->
-						<!-- /Textarea with Icon -->
+						<!--end .col -->
 					</div>
-					<!--end .col -->
-				</div>
 					<div class="col s6 l6">
-							<ul class="note">
-								<li class="warning confirm right">
-								<input type="submit" class="btn waves-effect lb waves-light tooltipped"
-										data-position="left" data-delay="50"
-										data-tooltip="Broadcast My Selected Link to Other Players" value="Plz Verify" />
-								</li>
-							</ul>
-						</div>
+						<ul class="note">
+							<li class="warning confirm right"><input type="submit"
+								class="btn waves-effect lb waves-light tooltipped"
+								data-position="left" data-delay="50"
+								data-tooltip="Broadcast My Selected Link to Other Players"
+								value="Plz Verify" /></li>
+						</ul>
+					</div>
 				</form>
 				<!--end .row -->
 				<!-- Modal Trigger -->
@@ -417,7 +357,7 @@
 						</div>
 					</div>
 
-				<!-- 	<div class="col s6 l6">
+					<!-- 	<div class="col s6 l6">
 						<ul class="note">
 							<a
 								class="success vfy waves-effect waves-light btn right  tooltipped"
@@ -457,7 +397,8 @@
 					<div class="nano-content">
 						<span class="label">Share - Suggest</span>
 						<div class="user">
-							<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+							<img
+								src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
 								alt="Felecia Castro" class="circle photo">
 							<div class="name">The CREATOR</div>
 							<div class="status">Chat with Me!</div>
@@ -495,8 +436,9 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe"
-									class="circle photo">Hi! I am good!
+								<img
+									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+									alt="John Doe" class="circle photo">Hi! I am good!
 							</div>
 
 							<div class="clear"></div>
@@ -509,9 +451,10 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe"
-									class="circle photo">Also, we will send the longest word
-								to show how it will fit in the chat window: <strong>Pneumonoultramicroscopicsilicovolcanoconiosis</strong>
+								<img
+									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+									alt="John Doe" class="circle photo">Also, we will send
+								the longest word to show how it will fit in the chat window: <strong>Pneumonoultramicroscopicsilicovolcanoconiosis</strong>
 							</div>
 
 							<div class="date">Friday, Mar 10, 5:07 pm</div>
@@ -521,8 +464,9 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe"
-									class="circle photo">Hi! Glad to see you.
+								<img
+									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+									alt="John Doe" class="circle photo">Hi! Glad to see you.
 							</div>
 
 							<div class="clear"></div>
@@ -536,9 +480,10 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe"
-									class="circle photo">I do not use Facebook. But you can
-								follow me in Twitter.
+								<img
+									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+									alt="John Doe" class="circle photo">I do not use
+								Facebook. But you can follow me in Twitter.
 							</div>
 
 							<div class="clear"></div>
@@ -548,9 +493,10 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg" alt="John Doe"
-									class="circle photo">You can find me here - <a
-									href="https://twitter.com/nkdevv">https://twitter.com/nkdevv</a>
+								<img
+									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+									alt="John Doe" class="circle photo">You can find me here
+								- <a href="https://twitter.com/nkdevv">https://twitter.com/nkdevv</a>
 							</div>
 
 						</div>
@@ -607,8 +553,10 @@
 		src="${pageContext.request.contextPath}/static/assets/news/jquery.newsTicker.js"></script>
 
 	<!-- Data table-->
-	<script src="${pageContext.request.contextPath}/static/assets/core/DataTables/DemoTableDynamic.js"></script>
-	<script src="${pageContext.request.contextPath}/static/assets/core/DataTables/js/jquery.dataTables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/assets/core/DataTables/DemoTableDynamic.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/assets/core/DataTables/js/jquery.dataTables.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/assets/core/DataTables/js/extensions/ColVis/js/dataTables.colVis.min.js"></script>
 	<script

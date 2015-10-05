@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
@@ -55,9 +56,10 @@ public class VelocityTemplateMail {
 		mailSender.send(preparator);
 	}
 
-	public void sendVerificationMail(final User user) {
+	public void sendVerificationMail(final User user,
+			final HttpServletRequest request) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
-			@SuppressWarnings({ "rawtypes", "unchecked" })
+			// @SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(user.getEmail());
@@ -65,10 +67,16 @@ public class VelocityTemplateMail {
 				message.setSubject("Verification Mail from PMG");
 				message.setSentDate(new Date());
 				Map model = new HashMap();
+				System.out.println("Host = " + request.getServerName());
+				System.out.println("Port = " + request.getServerPort());
 				model.put("username", user.getUsername());
-				StringBuilder link = new StringBuilder(
-						"http://107.161.95.16:8080/pmg/verifyaccount?uid=");
+				StringBuilder link = new StringBuilder("http://");
+				link.append(request.getServerName()+":"+request.getServerPort());
+				link.append(request.getContextPath()+"/verifyaccount?uid=");
+			/*	StringBuilder link = new StringBuilder(
+						"http://107.161.95.16:8080/pmg/verifyaccount?uid=");*/
 				link.append(user.getId());
+				System.out.println(link);
 				logger.info(link);
 				model.put("link", link);
 				String text = VelocityEngineUtils.mergeTemplateIntoString(

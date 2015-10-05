@@ -205,10 +205,8 @@ public class LinkController {
 		return linklist;
 	}
 
-	@RequestMapping(value = "/linkstatus", produces = "application/json")
-	@ResponseBody
-	public LinkStatus linkStatus(HttpSession session,
-			HttpServletResponse response) {
+	@RequestMapping(value = "/linkstatus", method = RequestMethod.GET)
+	public String linkStatus(HttpSession session, HttpServletResponse response) {
 		User user = UtilFunction.getCurrentUser(session);
 		String userid = user.getId();
 		LinkStatus ls = new LinkStatus();
@@ -230,7 +228,9 @@ public class LinkController {
 				.countLinksServedByUserAndDisapproved(userid)
 				/ userLinkService.countLinksServedByUser(userid));
 		System.out.println(ls);
-		return ls;
+		// return ls;
+		return "linksnclicks-status";
+
 	}
 
 	@RequestMapping(value = "/gettoplinks", method = RequestMethod.GET, produces = "application/json")
@@ -249,9 +249,9 @@ public class LinkController {
 			session.invalidate();
 			return "login";
 		}
-		
+
 		UserLink userlink = userLinkService.findByUserid(user.getId());
-		if(userlink == null){
+		if (userlink == null) {
 			throw new Exception("No links recieved");
 		}
 		String linkId = userlink.getLinkId();
@@ -281,7 +281,7 @@ public class LinkController {
 		return "dashboard";
 
 	}
-	
+
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/proofresult", method = RequestMethod.GET)
 	public String showLinkVerifierPage(HttpServletRequest request,
@@ -290,15 +290,16 @@ public class LinkController {
 		if (user == null) {
 			session.invalidate();
 		}
-		
+
 		UserLink userlink = userLinkService.findByBroadcasterId(user.getId());
 		String linkId = userlink.getLinkId();
 		Link link = linkService.findById(linkId);
 		model.addAttribute("link", link);
 
-		/*User posteduser = userService.findById(link.getUserId());
-		model.addAttribute("posteduser", posteduser);
-		*/
+		/*
+		 * User posteduser = userService.findById(link.getUserId());
+		 * model.addAttribute("posteduser", posteduser);
+		 */
 		return "linkverifier";
 	}
 
@@ -353,6 +354,36 @@ public class LinkController {
 		}
 		return luvList;
 	}
+	
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@RequestMapping("/luv")
+	public String getLinkUniqueness(HttpSession session) {
+		User user = UtilFunction.getCurrentUser(session);
+		if (user == null)
+			session.invalidate();
+	/*	List<Link> linkList = linkService.getLinksPostedByUser(user.getId());
+		List<LUV> luvList = new ArrayList<LUV>();
+		for (Link link : linkList) {
+			long days = (new Date().getTime() - (link.getCreationTime())
+					.getTime()) / (24 * 3600 * 1000l);
+			luvList.add(new LUV(link.getCreationTime(), link.getId(), null,
+					link.getUrl(), userLinkService.countClicksOnLink(link
+							.getId()), days, link.isActive()));
+		}*/
+		return "luv";
+	}
+	
+	@PreAuthorize(value = "hasRole('ROLE_USER')")
+	@RequestMapping("/complaints")
+	public String complaints(HttpSession session) {
+		User user = UtilFunction.getCurrentUser(session);
+		if (user == null)
+			session.invalidate();
+	
+		return "complaints";
+	}
+	
+	
 
 	@RequestMapping(value = "/editmylinks", method = RequestMethod.POST)
 	@ResponseBody

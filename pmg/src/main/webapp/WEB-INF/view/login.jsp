@@ -11,27 +11,38 @@
 
 
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>ProMaGizmo | PMG</title>
-      <meta name="description" content="PMG | Your Profit Making Gizmo" />
-      <meta name="author" content="PMG" />
-      <link rel="stylesheet" href="${pageContext.request.contextPath}/static/fonts/act/act.css" type="text/css" />
-	  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/front/sign/css/style.css" />
-     	<script src="${pageContext.request.contextPath}/static/assets/front/sign/js/modernizr.custom.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/captcha/jquery-1.3.2.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/captcha/ui.core.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/captcha/ui.sortable.js"></script>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/captcha/captcha.css" />
-		 <!--Alert-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.css" />
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/alert/alert.css" />
-		
-		<!-- IonIcons -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
-        <script type="text/javascript">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProMaGizmo | PMG</title>
+<meta name="description" content="PMG | Your Profit Making Gizmo" />
+<meta name="author" content="PMG" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/fonts/act/act.css"
+	type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/front/sign/css/style.css" />
+<script
+	src="${pageContext.request.contextPath}/static/assets/front/sign/js/modernizr.custom.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/assets/captcha/jquery-1.3.2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/assets/captcha/ui.core.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/assets/captcha/ui.sortable.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/captcha/captcha.css" />
+<!--Alert-->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/alert/alert.css" />
+
+<!-- IonIcons -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
+<script type="text/javascript">
             (
             function($){
 
@@ -82,56 +93,60 @@
             });
 			
         </script>
-	</head>
-	<body>
-		<div class="container">
-			<section class="content bgcolor-1">
-				<h2>ProMaGizmo | PMG  | Sign-In</h2>
-				
-				<form action="<c:url value='/j_spring_security_check'/>" autocomplete="off" method="post" >
-				
-				<span class="input input--nao">
-					<input class="input__field input__field--nao" type="text" id="input-1" name="email" />
-					<label class="input__label input__label--nao" for="input-1">
-						<span class="input__label-content input__label-content--nao">Username/E-Mail*</span>
-					</label>
-					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+</head>
+<body>
+	<div class="container">
+		<section class="content bgcolor-1">
+			<h2>ProMaGizmo | PMG | Sign-In</h2>
+
+			<form action="<c:url value='/j_spring_security_check'/>"
+				autocomplete="off" method="post">
+
+				<span class="input input--nao"> <input
+					class="input__field input__field--nao" type="text" id="input-1"
+					name="email" /> <label class="input__label input__label--nao"
+					for="input-1"> <span
+						class="input__label-content input__label-content--nao">Username/E-Mail*</span>
+				</label> <svg class="graphic graphic--nao" width="300%" height="100%"
+						viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path
+							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg>
-					</span>
-				
-				
-				<span class="input input--nao ">
-					<input class="input__field input__field--nao" type="text" id="input-1" name="password" />
-					<label class="input__label input__label--nao" for="input-17">
-						<span class="input__label-content input__label-content--nao">Password*</span>
-					</label>
-					<svg class="graphic graphic--nao" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-						<path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+				</span> <span class="input input--nao "> <input
+					class="input__field input__field--nao" type="text" id="input-1"
+					name="password" /> <label class="input__label input__label--nao"
+					for="input-17"> <span
+						class="input__label-content input__label-content--nao">Password*</span>
+				</label> <svg class="graphic graphic--nao" width="300%" height="100%"
+						viewBox="0 0 1200 60" preserveAspectRatio="none">
+						<path
+							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg></span>
-					
-						<ul>
-										<li><input id="cb6" name="cb6" type="checkbox"><label for="cb6">Save Password</label></li>
-									</ul>
-										<fieldset>
-                <legend>Drag & Spell </b>"ProMaGizmo"</legend>
-				
-                <div class="captcha_wrap">
-                    
-                    <ul id="sortable">
-                        <li class="captchaItem">P</li>
-                        <li class="captchaItem">ro</li>
-                        <li class="captchaItem">Ma</li>
-                        <li class="captchaItem">G</li>
-                        <li class="captchaItem">iz</li>
-                        <li class="captchaItem">mo</li>
-                    </ul>
-                </div>
-                <input type="submit" class="button">Sign-In
-                </input>
-            </fieldset>
-									
-				</form>
+
+				<ul>
+					<li><input id="cb6" name="cb6" type="checkbox"><label
+						for="cb6">Save Password</label></li>
+				</ul>
+				<fieldset>
+					<legend>
+						Drag & Spell </b>"ProMaGizmo"
+					</legend>
+
+					<div class="captcha_wrap">
+
+						<ul id="sortable">
+							<li class="captchaItem">P</li>
+							<li class="captchaItem">ro</li>
+							<li class="captchaItem">Ma</li>
+							<li class="captchaItem">G</li>
+							<li class="captchaItem">iz</li>
+							<li class="captchaItem">mo</li>
+						</ul>
+					</div>
+					<input type="submit" class="button">Sign-In </input>
+				</fieldset>
+
+			</form>
 			<!-- 
 				<section>
 								<form class="ac-custom ac-checkbox ac-checkmark" autocomplete="off">
@@ -139,18 +154,22 @@
 								</form> 
 								</section>
 				 -->
-						<section>
-			<a href="reset.html">
-				<h3>Password Reset</h3>
+			<section>
+				<a href="reset.html">
+					<h3>Password Reset</h3>
 				</a>
 			</section>
-			</section>
-			
-			<!-- Related demos -->
-		</div><!-- /container -->
-		<footer>&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.</footer>
-		<script src="${pageContext.request.contextPath}/static/assets/front/sign/js/classie.js"></script>
-		<script>
+		</section>
+
+		<!-- Related demos -->
+	</div>
+	<!-- /container -->
+	<footer>
+		&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.
+	</footer>
+	<script
+		src="${pageContext.request.contextPath}/static/assets/front/sign/js/classie.js"></script>
+	<script>
 			(function() {
 				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
 				if (!String.prototype.trim) {
@@ -185,10 +204,12 @@
 				}
 			})();
 		</script>
-		 <!--Alert-->
-		<script type="text/javascript" src="assets/core/alert/sweetalert.min.js"></script>
-		<script type="text/javascript" src="assets/front/sign/js/uiMorphingButton_fixed.js"></script>
-		<script>
+	<!--Alert-->
+	<script type="text/javascript"
+		src="assets/core/alert/sweetalert.min.js"></script>
+	<script type="text/javascript"
+		src="assets/front/sign/js/uiMorphingButton_fixed.js"></script>
+	<script>
 			(function() {	
 				var docElem = window.document.documentElement, didScroll, scrollPosition;
 
@@ -256,10 +277,12 @@
 				} );
 			})();
 		</script>
-		<script src="${pageContext.request.contextPath}/static/assets/front/sign/js/svgcheckbx.js"></script>
-		<!--On top-->
-   <script type="text/javascript" src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
-    <script>
+	<script
+		src="${pageContext.request.contextPath}/static/assets/front/sign/js/svgcheckbx.js"></script>
+	<!--On top-->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
+	<script>
             // elevator.
             var elementButton = document.querySelector('footer');
             var elevator = new Elevator({
@@ -268,5 +291,5 @@
                 endAudio:  './music/ding.mp3'
             });
 			</script>
-	</body>
+</body>
 </html>

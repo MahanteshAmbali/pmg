@@ -153,7 +153,7 @@
 			</div>
 		</div>
 		<sf:form action="accountsetup" method="post" modelAttribute="account">
-		
+
 			<!-- /Breadcrumb -->
 			<div class="card z-depth-2 col s12">
 				<div class="title blue white-text z-depth-1">
@@ -186,12 +186,11 @@
 				<label class="txt-weight" for="input_disabled">abc.com</label>
 				</div> -->
 							<div class="input-field">
-								<input id="domain" name="domain" type="text"> 
-								<label
-									class="txt-weight" for="abc.coms">
-									<c:if test="${account.domain !=null }">
+								<input id="domain" name="domain" type="text"> <label
+									class="txt-weight" for="abc.coms"> <c:if
+										test="${account.domain !=null }">
 										<c:out value="${account.domain}" />
-											<input type="hidden" value="${account.domain}" name="domain"/>
+										<input type="hidden" value="${account.domain}" name="domain" />
 									</c:if>
 								</label>
 							</div>
@@ -204,10 +203,13 @@
 						<div class="col s12 l3">
 
 							<div class="input-field">
-								<input id="linksSubmitted" name="linksSubmitted" type="text" class="validate">
-								<label class="txt-weight" for="input_disabled"><c:if test="${account.linksSubmitted !=null }">
+								<input id="linksSubmitted" name="linksSubmitted" type="text"
+									class="validate"> <label class="txt-weight"
+									for="input_disabled"><c:if
+										test="${account.linksSubmitted !=null }">
 										<c:out value="${account.linksSubmitted}" />
-											<input type="hidden" value="${account.linksSubmitted}" name="linksSubmitted"/>
+										<input type="hidden" value="${account.linksSubmitted}"
+											name="linksSubmitted" />
 									</c:if></label>
 							</div>
 						</div>
@@ -227,22 +229,42 @@
 								Receive) </label>
 						</div>
 						<div class="input-field col s3 l3">
-								<input id="bestTime" name="bestTime" type="text" class="clockpicker">
-								<label class="txt-weight" for="input_disabled"><c:if test="${account.bestTime !=null }">
-										<c:out value="${account.bestTime}" />
-											<input type="hidden" value="${account.bestTime}" name="bestTime"/>
-									</c:if></label>
-							</div>
-							
-							<div class="input-field col s3 l3">
-								<input id="bestTime" name="bestTime" type="text" class="clockpicker">
-								<label class="txt-weight" for="input_disabled"><c:if test="${account.bestTime !=null }">
-										<c:out value="${account.bestTime}" />
-											<input type="hidden" value="${account.bestTime}" name="bestTime"/>
-									</c:if></label>
-							</div>
-						
-						
+							<input id="bestTime" name="bestTime" type="text"
+								class="clockpicker"> <label class="txt-weight"
+								for="input_disabled"> <c:if
+									test="${account.bestTime !=null }">
+									<c:forEach var="bt" items="${account.bestTime}" end="0">
+										<c:if test="${bt !=null }">
+											<c:out value="${bt}" />
+										</c:if>
+									</c:forEach>
+									<input type="hidden" value="${account.bestTime}"
+										name="bestTime" />
+								</c:if> <%-- <c:if
+									test="${account.bestTime !=null }">
+									<c:out value="${account.bestTime}" />
+									<input type="hidden" value="${account.bestTime}"
+										name="bestTime" />
+								</c:if> --%>
+							</label>
+						</div>
+
+						<div class="input-field col s3 l3">
+							<input id="bestTime" name="bestTime" type="text"
+								class="clockpicker"> <label class="txt-weight"
+								for="input_disabled"><c:if
+									test="${account.bestTime !=null }">
+									<c:forEach var="bt" items="${account.bestTime}" begin="1">
+										<c:if test="${bt !=null }">
+											<c:out value="${bt}" />
+										</c:if>
+									</c:forEach>
+									<input type="hidden" value="${account.bestTime}"
+										name="bestTime" />
+								</c:if></label>
+						</div>
+
+
 						<div class="col s3 l3 center">
 							<div class="btn-group">
 								<ul class="note">
@@ -271,8 +293,8 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td><input id="days" name="days" type="checkbox" id="checkbox1" /> <label
-															for="checkbox1"></label></td>
+														<td><input id="days" name="days" type="checkbox"
+															id="checkbox1" /> <label for="checkbox1"></label></td>
 														<td>14/02/2015</td>
 														<td>08:10 AM</td>
 														<td>08:10 PM</td>
@@ -310,32 +332,32 @@
 						</div>
 						<div class="col s12 l9">
 							<div class="col s2 l2">
-								<input type="checkbox" id="mon" name="days" value="Monday" /> <label class="blue-text "
-									for="mon">Monday</label>
+								<input type="checkbox" id="mon" name="days" value="Monday" /> <label
+									class="blue-text " for="mon">Monday</label>
 							</div>
 							<div class="col s2 l2">
-								<input type="checkbox" id="tues" name="days" value="Tuesday"  /> <label class="blue-text "
-									for="tues">Tuesday</label>
+								<input type="checkbox" id="tues" name="days" value="Tuesday" />
+								<label class="blue-text " for="tues">Tuesday</label>
 							</div>
 							<div class="col s2 l2">
-								<input type="checkbox" id="wed" name="days" value="Wednesday"  /> <label class="blue-text "
-									for="wed">Wednesday</label>
+								<input type="checkbox" id="wed" name="days" value="Wednesday" />
+								<label class="blue-text " for="wed">Wednesday</label>
 							</div>
 							<div class="col s2 l2">
-								<input type="checkbox" id="thu" name="days" value="Thursday"  /> <label class="blue-text "
-									for="thu">Thursday</label>
+								<input type="checkbox" id="thu" name="days" value="Thursday" />
+								<label class="blue-text " for="thu">Thursday</label>
 							</div>
 							<div class="col s2 l2">
-								<input type="checkbox" id="fri" name="days" value="Friday"  /> <label class="blue-text "
-									for="fri">Friday</label>
+								<input type="checkbox" id="fri" name="days" value="Friday" /> <label
+									class="blue-text " for="fri">Friday</label>
 							</div>
 							<div class="col s2 l2">
-								<input type="checkbox" id="sat" name="days" value="Saturday"  /> <label class="orange-text "
-									for="sat">Saturday</label>
+								<input type="checkbox" id="sat" name="days" value="Saturday" />
+								<label class="orange-text " for="sat">Saturday</label>
 							</div>
 							<div class="col s2 l2">
-								<input type="checkbox" id="sun" name="days" value="Sunday"  /> <label class="orange-text "
-									for="sun">Sunday</label>
+								<input type="checkbox" id="sun" name="days" value="Sunday" /> <label
+									class="orange-text " for="sun">Sunday</label>
 							</div>
 
 						</div>
@@ -376,7 +398,9 @@
 							<p class="range-field tooltipped" data-position="buttom"
 								data-delay="50"
 								data-tooltip=" Drag to Select. It is Recommended that you should broadcast 10% of your traffic">
-								<input type="range" min="0" max="100" name="dailyBroadcastingRate" />
+								<input type="range" min="0" max="100"
+									value="<c:out value="${account.dailyBroadcastingRate}"/>"
+									name="dailyBroadcastingRate" />
 							</p>
 						</div>
 					</div>
@@ -388,6 +412,7 @@
 					</div>
 					<!--   Vacation -->
 					<div class="row no-margin-top txt-weight">
+
 						<div class="col s12 l3">
 							<label for="ecommerce-product-name"
 								class="setting-title blue-text"> Vacation (Don't Send n
@@ -396,15 +421,31 @@
 						<div class="col s12 l3">
 
 							<div class="input-field">
-								<input class="datepicker" id="input_date" type="date" name="vacation"> <label
-									clASS="txt-weight" for="input_date">From</label>
+								<c:if test="${account.vacation !=null }">
+									<c:forEach var="vc" items="${account.vacation}" end="0">
+										<c:if test="${vc !=null }">
+											<input class="datepicker" id="input_date" type="date"
+												name="vacation" value="<c:out value="${vc}"/>">
+											<label clASS="txt-weight" for="input_date">From</label>
+										</c:if>
+									</c:forEach>
+								</c:if>
+
+
 							</div>
 						</div>
 
 						<div class="col s12 l3">
 							<div class="input-field">
-								<input class="datepicker" id="input_date" type="date" name="vacation"> <label
-									for="input_date">To</label>
+								<c:if test="${account.vacation !=null }">
+									<c:forEach var="vc" items="${account.vacation}" begin="1">
+										<c:if test="${vc !=null }">
+											<input class="datepicker" id="input_date" type="date"
+												name="vacation" value="<c:out value="${vc}"/>">
+											<label clASS="txt-weight" for="input_date">To</label>
+										</c:if>
+									</c:forEach>
+								</c:if>
 							</div>
 						</div>
 						<div class="col s12 l3 center">
@@ -476,7 +517,8 @@
 						<div class="col s12 l5">
 
 							<div class="input-field">
-								<input id="est" type="text" class="validate" name="earnings"> <label
+								<input id="est" type="text" class="validate" name="earnings"
+									value="<c:out value="${account.earnings}"/>"> <label
 									class="txt-weight" for="est">Enter the Amount</label>
 							</div>
 						</div>

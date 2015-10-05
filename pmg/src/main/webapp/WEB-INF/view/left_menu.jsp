@@ -41,40 +41,39 @@
 								Link Verifier</a></li>
 					</ul></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip="  My Links N Clicks Status"><a
-					href="linksnclicks-status.html" class="waves-effect waves-blue"><i
-						class="fa fa-link"></i> Links N Clicks</a></li>
+					data-tooltip="  My Links N Clicks Status"><a href="linkstatus"
+					class="waves-effect waves-blue"><i class="fa fa-link"></i>
+						Links N Clicks</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip="  Contributor's Details"><a
-					href="contributors.html" class="waves-effect waves-blue"><i
+					data-tooltip="  Contributor's Details"><a href="contributors"
+					class="waves-effect waves-blue"><i
 						class="mdi mdi-editor-insert-emoticon"></i> Contributors</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" Link Uniqueness Value (LUV)"><a
-					href="player-luv.html" class="waves-effect waves-blue"><i
+					data-tooltip=" Link Uniqueness Value (LUV)"><a href="luv"
+					class="waves-effect waves-blue"><i
 						class="mdi mdi-action-assessment"></i> Link Uniqueness Value</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" My Complaints History"><a href="player-ch.html"
+					data-tooltip=" My Complaints History"><a href="complaints"
 					class="waves-effect waves-red"><i
 						class="mdi  mdi-action-history"></i> Complaints History</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" Notification History"><a href="notify.html"
+					data-tooltip=" Notification History"><a href="notify"
 					class="waves-effect waves-yellow"><i
 						class="ion-android-notifications"></i> Notification</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" Frequently Asked Questions"><a href="FAQs.html"
+					data-tooltip=" Frequently Asked Questions"><a href="faq"
 					class="waves-effect waves-yellow"><i
 						class="fa fa-question-circle"></i> FAQs</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" Resources & Sucess Tips"><a
-					href="resources&success-tips.html"
+					data-tooltip=" Resources & Sucess Tips"><a href="rstips"
 					class="waves-effect waves-yellow"><i
 						class="mdi mdi-action-thumb-up"></i> Resources & Sucess Tips</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" ProMaGizmo | PMG ~~ Intro "><a
-					href="pmg-intro.html" class="waves-effect waves-yellow"><i
-						class="ion-monitor"></i> PMG Intro</a></li>
+					data-tooltip=" ProMaGizmo | PMG ~~ Intro "><a href="pmg-intro"
+					class="waves-effect waves-yellow"><i class="ion-monitor"></i>
+						PMG Intro</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip="Buy NOW"><a href="buy-now.html"
+					data-tooltip="Buy NOW"><a href="buypmg"
 					class="waves-effect waves-yellow"><i
 						class="mdi mdi-editor-attach-money"></i> Buy Now</a></li>
 			</ul>

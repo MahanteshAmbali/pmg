@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>  <html class="lt-ie7"> <![endif]-->
 <!--[if IE 7]>     <html class="lt-ie8"> <![endif]-->
@@ -29,10 +31,6 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/nanoScroller/nanoscroller.css" />
 
-<!-- IonIcons -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
-
 <!-- FontAwesome -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/font-awesome/css/font-awesome.min.css" />
@@ -41,18 +39,37 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/material-design-icons/css/material-design-icons.min.css" />
 
-<!-- Data table-->
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/assets/core/dataTables/jquery.dataTables.css" />
+<!-- IonIcons -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
 
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/assets/core/dataTables/extensions/dataTables.tableTools.css" />
+<!-- WeatherIcons -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/weatherIcons/css/weather-icons.min.css" />
+
+<!-- Rickshaw -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/rickshaw/rickshaw.min.css" />
+
+
+
+
+<!-- nvd3 -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/nvd3/nv.d3.min.css" />
+
+<!-- Google Prettify -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/google-code-prettify/prettify.css" />
+
 <!-- Main -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/pmg/css/pmg.css" />
 <!-- endbuild -->
 
-
+<!--[if lt IE 9]>
+    <script src="${pageContext.request.contextPath}/static/assets/core/html5shiv/html5shiv.min.js"></script>
+  <![endif]-->
 </head>
 
 <body class="aside-toggled">
@@ -142,21 +159,19 @@
 				</ul>
 			</div>
 			<div class="col s12 m3 l2 right-align">
-				<a
+				<a id="step1"
 					class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"
 					data-tooltip="Chat with US" data-position="left"> <i
 					class="fa fa-comments"></i>
 				</a>
-
 			</div>
-
 		</div>
 		<!-- /Breadcrumb -->
 
-		<div class="card  z-depth-2 col s12">
-			<div class="title blue lighten-2 white-text card-header z-depth-1">
+		<div class="card  z-depth-3-hover col s12">
+			<div class="title card-header z-depth-1  blue white-text txt-weight">
 				<h5>
-					<b>Contributor's Details</b>
+					<b>Notification Table </b>
 				</h5>
 				<a class="minimize" href="#"> <i
 					class="mdi-navigation-expand-less"></i>
@@ -164,94 +179,124 @@
 			</div>
 			<div class="content">
 
+				<!-- Date -->
+				<div class="row blue-text txt-weight">
+					<div class="col s3 l3 ">
+						<h5>
+							<b>Select Period </b>
+						</h5>
+					</div>
+					<div class="col s3 l3 ">
+						<div class="input-field">
+							<input class="datepicker" id="From_date" type="date"> <label
+								for="From_date">Date From</label>
+						</div>
+					</div>
+					<div class="col s3 l3 ">
+						<div class="input-field">
+							<input class="datepicker" id="To_date" type="date"> <label
+								for="To_date">Date To</label>
+						</div>
+					</div>
+					<div class="col s3 l3 center">
+						<div class="btn-group">
+							<ul class="note">
+								<li class="success">
+									<button
+										class="white-text waves-effect btn btn-small waves-light tooltipped"
+										data-position="top" data-delay="50"
+										data-tooltip="Sort By Date" type="submit">Sort</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /Date -->
+
 				<!-- BEGIN DATATABLE 1 -->
 
 				<div class="row">
 					<div class="col l12">
 						<div class="table-responsive">
-							<table id="datatable1" class="table table-bordered">
-								<thead class="white-text blue">
+							<table id="datatable1" class="table table-bordered z-depth-1">
+								<thead class="txt-weight blue white-text ">
 									<tr>
 										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Select to Appriciate More"
-											style="width: 5%">Select</th>
+											data-delay="50" data-tooltip="Notified On" style="width: 5%">Date</th>
 										<th class="center tooltipped" data-position="top"
 											data-delay="50"
-											data-tooltip="Fellow Players contribution in Your SUCCESS">Contributor's
-											Details</th>
+											data-tooltip="Click to See the Complete Notification"
+											style="width: 15%">Title</th>
 										<th class="center tooltipped" data-position="top"
-											data-delay="50"
-											data-tooltip="Previously Expressed Appriciation">Appreciation
-											Expressed</th>
+											data-delay="50" data-tooltip="Alert Color" style="width: 15%">Alert
+											Type</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Notification Send Count"
+											style="width: 8%">Count</th>
 
 									</tr>
 								</thead>
-								<tbody class="centered">
+								<tbody class="txt-weight">
 									<tr>
-										<td class="center"><input type="checkbox" id="checkbox2">
-											<label for="checkbox2"></label></td>
+										<td class="center txt-weight">03/12/2015</td>
 										<td class="center">
-											<!-- Modal Trigger --> <a
-											class="waves-effect waves-light modal-trigger" href="#CID">Kaspers</a>
-
-											<!-- Modal Structure -->
-											<div id="CID" class="modal-fx blue white-text">
-												<h1>Contributor's Details</h1>
+											<!-- Modal Trigger --> <a class="modal-trigger" href="#title">Ex:
+												Pending clicks, Timely clicks etc </a> <!-- Modal Structure -->
+											<div id="title" class="modal-fx blue white-text lighten-1">
+												<h3>Notification Body</h3>
 												<hr class="white">
-												<div class="media">
-													<div class="media-body">
-														<h3 class="media-heading">Alies: Amit Kumar</h3>
-														<p></p>
-														<h4>Contributed: $150</h4>
-														<p></p>
-														<p></p>
-														<h4>Total Links Served: 100</h4>
-														<p></p>
-														<p></p>
-														<h4>Total Successful execution: 100%</h4>
-														<p></p>
-														<p></p>
-														<h4>
-															Appreciation Gained: 67 <em
-																class="fa fa-star fa-sm text-warning inbox-mail-starred yellow-text"></em>
-														</h4>
-														<p></p>
-														<p></p>
-													</div>
-												</div>
+												<u>Small Description</u>
+												<p>
+													<i>The Good</i> <br>The iPhone 6 delivers a spacious,
+													crisp 4.7-inch screen, improved wireless speeds, better
+													camera autofocus, and bumped-up storage capacities to 128GB
+													at the top end. iOS remains a top-notch mobile operating
+													system with an excellent app selection, and Apple Pay is a
+													smooth, secure payment system.
+												</p>
+												<p>
+													<i>The Bad</i> <br>Battery life isn't much better than
+													last year's iPhone 5S. An even larger screen could have
+													been squeezed into the same housing.
+												</p>
+												<p>
+													<i>The Bottom Line</i> <br>The iPhone 6 is an
+													exceptional phone in nearly every way except its average
+													battery life: it's thin and fast with a spacious screen and
+													the smoothest payment system we've seen. It's the best
+													overall phone of 2014.
+												</p>
 												<div class="action-bar">
 													<a href="#"
-														class="waves-effect waves-blue  white blue-text btn btn-small modal-action modal-close">OK
+														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
 														| GOT IT!</a>
 												</div>
 											</div>
 										</td>
-
-
-										<td class="center ">
-											<!-- Ratings with Stars -->
-											<div class="rating ">
-												<input type="radio" id="rating-star-5" name="rating-star"
-													value="5"> <label class="grey-l"
-													for="rating-star-5"><i
-													class="mdi mdi-action-star-rate waves-effect waves-light"></i></label>
-												<input type="radio" id="rating-star-4" name="rating-star"
-													value="4"> <label class="grey-l"
-													for="rating-star-4"><i
-													class="mdi mdi-action-star-rate waves-effect waves-light"></i></label>
-												<input type="radio" id="rating-star-3" name="rating-star"
-													value="3"> <label class="grey-l"
-													for="rating-star-3"><i
-													class="mdi mdi-action-star-rate waves-effect waves-light"></i></label>
-												<input type="radio" id="rating-star-2" name="rating-star"
-													value="2"> <label class="grey-l"
-													for="rating-star-2"><i
-													class="mdi mdi-action-star-rate waves-effect waves-light"></i></label>
-												<input type="radio" id="rating-star-1" name="rating-star"
-													value="1" checked> <label class="grey-l"
-													for="rating-star-1"><i
-													class="mdi mdi-action-star-rate waves-effect waves-light"></i></label>
-											</div> <!-- /Ratings with Stars -->
+										<td class="center">
+											<p class="txt-weight">Normal</p>
+											<p class="orange-text txt-weight">Warning</p>
+											<p class="green-text txt-weight">Success</p>
+											<p class="red-text txt-weight">Danger</p>
+										</td>
+										<td class="center">
+											<!-- Modal Trigger --> <a class="modal-trigger"
+											href="#E-mail">4 </a> <!-- Modal Structure -->
+											<div id="E-mail" class="modal-fx blue white-text lighten-1">
+												<h4>Notifications Received On</h4>
+												<hr class="white">
+												<ul>
+													<li style="font-size: 1.3em" class="center">01/05/2015</li>
+													<li style="font-size: 1.3em" class="center">05/05/2015</li>
+													<li style="font-size: 1.3em" class="center">07/05/2015</li>
+													<li style="font-size: 1.3em" class="center">10/05/2015</li>
+												</ul>
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-blue white blue-text btn-flat modal-action modal-close">OK
+														| GOT IT!</a>
+												</div>
+											</div>
 										</td>
 									</tr>
 								</tbody>
@@ -260,20 +305,6 @@
 						<!--end .table-responsive -->
 						<!-- Textarea with Icon -->
 						<!-- /Textarea with Icon -->
-						<div class="row">
-							<div class="col s12 l12">
-								<ul class="note">
-									<li class="success right">
-										<button class="btn waves-effect am waves-light tooltipped"
-											data-position="left" data-delay="50"
-											data-tooltip="Express More Appreciation To Selected Contributor (s)"
-											type="submit" name="action">
-											I Appreciate More <i class="fa fa-smile-o right"></i>
-										</button>
-									</li>
-								</ul>
-							</div>
-						</div>
 					</div>
 					<!--end .col -->
 				</div>
@@ -287,9 +318,13 @@
 		</div>
 		<!--end #content-->
 
+
+
+
+
+
 	</section>
 	<!-- /Main Content -->
-
 
 	<!-- Chat.chat-light - light color scheme-->
 	<div class="chat z-depth-4-hover">
@@ -436,11 +471,16 @@
 	<!-- /Chat -->
 
 
+
 	<footer class="z-depth-3">
 		<i class="fa fa-copyright"></i> 2015 <strong>ProMaGizmo | PMG</strong>.
 		All rights reserved.
 	</footer>
+	<!-- DEMO [REMOVE IT ON PRODUCTION] -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/pmg/js/_demo.js"></script>
 
+	<!-- build:js ../../assets/core/js/script.js -->
 	<!-- jQuery -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/jquery/jquery.min.js"></script>
@@ -457,21 +497,50 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/materialize/js/materialize.min.js"></script>
 
-	<!-- Data table-->
-	<script
-		src="${pageContext.request.contextPath}/static/assets/core/DataTables/DemoTableDynamic.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/assets/core/dataTables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/assets/core/dataTables/js/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+	<!-- Simple Weather -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/simpleWeather/jquery.simpleWeather.min.js"></script>
+
+	<!-- Sparkline -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/sparkline/jquery.sparkline.min.js"></script>
+
+	<!-- Flot -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/flot/jquery.flot.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/flot/jquery.flot.time.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/flot/jquery.flot.pie.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/flot/jquery.flot.tooltip.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/flot/jquery.flot.categories.min.js"></script>
+
+	<!-- d3 -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/d3/d3.min.js"></script>
+
+	<!-- nvd3 -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/nvd3/nv.d3.min.js"></script>
+
+	<!-- Rickshaw -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/rickshaw/rickshaw.min.js"></script>
+
+	<!-- Google Prettify -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/google-code-prettify/prettify.js"></script>
+
+	<!-- Sortable -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/sortable/Sortable.min.js"></script>
 
 	<!-- Main -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/pmg/js/pmg.min.js"></script>
-
-	<!--News-->
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/static/assets/news/jquery.newsTicker.js"></script>
+	<!-- endbuild -->
 
 	<!--Alert-->
 	<script type="text/javascript"
@@ -480,40 +549,43 @@
 	<!--On top-->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
-	<script>
 
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  '../.././music/ding.mp3'
-            });
 
-			// Appriciate More
-			document.querySelector('ul.note li.success button.am').onclick = function(){
-		swal({ 
-		title:  "Great Job Username",
-		text: "Successfully Appriciated !!!",
-		timer: 3000,
-		type: "success",
-		showConfirmButton: false
-		
-	});
-};
-        </script>
+	<!--News-->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/news/jquery.newsTicker.js"></script>
+
+	<!-- MarkItUp -->
+	<script
+		src="${pageContext.request.contextPath}/static/assets/core/markitup/sets/default/set.js"
+		type="text/javascript"></script>
+	<link
+		href="${pageContext.request.contextPath}/static/assets/core/markitup/skins/pmg/style.css"
+		rel="stylesheet" type="text/css" />
+	<link
+		href="${pageContext.request.contextPath}/static/assets/core/markitup/sets/default/style.css"
+		rel="stylesheet" type="text/css" />
+
 	<script>
-    		
-    		$(window).load(function(){
-	            $('code.language-javascript').mCustomScrollbar();
-	        });
-            var nt_title = $('#nt-title').newsTicker({
-                row_height: 40,
-                max_rows: 1,
-                duration: 3000,
-                pauseOnHover: 1
-            });
-        </script>
+		// elevator.
+		var elementButton = document.querySelector('footer');
+		var elevator = new Elevator({
+			element : elementButton,
+			mainAudio : '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
+			endAudio : '../.././music/ding.mp3'
+		});
+	</script>
+	<script>
+		$(window).load(function() {
+			$('code.language-javascript').mCustomScrollbar();
+		});
+		var nt_title = $('#nt-title').newsTicker({
+			row_height : 40,
+			max_rows : 1,
+			duration : 3000,
+			pauseOnHover : 1
+		});
+	</script>
 
 </body>
 

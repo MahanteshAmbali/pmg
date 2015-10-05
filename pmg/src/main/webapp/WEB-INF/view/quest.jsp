@@ -83,36 +83,36 @@
 			</div>
 		</div>
 	</div>
-		<!-- END wrapper-->
-		<!-- START Scripts-->
+	<!-- END wrapper-->
+	<!-- START Scripts-->
 
-		<!-- Main vendor Scripts-->
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-		<!-- Plugins-->
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/chosen/chosen.jquery.min.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/slider/js/bootstrap-slider.js"></script>
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/filestyle/bootstrap-filestyle.min.js"></script>
-		<!-- Animo-->
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/animo/animo.min.js"></script>
-		<!-- Sparklines-->
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/sparklines/jquery.sparkline.min.js"></script>
-		<!-- Slimscroll-->
-		<script
-			src="${pageContext.request.contextPath}/static/vendor/slimscroll/jquery.slimscroll.min.js"></script>
-		<!-- START Page Custom Script-->
-		<!-- END Page Custom Script-->
-		<!-- App Main-->
-		<script src="${pageContext.request.contextPath}/static/app/js/app.js"></script>
-		<!-- END Scripts-->
-		<script type="text/javascript">
+	<!-- Main vendor Scripts-->
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Plugins-->
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/chosen/chosen.jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/slider/js/bootstrap-slider.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/filestyle/bootstrap-filestyle.min.js"></script>
+	<!-- Animo-->
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/animo/animo.min.js"></script>
+	<!-- Sparklines-->
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/sparklines/jquery.sparkline.min.js"></script>
+	<!-- Slimscroll-->
+	<script
+		src="${pageContext.request.contextPath}/static/vendor/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- START Page Custom Script-->
+	<!-- END Page Custom Script-->
+	<!-- App Main-->
+	<script src="${pageContext.request.contextPath}/static/app/js/app.js"></script>
+	<!-- END Scripts-->
+	<script type="text/javascript">
 			function addRows() {
 				// To Do This function need to be merged with linkverifier Page	
 

@@ -122,7 +122,7 @@
 				<!-- Sidebar toggle -->
 			</div>
 		</div>
-		<jsp:include page="left_menu.jsp"/>
+		<jsp:include page="left_menu.jsp" />
 	</aside>
 	<!-- /Yay Sidebar -->
 
@@ -205,7 +205,7 @@
 		</div>
 
 		<!--LB-->
-		<form action="linkbroadcaster?generateLID=false" method="post" >
+		<form action="linkbroadcaster?generateLID=false" method="post">
 			<div class="card z-depth-2 col l12 m8 s6">
 				<div class="title blue white-text z-depth-1">
 					<h5>
@@ -243,31 +243,28 @@
 							<c:forEach items="${linkLists}" var="link">
 								<tr>
 									<td class="center">1</td>
-									<td class="center">
-										<c:if test="${link.lid !=null }">
+									<td class="center"><c:if test="${link.lid !=null }">
 											<c:out value="${link.lid}" />
-											<input type="hidden" value="${link.lid}" name="lid"/>
-										</c:if>
-									</td>
-									<td class="center">
-										<c:if test="${link.url !=null }">
-											<c:out value="${link.url}" />
-											<input type="hidden" value="${link.url}" name="adurl"/>
-										</c:if>
-									</td>
-									<td><div class="input-field">
-											<input id="input_text" type="text" name="keyword" class="validate">
-											<label for="input_text">Relevant Keyword</label>
-										</div></td>
-									<td class="center"><c:if test="${link.creationTime !=null }">
-											<c:out value="${link.creationTime}" />
-											<input type="hidden" value="${link.creationTime}" name="ctime"/>
+											<input type="hidden" value="${link.lid}" name="lid" />
 										</c:if></td>
-									<td class="center">
-										<input class="check check-blue" type="checkbox" id="checkbox1" /> 
-										<label class="check check-blue" for="checkbox1"> </label>
-									
-									</td>
+									<td class="center"><c:if test="${link.url !=null }">
+											<c:out value="${link.url}" />
+											<input type="hidden" value="${link.url}" name="adurl" />
+										</c:if></td>
+									<td><div class="input-field">
+											<input id="input_text" type="text" name="keyword"
+												class="validate"> <label for="input_text">Relevant
+												Keyword</label>
+										</div></td>
+									<td class="center"><c:if
+											test="${link.creationTime !=null }">
+											<c:out value="${link.creationTime}" />
+											<input type="hidden" value="${link.creationTime}"
+												name="ctime" />
+										</c:if></td>
+									<td class="center"><input class="check check-blue"
+										type="checkbox" id="checkbox1" /> <label
+										class="check check-blue" for="checkbox1"> </label></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -296,17 +293,16 @@
 
 						<div class="col s6 l6">
 							<ul class="note">
-								<li class="warning confirm right">
-								<input type="submit" class="btn waves-effect lb waves-light tooltipped"
-										data-position="left" data-delay="50"
-										data-tooltip="Broadcast My Selected Link to Other Players" value="Begin Broadcaster" />
-									<!-- <button class="btn waves-effect lb waves-light tooltipped"
+								<li class="warning confirm right"><input type="submit"
+									class="btn waves-effect lb waves-light tooltipped"
+									data-position="left" data-delay="50"
+									data-tooltip="Broadcast My Selected Link to Other Players"
+									value="Begin Broadcaster" /> <!-- <button class="btn waves-effect lb waves-light tooltipped"
 										data-position="left" data-delay="50"
 										data-tooltip="Broadcast My Selected Link to Other Players"
 										type="submit">
 										Begin Broadcasting <i class="fa fa-bullhorn right"></i>
-									</button> -->
-								</li>
+									</button> --></li>
 							</ul>
 						</div>
 					</div>

@@ -102,9 +102,9 @@
 						class="mdi-navigation-expand-more right"></i>
 				</a>
 					<ul id="user-dropdown" class="dropdown-content">
-						<li id="step3"><a href="profile.html"><i
+						<li id="step3"><a href="profile"><i
 								class="fa fa-user"></i> Profile</a></li>
-						<li><a href="notify.html"><i class="fa fa-envelope"></i>
+						<li><a href="notify"><i class="fa fa-envelope"></i>
 								Notification <span class="badge new">2</span></a></li>
 						<li><a href="account-setup.html"><i class="fa fa-cogs"></i>
 								Settings</a></li>

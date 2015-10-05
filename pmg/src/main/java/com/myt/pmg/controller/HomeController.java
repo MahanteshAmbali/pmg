@@ -20,23 +20,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.myt.pmg.chat.XmppManager;
 import com.myt.pmg.common.UtilFunction;
 import com.myt.pmg.dto.ContributorData;
+import com.myt.pmg.model.Account;
 import com.myt.pmg.model.FAQ;
 import com.myt.pmg.model.Ip;
 import com.myt.pmg.model.User;
+import com.myt.pmg.service.AccountService;
 import com.myt.pmg.service.FaqService;
 import com.myt.pmg.service.IpService;
 import com.myt.pmg.service.UserService;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_USER')")
 public class HomeController {
 	static final Logger logger = Logger.getLogger(HomeController.class);
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
-	public IpService ipService;
+	private IpService ipService;
+
+	@Autowired
+	private AccountService accountService;
 
 	private XmppManager xmppManager;
 
@@ -68,6 +72,11 @@ public class HomeController {
 		if (session.getAttribute(SESSION_OBJ) == null) {
 			UtilFunction.setCurrentUser(session, user);
 			String ipAddress = request.getHeader("X-FORWARDED-FOR");
+			Account account = new Account();
+			if (accountService.findByUserEmail(user.getEmail()) != null) {
+				account.setUserEmail(user.getEmail());
+				accountService.saveAccount(account);
+			}
 			if (ipAddress == null) {
 				ipAddress = request.getRemoteAddr();
 			}
@@ -78,6 +87,7 @@ public class HomeController {
 				ip.setIp(ipAddress);
 				ip.setUserid(user.getId());
 				ipService.saveIp(ip);
+
 			} else {
 				ip1.setAccessTime(new Date());
 				ipService.updateIp(ip1);

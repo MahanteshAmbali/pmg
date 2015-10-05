@@ -135,10 +135,19 @@
 		<security:intercept-url pattern="/notificationmessage"
 			access="hasRole('ROLE_USER')" />
 			
+		<security:intercept-url pattern="/notify"
+			access="hasRole('ROLE_USER')" />
+			
 			<security:intercept-url pattern="/account"
 			access="hasRole('ROLE_USER')" />
 			
 			<security:intercept-url pattern="/accountsetup"
+			access="hasRole('ROLE_USER')" />
+			
+				<security:intercept-url pattern="/luv"
+			access="hasRole('ROLE_USER')" />
+			
+				<security:intercept-url pattern="/complaints"
 			access="hasRole('ROLE_USER')" />
 
 		<security:intercept-url pattern="/**" access="denyAll" />

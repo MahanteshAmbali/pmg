@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>  <html class="lt-ie7"> <![endif]-->
 <!--[if IE 7]>     <html class="lt-ie8"> <![endif]-->
@@ -18,18 +20,15 @@
 	href="${pageContext.request.contextPath}/static/fonts/Chant/chant.css"
 	charset="utf-8" />
 
-<!-- nanoScroller -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/assets/core/nanoScroller/nanoscroller.css" />
-
 <!--Alert-->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/alert/alert.css" />
 
-<!--Multibar-->
-<link rel="stylesheet" type="text/css" href="multipbar.css" />
+<!-- nanoScroller -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/nanoScroller/nanoscroller.css" />
 
 <!-- FontAwesome -->
 <link rel="stylesheet" type="text/css"
@@ -43,12 +42,17 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
 
+<!--jQuery Vdo and Audio Player-->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/assets/core/jplayer/skin/blue.monday/jplayer.blue.monday.css">
+
 <!-- Data table-->
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/assets/core/DataTables/jquery.dataTables.css" />
 <link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/assets/core/DataTables/extensions/dataTables.colVis.css" />
+<link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/assets/core/DataTables/extensions/dataTables.tableTools.css" />
-
 <!-- Main -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/pmg/css/pmg.css" />
@@ -78,31 +82,28 @@
 
 			<!-- Menu -->
 			<ul>
-				<li class="waves-effect waves-light"><a>Bolt &ensp; 67 <i
-						class="fa fa-star yellow-text"></i></a></li>
-				<li class="waves-effect waves-light"><a class="tooltipped"
+				<li><a href="#!"
+					class="search-bar-toggle waves-effect waves-ripple modal-trigger tooltipped"
 					data-position="buttom" data-delay="50"
 					data-tooltip="Notification / Messages"><i class="fa fa-bell"></i><sup
 						class="badge red white-text">1</sup></a></li>
-				<li class="user"><a id="step4" class="dropdown-button"
-					href="#!" data-activates="user-dropdown"> <img
+				<li class="user waves-effect waves-ripple"><a id="step4"
+					class="dropdown-button" href="#!" data-activates="user-dropdown">
+						<img
 						src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-						alt="John Doe" class="circle">John Doe<i
+						alt="Master" class="circle">Master<i
 						class="mdi-navigation-expand-more right"></i>
 				</a>
 					<ul id="user-dropdown" class="dropdown-content">
-						<li id="step3"><a href="profile.html"><i
-								class="fa fa-user"></i> Profile</a></li>
-						<li><a href="notify.html"><i class="fa fa-envelope"></i>
-								Notification <span class="badge new">2</span></a></li>
-						<li><a href="account-setup.html"><i class="fa fa-cogs"></i>
+						<li class=" blk waves-effect waves-blue"><a
+							href="PMG-settings.html"><i class="fa fa-cogs"></i>&ensp; PMG
 								Settings</a></li>
-						<li><a href="lock.html"><i class="mdi mdi-action-lock"></i>
-								Lock Account</a></li>
+						<li class=" blk waves-effect waves-blue"><a href="lock.html"><i
+								class="mdi mdi-action-lock"></i>&ensp; Lock Account</a></li>
 						<li class="divider"></li>
-						<li><a
+						<li class=" blk waves-effect waves-blue"><a
 							href="${pageContext.request.contextPath}/static/sign-in.html"><i
-								class="mdi-action-settings-power"></i> Logout</a></li>
+								class="mdi-action-settings-power"></i>&ensp; Logout</a></li>
 					</ul></li>
 			</ul>
 			<!-- /Menu -->
@@ -124,7 +125,6 @@
 			</div>
 		</div>
 		<jsp:include page="left_menu.jsp" />
-
 	</aside>
 	<!-- /Yay Sidebar -->
 
@@ -132,17 +132,6 @@
 	<section class="content-wrap">
 		<!-- Breadcrumb -->
 		<div class="page-title z-depth-1">
-			<div id="nt-title-container">
-				<ul id="nt-title">
-					<li>A powerful, flexible and animated vertical news ticker
-						plugin.</li>
-					<li>Provides hight flexibility thanks to numerous callbacks &
-						methods.</li>
-					<li>Fully customizable to every kind of vertical scrolling
-						need.</li>
-					<li>Light-weight and optimized JQuery plugin.</li>
-				</ul>
-			</div>
 			<div class="col s12 m3 l2 right-align">
 				<a
 					class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"
@@ -152,132 +141,397 @@
 			</div>
 		</div>
 		<!-- /Breadcrumb -->
+
 		<div class="card  z-depth-2 col s12">
-			<div class="title blue lighten-1 white-text card-header z-depth-1">
+			<div class="title card-header blue white-text z-depth-1">
 				<h5>
-					<b>Player's Link Uniqueness Value</b>
+					<b>Complaints--Report--Abuse</b>
 				</h5>
 				<a class="minimize" href="#"> <i
 					class="mdi-navigation-expand-less"></i>
 				</a>
 			</div>
 			<div class="content">
+
+				<!-- Dropdown Trigger -->
 				<div class="row">
-					<div class="col s3 l3 order-status-select">
+					<div class="col s6 l6 order-status-select">
 						<h5>
-							<b>Disable Links </b>
-						</h5>
-					</div>
-					<div class="col s3 l3 order-status-select">
-						<h5>
-							<b>Reach More Than </b>
+							<b>Complaint Status </b>
 						</h5>
 						<select name="order-status">
-							<option value="none" selected>None</option>
-							<option value="60">60 % LUV</option>
-							<option value="70">70 % LUV</option>
-							<option value="80">80 % LUV</option>
+							<option value="All" selected>All</option>
+							<option value="Online">Open</option>
+							<option value="Accept">Accepted</option>
+							<option value="Reject">Rejected</option>
 						</select>
-					</div>
-					<div class="col s3 l3 order-status-select">
-						<h5>
-							<b>Duration (No. Days) </b>
-						</h5>
-						<p class="range-field">
-							<input type="range" min="7" max="30" value="7" />
-						</p>
-					</div>
-					<div class="col s3 l3">
-
-						<ul class="note">
-							<li class="warning confirm right">
-								<button
-									class="btn btn-small waves-effect waves-light luv white-text blue tooltipped"
-									data-position="left" data-delay="50"
-									data-tooltip="Disable Links With Poor LUV" type="submit"
-									name="action">
-									Disable Link <i class="fa fa-bomb right"></i>
-								</button>
-							</li>
-						</ul>
 					</div>
 
 				</div>
-				<hr class="line">
+
+
+
+
 				<!-- BEGIN DATATABLE 1 -->
 
 				<div class="row">
 					<div class="col l12">
 						<div class="table-responsive">
 							<table id="datatable1" class="table table-bordered">
-								<thead class="blue lighten-1 white-text">
+								<thead class="blue white-text">
 									<tr>
-										<th class="center" style="width: 15%">Submission Date</th>
-										<th class="center">Money URLs</th>
-										<th class="center" style="width: 12%">Total Clicks</th>
-										<th class="center" style="width: 7%">Days</th>
-										<th class="center" style="width: 10%">Uniq Users</th>
-										<th class="center">LUV</th>
-										<th class="center" style="width: 5%">Status</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Reporting Date"
+											style="width: 15%" style="width: 5%">Reporting Date</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Abuser ID" style="width: 25%">A-Hole's
+											ID</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Victim's ID" style="width: 15%"
+											style="width: 12%">Victim's ID</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Victim's Link ID"
+											style="width: 15%" style="width: 7%">Victim's LID</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Complaint (reason)"
+											style="width: 15%" style="width: 5%">Complaint ID</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Video Evidence"
+											style="width: 15%" style="width: 5%">Evidence</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Reply To Victim"
+											style="width: 15%" style="width: 5%">Acknowledge</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Action Taken"
+											style="width: 15%" style="width: 5%">Action</th>
+										<th class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Guilty A-Hole's Account Ban"
+											style="width: 15%">Account Ban</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td>01/02/2015</td>
-										<td>http://abc.com/xzy</td>
-										<td class="center">500</td>
-										<td class="center">10</td>
-										<td class="center">30</td>
-										<td class="text-center">
-											<p style="width: 40%" data-value="40">0%</p> <progress
-												max="100" value="40" class="python">
-												<div class="progress-bar">
-													<span style="width: 20%">40%</span>
+										<td class="center">03/03/2015</td>
+										<td class="center">
+											<!-- Modal Trigger --> <a class="modal-trigger"
+											href="#kaspers">Kaspers</a> <!-- Modal Structure -->
+											<div id="kaspers" class="modal-fx blue white-text">
+												<h1>A-Hole's Overview</h1>
+												<hr class="white">
+												<div class="media">
+													<div class="media-body">
+														<h3 class="media-heading">Name: Amit Kumar</h3>
+														<p></p>
+														<h4>Email: amit.kumar@gmail.com</h4>
+														<p></p>
+														<p></p>
+														<h4>Joining Date: 01/04/2015</h4>
+														<p></p>
+														<p></p>
+														<h4>Total EST Earnings: $250</h4>
+														<p></p>
+														<p></p>
+														<h4>Rank: Bolt</h4>
+														<p></p>
+														<p></p>
+														<h4>TTI: 50Hrs.</h4>
+														<p></p>
+														<p></p>
+														<h4>
+															Appreciation Gained: 67 <em
+																class="fa fa-star fa-sm yellow-text text-warning inbox-mail-starred"></em>
+														</h4>
+														<p></p>
+														<p></p>
+														<h4>Total No. Complaints: 47</h4>
+														<p></p>
+														<p></p>
+														<h4>Complaints Rejected: 7</h4>
+														<p></p>
+													</div>
 												</div>
-											</progress>
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
+														| GOT IT!</a>
+												</div>
+											</div>
 										</td>
-										<td class="text-center">
-											<p class="switch">
-												<label> <input type="checkbox" checked=""> <span
-													class="lever"></span>
-												</label>
-											</p>
+										<td class="center">
+											<!-- Modal Trigger --> <a class="modal-trigger"
+											href="#Alanwatts">Alanwatts</a> <!-- Modal Structure -->
+											<div id="Alanwatts" class="modal-fx blue white-text">
+												<h1>Victim's Overview</h1>
+												<hr class="white">
+												<div class="media">
+													<div class="media-body">
+														<h3 class="media-heading">Name: Alan Watts</h3>
+														<p></p>
+														<h4>Email: Alan.watts@gmail.com</h4>
+														<p></p>
+														<p></p>
+														<h4>Joining Date: 05/03/2015</h4>
+														<p></p>
+														<p></p>
+														<h4>Total EST Earnings: $150</h4>
+														<p></p>
+														<p></p>
+														<h4>Rank: rabbit</h4>
+														<p></p>
+														<p></p>
+														<h4>TTI: 40Hrs.</h4>
+														<p></p>
+														<p></p>
+														<h4>
+															Appreciation Gained: 47 <em
+																class="fa fa-star fa-sm yellow-text text-warning inbox-mail-starred"></em>
+														</h4>
+														<p></p>
+														<p></p>
+														<h4>Total No. Complaints: 37</h4>
+														<p></p>
+														<p></p>
+														<h4>Complaints Rejected: 8</h4>
+														<p></p>
+													</div>
+												</div>
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
+														| GOT IT!</a>
+												</div>
+											</div>
+										</td>
+
+
+										<td class="center">
+											<!-- Modal Trigger --> <a class="modal-trigger"
+											href="#Victim-URL">#453615</a> <!-- Modal Structure -->
+											<div id="Victim-URL" class="modal-f blue white-text">
+												<h2>Victim's URL</h2>
+												<hr class="white">
+												<ul>
+													<li style="font-size: 1.3em" class="center">http://www.alan.com/health-tips/weight-loss-program.php</li>
+												</ul>
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
+														| GOT IT!</a>
+												</div>
+											</div>
+										</td>
+										<td class="center">
+											<!-- Modal Trigger --> <a class="modal-trigger"
+											href="#complaintID">#653215</a> <!-- Modal Structure -->
+											<div id="complaintID" class="modal-f blue white-text">
+												<h2>Complaint Detail</h2>
+												<hr class="white">
+												<ul>
+													<li class="center">Voilation of Rule of Enagement buy
+														user:kaspers. The user spent less than 2mins on my link
+														before clicking on ad link</li>
+												</ul>
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
+														| GOT IT!</a>
+												</div>
+											</div>
+
+										</td>
+
+
+
+										<td class="center">
+											<!-- Modal Trigger --> <a class="modal-trigger"
+											href="#pending-clicks"><i
+												class="icon mdi-av-play-circle-outline fsize"></i></a> <!-- Modal Structure -->
+											<div id="pending-clicks" class="modal blue white-text">
+												<h3>Play The Evidence</h3>
+												<hr class="white">
+												<!--video Players-->
+												<div class="row">
+													<div class="col l12">
+														<div id="jppmgtainer_1"
+															class="jp-video jp-video-360p z-depth-2">
+															<div class="jp-type-single">
+																<div id="jquery_jplayer_1" class="jp-jplayer"
+																	style="width: 100%; height: 260px;">
+																	<img id="jp_poster_0"
+																		style="width: 100%; height: 260px; display: none;">
+																	<object id="jp_flash_0" name="jp_flash_0"
+																		data="js/jplayer/js/Jplayer.swf"
+																		type="application/x-shockwave-flash" width="1"
+																		height="1" tabindex="-1">
+																		<param name="flashvars"
+																			value="jQuery=jQuery&amp;id=jquery_jplayer_1&amp;vol=0.8&amp;muted=false">
+																		<param name="allowscriptaccess" value="always">
+																		<param name="bgcolor" value="#000000">
+																		<param name="wmode" value="opaque">
+																	</object>
+																</div>
+																<div class="jp-gui">
+																	<div class="jp-video-play" style="display: none;">
+																		<a href="javascript:;" class="jp-video-play-icon"
+																			tabindex="1">play</a>
+																	</div>
+																	<div class="jp-interface">
+																		<div class="jp-progress">
+																			<div class="jp-seek-bar" style="width: 0%;">
+																				<div class="jp-play-bar" style="width: 0%;"></div>
+																			</div>
+																		</div>
+																		<div class="jp-current-time">00:00</div>
+																		<div class="jp-duration">00:00</div>
+																		<div class="jp-controls-holder">
+																			<ul class="jp-controls">
+																				<li><a href="javascript:;" class="jp-play"
+																					tabindex="1">play</a></li>
+																				<li><a href="javascript:;" class="jp-pause"
+																					tabindex="1" style="display: none;">pause</a></li>
+																				<li><a href="javascript:;" class="jp-stop"
+																					tabindex="1">stop</a></li>
+																				<li><a href="javascript:;" class="jp-mute"
+																					tabindex="1" title="mute">mute</a></li>
+																				<li><a href="javascript:;" class="jp-unmute"
+																					tabindex="1" title="unmute" style="display: none;">unmute</a></li>
+																				<li><a href="javascript:;"
+																					class="jp-volume-max" tabindex="1"
+																					title="max volume">max volume</a></li>
+																			</ul>
+																			<div class="jp-volume-bar">
+																				<div class="jp-volume-bar-value" style="width: 80%;">
+																				</div>
+																			</div>
+																			<ul class="jp-toggles">
+																				<li><a href="javascript:;"
+																					class="jp-full-screen" tabindex="1"
+																					title="full screen">full screen</a></li>
+																				<li><a href="javascript:;"
+																					class="jp-restore-screen" tabindex="1"
+																					title="restore screen" style="display: none;">restore
+																						screen</a></li>
+																				<li><a href="javascript:;" class="jp-repeat"
+																					tabindex="1" title="repeat">repeat</a></li>
+																				<li><a href="javascript:;"
+																					class="jp-repeat-off" tabindex="1"
+																					title="repeat off" style="display: none;">repeat
+																						off</a></li>
+																			</ul>
+																		</div>
+																	</div>
+																</div>
+																<div class="jp-no-solution" style="display: none;">
+																	<span>Update Required</span> To play the media you will
+																	need to either update your browser to a recent version
+																	or update your <a
+																		href="http://get.adobe.com/flashplayer/"
+																		target="_blank">Flash plugin</a>.
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+												<!--/video Players-->
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK!
+														| GOT TI</a>
+													<!--After Clicking the button it does as it suggest and also should send Urgent notification saying he/she will neither recieve nor his/her links will be broadcasted to the PMG community until pending links are clicked  -->
+
+												</div>
+
+											</div>
+											</div>
+											</div>
+
+										</td>
+
+
+
+
+										<td><input class="d-green" name="radios1" type="radio"
+											id="Accept" /> <label for="Accept"
+											class="tooltipped green-text" data-position="left"
+											data-delay="50" data-tooltip="Accepted"> Accept</label> <input
+											class="d-red" name="radios1" type="radio" id="Reject" /> <label
+											for="Reject" class="tooltipped red-text" data-position="left"
+											data-delay="50" data-tooltip="Rejected"> Reject</label></td>
+
+										<td class="center">
+											<!-- Modal Trigger --> <a
+											class="waves-effect waves-light modal-trigger" href="#WSB">W/B
+										</a> <!-- Modal Structure -->
+											<div id="WSB" class="modal-fx white blue-text">
+												<h2>Action Taken</h2>
+												<hr class="line">
+
+												<table class="table centered flat white blue-text">
+													<thead>
+														<tr style="border-color: #fff;">
+															<th>Warning I</th>
+															<th class="orange-text">Warning II</th>
+															<th class="red-text">Final-Warning</th>
+
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th class="center"><input type="checkbox"
+																id="warning"> <label
+																style="border: 1px solid: #FD5959;" for="warning"></label>
+															</th>
+															<th class="center"><input type="checkbox"
+																id="warning1"> <label for="warning1"></label></th>
+															<th class="center"><input type="checkbox"
+																id="warning2"> <label for="warning2"></label></th>
+														</tr>
+													</tbody>
+												</table>
+												<div class="action-bar">
+													<a href="#"
+														class="waves-effect waves-light blue white-text btn btn-small modal-action modal-close">OK
+														| GOT IT!</a>
+												</div>
+											</div>
+										</td>
+
+
+										<td class="center tooltipped" data-position="top"
+											data-delay="50" data-tooltip="Check to Blacklist Account">
+											<input type="checkbox" id="checkbox1"> <label
+											for="checkbox1"></label>
 										</td>
 									</tr>
-									<tr>
-										<td>01/02/2015</td>
-										<td>http://abc.com/xzy</td>
-										<td class="center">600</td>
-										<td class="center">20</td>
-										<td class="center">60</td>
-										<td class="text-center">
-											<p style="width: 80%" data-value="80">0%</p> <progress
-												max="100" value="80" class="python">
-												<div class="progress-bar">
-													<span style="width: 20%">80%</span>
-												</div>
-											</progress>
-										</td>
-
-
-										<td class="text-center">
-											<p class="switch">
-												<label> <input type="checkbox" checked=""> <span
-													class="lever"></span>
-												</label>
-											</p>
-										</td>
-									</tr>
-
 								</tbody>
 							</table>
 						</div>
 						<!--end .table-responsive -->
+						<!-- Textarea with Icon -->
+						<!-- /Textarea with Icon -->
+
+						<div class="row">
+
+
+							<div class="col s12 l12">
+								<ul class="note">
+									<li class="warning confirm right">
+										<button class="btn waves-effect waves-light ban  tooltipped"
+											data-position="top" data-delay="50"
+											data-tooltip="Bann Selected Users" type="submit"
+											name="action">
+											Bann <i class="fa fa-ban right"></i>
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 					<!--end .col -->
 				</div>
 				<!--end .row -->
-				<!-- END DATATABLE 1 -->
 
 
 
@@ -557,8 +811,7 @@
 
 
 	<footer class="z-depth-3">
-		<i class="fa fa-copyright"></i> 2015 <strong>ProMaGizmo | PMG</strong>.
-		All rights reserved.
+		&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.
 	</footer>
 	<!-- DEMO [REMOVE IT ON PRODUCTION] -->
 	<script type="text/javascript"
@@ -589,11 +842,6 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/sparkline/jquery.sparkline.min.js"></script>
 
-
-	<!--News-->
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/static/assets/news/jquery.newsTicker.js"></script>
-
 	<!-- Flot -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/flot/jquery.flot.min.js"></script>
@@ -619,10 +867,13 @@
 		src="${pageContext.request.contextPath}/static/assets/core/rickshaw/rickshaw.min.js"></script>
 
 	<!-- Data table-->
+
 	<script
 		src="${pageContext.request.contextPath}/static/assets/core/DataTables/DemoTableDynamic.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/assets/core/DataTables/js/jquery.dataTables.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/assets/core/DataTables/js/extensions/ColVis/js/dataTables.colVis.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/assets/core/DataTables/js/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 
@@ -639,6 +890,13 @@
 		src="${pageContext.request.contextPath}/static/assets/core/pmg/js/pmg.min.js"></script>
 	<!-- endbuild -->
 
+	<!-- jQuery audio VDO player  -->
+
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/jplayer/js/jquery.jplayer.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/assets/core/jplayer/jplayer.init.js"></script>
+
 	<!--Alert-->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/alert/sweetalert.min.js"></script>
@@ -646,7 +904,6 @@
 	<!--On top-->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
-
 
 	<!-- MarkItUp -->
 	<script
@@ -659,6 +916,7 @@
 		href="${pageContext.request.contextPath}/static/assets/core/markitup/sets/default/style.css"
 		rel="stylesheet" type="text/css" />
 	<script>
+
             // elevator.
             var elementButton = document.querySelector('footer');
             var elevator = new Elevator({
@@ -666,10 +924,11 @@
                 mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
                 endAudio:  '../.././music/ding.mp3'
             });
-			// LUV
-document.querySelector('ul.note li.warning.confirm button.luv').onclick = function(){
+			
+				// ban
+document.querySelector('ul.note li.warning.confirm button.ban').onclick = function(){
 	swal({
-		title: "Are you sure Username?",
+		title: "Are you sure Master?",
 		text: "Cancel & Recheck If Not Sure!",
 		type: "warning",
 		showCancelButton: true,
@@ -678,21 +937,10 @@ document.querySelector('ul.note li.warning.confirm button.luv').onclick = functi
 		closeOnConfirm: false
 	},
 	function(){
-		swal("Disabled!", "Links With Poor LUV are STOPPED!", "success");
+		swal("Banned!", "The User has been Banned successfully!", "success");
 	});
 };
-  </script>
-	<script>
-    		
-    		$(window).load(function(){
-	            $('code.language-javascript').mCustomScrollbar();
-	        });
-            var nt_title = $('#nt-title').newsTicker({
-                row_height: 40,
-                max_rows: 1,
-                duration: 3000,
-                pauseOnHover: 1
-            });
+
         </script>
 
 </body>

@@ -64,7 +64,7 @@ public class AccountController {
 		}
 		account.setUserEmail(user.getEmail());
 		String uid = accountService.addAccount(account);
-		System.out.println("*******Account Created for User");
+		System.out.println("*******Account Created for User" + uid);
 
 		return "account";
 	}

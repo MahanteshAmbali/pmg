@@ -23,9 +23,10 @@ public class LoginService implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String email)
 			throws UsernameNotFoundException {
-		if(email==null) return null;
+		if (email == null)
+			return null;
 		com.myt.pmg.model.User user = userService.findByEmail(email);
-		
+
 		if (user == null)
 			throw new UsernameNotFoundException("Oops!");
 
@@ -33,10 +34,10 @@ public class LoginService implements UserDetailsService {
 		for (String role : user.getRole()) {
 			authorities.add(new SimpleGrantedAuthority(role));
 		}
-		
+
 		return new User(user.getUsername(), user.getPassword(),
-				user.isActive(), (!user.isBanned()), true, true, authorities);
-		
+				user.isActive(), !user.isBanned(), true, true, authorities);
+
 	}
 
 }
