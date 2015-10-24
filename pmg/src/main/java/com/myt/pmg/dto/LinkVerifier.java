@@ -6,16 +6,16 @@ public class LinkVerifier {
 
 	private String userName;
 	private String url;
-	private String adUrl;
+	private String domain;
 	private String linkId;
 	private String proofFileName;
 	private Date submissionDate;
 
-	public LinkVerifier(String userName, String url, String adUrl,
+	public LinkVerifier(String userName, String url, String domain,
 			String linkId, String proofFileName, Date submissionDate) {
 		this.userName = userName;
 		this.url = url;
-		this.adUrl = adUrl;
+		this.domain = domain;
 		this.linkId = linkId;
 		this.proofFileName = proofFileName;
 		this.submissionDate = submissionDate;
@@ -37,13 +37,6 @@ public class LinkVerifier {
 		this.url = url;
 	}
 
-	public String getAdUrl() {
-		return adUrl;
-	}
-
-	public void setAdUrl(String adUrl) {
-		this.adUrl = adUrl;
-	}
 
 	public String getLinkId() {
 		return linkId;
@@ -72,9 +65,23 @@ public class LinkVerifier {
 	@Override
 	public String toString() {
 		return "LinkVerifier [userName=" + userName + ", url=" + url
-				+ ", adUrl=" + adUrl + ", linkId=" + linkId
+				+ ", domain=" + getDomain() + ", linkId=" + linkId
 				+ ", proofFileName=" + proofFileName + ", submissionDate="
 				+ submissionDate + "]";
+	}
+
+	/**
+	 * @return the domain
+	 */
+	public String getDomain() {
+		return domain;
+	}
+
+	/**
+	 * @param domain the domain to set
+	 */
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 }

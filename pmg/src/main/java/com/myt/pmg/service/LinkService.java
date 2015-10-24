@@ -150,7 +150,7 @@ public class LinkService {
 				User user = userService.findById(proof.getUserId());
 				Link link = linkDao.findById(proof.getLinkId());
 				LinkVerifier lv = new LinkVerifier(user.getUsername(),
-						link.getUrl(), user.getAdUrl(), link.getId(),
+						link.getUrl(), user.getDomain(), link.getId(),
 						proof.getFileName(), proof.getSubmissionDate());
 				linkVerifiers.add(lv);
 			}

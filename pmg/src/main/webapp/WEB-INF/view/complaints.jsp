@@ -81,31 +81,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-			<ul>
-				<li><a href="#!"
-					class="search-bar-toggle waves-effect waves-ripple modal-trigger tooltipped"
-					data-position="buttom" data-delay="50"
-					data-tooltip="Notification / Messages"><i class="fa fa-bell"></i><sup
-						class="badge red white-text">1</sup></a></li>
-				<li class="user waves-effect waves-ripple"><a id="step4"
-					class="dropdown-button" href="#!" data-activates="user-dropdown">
-						<img
-						src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-						alt="Master" class="circle">Master<i
-						class="mdi-navigation-expand-more right"></i>
-				</a>
-					<ul id="user-dropdown" class="dropdown-content">
-						<li class=" blk waves-effect waves-blue"><a
-							href="PMG-settings.html"><i class="fa fa-cogs"></i>&ensp; PMG
-								Settings</a></li>
-						<li class=" blk waves-effect waves-blue"><a href="lock.html"><i
-								class="mdi mdi-action-lock"></i>&ensp; Lock Account</a></li>
-						<li class="divider"></li>
-						<li class=" blk waves-effect waves-blue"><a
-							href="${pageContext.request.contextPath}/static/sign-in.html"><i
-								class="mdi-action-settings-power"></i>&ensp; Logout</a></li>
-					</ul></li>
-			</ul>
+				<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>

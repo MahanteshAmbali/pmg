@@ -39,16 +39,18 @@ public class User extends BasicEntity {
 	@Indexed(unique = true)
 	private String email;
 	private String password;
-	private boolean active = false;
-	private boolean banned = false;
+	
 	private String firstname;
 	private String lastname;
 	private String gender;
 	private Date dob;
-	private String adUrl;
+	private String domain;
 	private String country;
 	private String picName;
 	private String remarks;
+	
+	private boolean active = false;
+	private boolean banned = false;
 	private Level level = Level.SNAIL;
 	private Date registrationDate = new Date();
 	private String registeredIp;
@@ -126,14 +128,6 @@ public class User extends BasicEntity {
 		this.dob = dob;
 	}
 
-	public String getAdUrl() {
-		return adUrl;
-	}
-
-	public void setAdUrl(String adUrl) {
-		this.adUrl = adUrl;
-	}
-
 	public String getCountry() {
 		return country;
 	}
@@ -196,11 +190,25 @@ public class User extends BasicEntity {
 		return "User [username=" + username + ", email=" + email
 				+ ", password=" + password + ", active=" + active + ", banned="
 				+ banned + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", gender=" + gender + ", dob=" + dob + ", adUrl="
-				+ adUrl + ", country=" + country + ", picName=" + picName
+				+ lastname + ", gender=" + gender + ", dob=" + dob + ", domain="
+				+ domain + ", country=" + country + ", picName=" + picName
 				+ ", remarks=" + remarks + ", level=" + level
 				+ ", registrationDate=" + registrationDate + ", registeredIp="
 				+ registeredIp + ", role=" + role + "]";
+	}
+
+	/**
+	 * @return the domain
+	 */
+	public String getDomain() {
+		return domain;
+	}
+
+	/**
+	 * @param domain the domain to set
+	 */
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 }

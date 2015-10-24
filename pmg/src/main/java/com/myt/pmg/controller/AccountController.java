@@ -46,8 +46,6 @@ public class AccountController {
 		if (account != null) {
 			System.out.println(account.toString());
 			model.addAttribute("account", account);
-
-			System.out.println("Here in Account Controller");
 		}
 
 		return "account";

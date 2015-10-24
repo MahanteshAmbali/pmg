@@ -32,7 +32,7 @@ public class VelocityTemplateMail {
 		this.velocityEngine = velocityEngine;
 	}
 
-	public void sendResetPasswordMail(final User user) {
+	public void sendResetPasswordMail(final User user, final HttpServletRequest request) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -43,8 +43,11 @@ public class VelocityTemplateMail {
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("username", user.getUsername());
-				StringBuilder link = new StringBuilder(
-						"http://107.161.95.16:8080/pmg/changepassword?uid=");
+				StringBuilder link = new StringBuilder("http://");
+				link.append(request.getServerName()+":"+request.getServerPort());
+				link.append(request.getContextPath()+"/changepassword?uid=");
+				/*StringBuilder link = new StringBuilder(
+						"http://107.161.95.16:8080/pmg/changepassword?uid=");*/
 				link.append(user.getId());
 				model.put("link", link);
 				String text = VelocityEngineUtils.mergeTemplateIntoString(
@@ -67,8 +70,6 @@ public class VelocityTemplateMail {
 				message.setSubject("Verification Mail from PMG");
 				message.setSentDate(new Date());
 				Map model = new HashMap();
-				System.out.println("Host = " + request.getServerName());
-				System.out.println("Port = " + request.getServerPort());
 				model.put("username", user.getUsername());
 				StringBuilder link = new StringBuilder("http://");
 				link.append(request.getServerName()+":"+request.getServerPort());
@@ -76,7 +77,6 @@ public class VelocityTemplateMail {
 			/*	StringBuilder link = new StringBuilder(
 						"http://107.161.95.16:8080/pmg/verifyaccount?uid=");*/
 				link.append(user.getId());
-				System.out.println(link);
 				logger.info(link);
 				model.put("link", link);
 				String text = VelocityEngineUtils.mergeTemplateIntoString(

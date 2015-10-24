@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-<context:component-scan base-package="com.myt.pmg" />
-	<context:annotation-config/>
-	
+	<context:component-scan base-package="com.myt.pmg" />
+
+	<context:annotation-config />
+
 	<!-- Factory bean that creates the Mongo instance -->
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-		<property name="host" value="localhost" />
-	</bean>
+	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean"/>
 
 	<!-- MongoTemplate for connecting and quering the documents in the database -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
@@ -22,96 +23,6 @@
 		<constructor-arg name="databaseName" value="pmg" />
 	</bean>
 
-	<!-- Use this post processor to translate any MongoExceptions thrown in 
-		@Repository annotated classes 
-
-	<bean id="userDao" class="com.myt.pmg.dao.UserDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="linkDao" class="com.myt.pmg.dao.LinkDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="proofDao" class="com.myt.pmg.dao.ProofDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="userlinkDao" class="com.myt.pmg.dao.UserLinkDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-
-	</bean>
-
-	<bean id="userService" class="com.myt.pmg.service.UserService">
-		<property name="userDao" ref="userDao"></property>
-
-		<property name="linkService" ref="linkService"></property>
-		<property name="proofService" ref="proofService"></property>
-		<property name="userlinkService" ref="userlinkService"></property>
-		<property name="feedbackService" ref="feedbackService"></property>
-		<property name="sessionRegistry" ref="sessionRegistry"></property>
-		<property name="ipService" ref="ipService"></property>
-		<property name="reportService" ref="reportService"></property>
-		<property name="xmppManager" ref="xmppManager"></property>
-	</bean>
-	<bean id="linkService" class="com.myt.pmg.service.LinkService">
-		<property name="linkDao" ref="linkDao"></property>
-		<property name="userService" ref="userService"></property>
-		<property ref="userlinkService" name="userlinkService"></property>
-		<property name="proofService" ref="proofService"></property>
-	</bean>
-
-	<bean id="proofService" class="com.myt.pmg.service.ProofService">
-		<property name="proofDao" ref="proofDao"></property>
-
-	</bean>
-
-	<bean id="userlinkService" class="com.myt.pmg.service.UserLinkService">
-		<property name="userLinkDao" ref="userlinkDao"></property>
-
-	</bean>
-
-	<bean id="questionnaireDao" class="com.myt.pmg.dao.QuestionnaireDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-
-	<bean id="questionnaireService" class="com.myt.pmg.service.QuestionnaireService">
-		<property name="questionnaireDao" ref="questionnaireDao"></property>
-	</bean>
-
-	<bean id="loginService" class="com.myt.pmg.service.LoginService">
-		<property name="userService" ref="userService"></property>
-	</bean>
 
 
-
-	<bean id="notificationService" class="com.myt.pmg.service.NotificationService">
-		<property name="notificationDao" ref="notificationDao"></property>
-	</bean>
-	<bean id="notificationDao" class="com.myt.pmg.dao.NotificationDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="feedbackService" class="com.myt.pmg.service.FeedbackService">
-		<property name="feedbackDao" ref="feedbackDao"></property>
-	</bean>
-	<bean id="feedbackDao" class="com.myt.pmg.dao.FeedbackDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="faqDao" class="com.myt.pmg.dao.FaqDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="faqService" class="com.myt.pmg.service.FaqService">
-		<property name="faqDao" ref="faqDao"></property>
-	</bean>
-	<bean id="reportDao" class="com.myt.pmg.dao.ReportDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="reportService" class="com.myt.pmg.service.ReportService">
-		<property name="reportDao" ref="reportDao"></property>
-	</bean>
-	
-	
-	<bean id="ipDao" class="com.myt.pmg.dao.IpDao">
-		<property name="mongoTemplate" ref="mongoTemplate"></property>
-	</bean>
-	<bean id="ipService" class="com.myt.pmg.service.IpService">
-		<property name="ipDao" ref="ipDao"></property>
-	</bean>-->
 </beans>

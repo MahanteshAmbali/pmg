@@ -61,7 +61,7 @@
 					class="waves-effect waves-yellow"><i
 						class="ion-android-notifications"></i> Notification</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"
-					data-tooltip=" Frequently Asked Questions"><a href="faq"
+					data-tooltip=" Frequently Asked Questions"><a href="faqs"
 					class="waves-effect waves-yellow"><i
 						class="fa fa-question-circle"></i> FAQs</a></li>
 				<li class="tooltipped" data-position="right" data-delay="50"

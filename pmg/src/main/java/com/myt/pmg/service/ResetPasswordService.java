@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginService implements UserDetailsService {
+public class ResetPasswordService implements UserDetailsService {
 
 	@Autowired
 	private UserService userService;

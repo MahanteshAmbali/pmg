@@ -67,16 +67,7 @@
 		<security:intercept-url pattern="/gettoplinks"
 			access="hasRole('ROLE_USER')" />
 
-
 		<security:intercept-url pattern="/linkreciever"
-			access="hasRole('ROLE_USER')" />
-
-
-		<security:intercept-url pattern="/changenotificationstatus"
-			access="hasRole('ROLE_USER')" />
-
-
-		<security:intercept-url pattern="/downloadproof"
 			access="hasRole('ROLE_USER')" />
 
 		<security:intercept-url pattern="/contributors"
@@ -94,11 +85,6 @@
 		<security:intercept-url pattern="/dashboard"
 			access="hasRole('ROLE_USER')" />
 
-		<security:intercept-url pattern="/mylinks"
-			access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/editmylinks"
-			access="hasRole('ROLE_USER')" />
-
 		<security:intercept-url pattern="/faqs"
 			access="hasRole('ROLE_USER')" />
 
@@ -114,12 +100,6 @@
 		<security:intercept-url pattern="/linkstatus"
 			access="hasRole('ROLE_USER')" />
 
-		<security:intercept-url pattern="/topusers"
-			access="hasRole('ROLE_USER')" />
-
-		<security:intercept-url pattern="/topcontributors"
-			access="hasRole('ROLE_USER')" />
-
 		<security:intercept-url pattern="/admin/**"
 			access="hasRole('ROLE_ADMIN')" />
 
@@ -129,25 +109,19 @@
 		<security:intercept-url pattern="/linkbroadcaster"
 			access="hasRole('ROLE_USER')" />
 
-		<security:intercept-url pattern="/noofNotification"
-			access="hasRole('ROLE_USER')" />
-
-		<security:intercept-url pattern="/notificationmessage"
-			access="hasRole('ROLE_USER')" />
-			
 		<security:intercept-url pattern="/notify"
 			access="hasRole('ROLE_USER')" />
-			
-			<security:intercept-url pattern="/account"
+
+		<security:intercept-url pattern="/account"
 			access="hasRole('ROLE_USER')" />
-			
-			<security:intercept-url pattern="/accountsetup"
+
+		<security:intercept-url pattern="/accountsetup"
 			access="hasRole('ROLE_USER')" />
-			
-				<security:intercept-url pattern="/luv"
+
+		<security:intercept-url pattern="/luv"
 			access="hasRole('ROLE_USER')" />
-			
-				<security:intercept-url pattern="/complaints"
+
+		<security:intercept-url pattern="/complaints"
 			access="hasRole('ROLE_USER')" />
 
 		<security:intercept-url pattern="/**" access="denyAll" />

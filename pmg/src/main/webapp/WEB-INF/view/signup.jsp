@@ -163,7 +163,7 @@
 				</span>
 				<span class="input input--nao"> <input
 					class="input__field input__field--nao" type="text" id="msite"
-					name="adUrl" /> <label class="input__label input__label--nao"
+					name="domain" /> <label class="input__label input__label--nao"
 					for="input-3"> <span
 						class="input__label-content input__label-content--nao">Money
 							Site (example.com)*</span>

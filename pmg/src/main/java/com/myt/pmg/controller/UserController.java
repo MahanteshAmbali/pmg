@@ -2,16 +2,19 @@ package com.myt.pmg.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.mail.Message;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -187,36 +190,49 @@ public class UserController {
 		return "deleteaccount";
 	}
 
-	@RequestMapping("/resetpassword")
+	@RequestMapping(value = "/resetpassword" , method = RequestMethod.GET)
 	public String forgotPassword(
-			@RequestParam(value = "resetPasswordEmail", required = false) String email) {
+			@RequestParam(value = "resetPasswordEmail", required = false) String email,HttpServletRequest request) {
 		User user = userService.findByEmail(email);
 		if (user == null)
 			return "redirect:/login?resetpass=false";
 		else {
-			velocityTemplateMail.sendResetPasswordMail(user);
+			velocityTemplateMail.sendResetPasswordMail(user, request);
 			return "redirect:/login?resetpass=true";
 		}
+		// DigestUtils.sha1Hex(password);
+		
 	}
-
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String showEditProfile(HttpSession session, Model model) {
-		User user = UtilFunction.getCurrentUser(session);
-		model.addAttribute("user", user);
-		return "profile";
-	}
-
-	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
+	
+	/*@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
 	public String showEditProfile(@RequestParam(value = "uid") String uid,
 			Model model) {
 		User user = userService.findById(uid);
 		model.addAttribute("user", user);
 		return "profile";
 	}
+	*/
+	@RequestMapping(value = "/changepassword", method = RequestMethod.POST)
+	public String changePassword(HttpSession session,@RequestParam String c_password, @RequestParam String n_password,
+			Model model) {
+	//	User user = userService.findById(uid);
+		User user = UtilFunction.getCurrentUser(session);
+		model.addAttribute("user", user);
+		return "profile";
+	}
+
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String showEditProfile(HttpSession session, Model model) {
+		User user = UtilFunction.getCurrentUser(session);
+		if(user ==null) return "redirect:/login?session=false";
+		model.addAttribute("user", user);
+		return "profile";
+	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public String editProfile(@Valid User user, BindingResult result) {
+	public String editProfile(@Valid @ModelAttribute("user") User user, BindingResult result) {
 		if (result.hasErrors()) {
+			System.out.println("Errors Found!!!! So User details not updated");
 			return "profile";
 		}
 		Update update = null;

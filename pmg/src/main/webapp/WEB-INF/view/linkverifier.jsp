@@ -81,34 +81,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-			<ul>
-				<li class="waves-effect waves-light"><a>Bolt &ensp; 67 <i
-						class="fa fa-star yellow-text"></i></a></li>
-				<li class="waves-effect waves-light"><a class="tooltipped"
-					data-position="buttom" data-delay="50"
-					data-tooltip="Notification / Messages"><i class="fa fa-bell"></i><sup
-						class="badge red white-text">1</sup></a></li>
-				<li class="user"><a id="step4" class="dropdown-button"
-					href="#!" data-activates="user-dropdown"> <img
-						src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-						alt="John Doe" class="circle">John Doe<i
-						class="mdi-navigation-expand-more right"></i>
-				</a>
-					<ul id="user-dropdown" class="dropdown-content">
-						<li id="step3"><a href="profile.html"><i
-								class="fa fa-user"></i> Profile</a></li>
-						<li><a href="notify.html"><i class="fa fa-envelope"></i>
-								Notification <span class="badge new">2</span></a></li>
-						<li><a href="account-setup.html"><i class="fa fa-cogs"></i>
-								Settings</a></li>
-						<li><a href="lock.html"><i class="mdi mdi-action-lock"></i>
-								Lock Account</a></li>
-						<li class="divider"></li>
-						<li><a
-							href="${pageContext.request.contextPath}/static/sign-in.html"><i
-								class="mdi-action-settings-power"></i> Logout</a></li>
-					</ul></li>
-			</ul>
+				<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -893,64 +866,63 @@
 	<script
 		src="${pageContext.request.contextPath}/static/assets/core/ckeditor/ckeditor.js"></script>
 	<script>
-    CKEDITOR.inline( 'ckeditor1' );
-  </script>
+		CKEDITOR.inline('ckeditor1');
+	</script>
 	<!-- /Init CKEditor -->
 	<script>
+		// elevator.
+		var elementButton = document.querySelector('footer');
+		var elevator = new Elevator({
+			element : elementButton,
+			mainAudio : '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
+			endAudio : '../.././music/ding.mp3'
+		});
 
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  '../.././music/ding.mp3'
-            });
-
-			
-			// Complaint
-document.querySelector('ul.note li.warning.confirm button').onclick = function(){
-	swal({
-		title: "Are you sure?",
-		text: "False Complaint Will Go Against You!",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, Do IT!',
-		closeOnConfirm: false
-	},
-	function(){
-		swal("Disapproved!", "Your Complaint has been successfully Lodged!", "success");
-	});
-};
+		// Complaint
+		document.querySelector('ul.note li.warning.confirm button').onclick = function() {
+			swal({
+				title : "Are you sure?",
+				text : "False Complaint Will Go Against You!",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : '#DD6B55',
+				confirmButtonText : 'Yes, Do IT!',
+				closeOnConfirm : false
+			}, function() {
+				swal("Disapproved!",
+						"Your Complaint has been successfully Lodged!",
+						"success");
+			});
+		};
 
 		// Appriciate
-document.querySelector('ul.note li.warning.confirm button.ya').onclick = function(){
-	swal({
-		title: "Are you sure?",
-		text: "Cancel If Not Sure!",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, M Sure!',
-		closeOnConfirm: false
-	},
-	function(){
-		swal("Appreciated!", "Your Appriciation has been successfully Expressed!", "success");
-	});
-};
-        </script>
+		document.querySelector('ul.note li.warning.confirm button.ya').onclick = function() {
+			swal({
+				title : "Are you sure?",
+				text : "Cancel If Not Sure!",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : '#DD6B55',
+				confirmButtonText : 'Yes, M Sure!',
+				closeOnConfirm : false
+			}, function() {
+				swal("Appreciated!",
+						"Your Appriciation has been successfully Expressed!",
+						"success");
+			});
+		};
+	</script>
 	<script>
-    		
-    		$(window).load(function(){
-	            $('code.language-javascript').mCustomScrollbar();
-	        });
-            var nt_title = $('#nt-title').newsTicker({
-                row_height: 40,
-                max_rows: 1,
-                duration: 3000,
-                pauseOnHover: 1
-            });
-        </script>
+		$(window).load(function() {
+			$('code.language-javascript').mCustomScrollbar();
+		});
+		var nt_title = $('#nt-title').newsTicker({
+			row_height : 40,
+			max_rows : 1,
+			duration : 3000,
+			pauseOnHover : 1
+		});
+	</script>
 </body>
 
 </html>

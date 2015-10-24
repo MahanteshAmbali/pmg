@@ -130,6 +130,11 @@ public class HomeController {
 		model.addAttribute("faqList", faqList);
 		return "faqs";
 	}
+	
+	@RequestMapping(value = "/denied", method = RequestMethod.GET)
+	public String deny() {
+		return "denied";
+	}
 
 	@RequestMapping(value = "/saveip", method = RequestMethod.POST)
 	public void saveLastAccessIp(@RequestParam("ip") String accessip,
