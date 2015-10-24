@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ProMaGizmo | PMG</title>
+		<link rel="stylesheet" type="text/css" href="css/checkout-sidebar.css" />
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body class="color-1">
+		<div class="container">
+			
+		<div class="grid">
+			<div class="grid__item color-3">
+				<a class="link link--nukun" href="#"><span>P</span>ro<span>M</span>a<span>G</span>izmo</a>
+			</div>
+		</div>
+			<section class="content">
+			<article class="content__item">
+							<h1 class="title title--full">Thank You For Your Interest</h1>
+							<div class="meta meta--full">
+							</div>
+							<p>I am fully aware of the shortcomings in these essays. I shall not touch upon those which are characteristic of first efforts at investigation. The others, however, demand a word of explanation.</p>
+							<p>The four essays which are here collected will be of interest to a wide circle of educated people, but they can only be thoroughly understood and judged by those who are really acquainted with psychoanalysis as such. It is hoped that they may serve as a bond between students of ethnology, philology, folklore and of the allied sciences, and psychoanalysts; they cannot, however, supply both groups the entire requisites for such co-operation. They will not furnish the former with sufficient insight into the new psychological technique, nor will the psychoanalysts acquire through them an adequate command over the material to be elaborated. Both groups will have to content themselves with whatever attention they can stimulate here and there and with the hope that frequent meetings between them will not remain unproductive for science.</p>
+								
+							
+							
+						</article>
+						<div class="checkout">
+								<a class="checkout__button" href="#">M Happy To Pay For Subscription</a>
+								<div class="checkout__order">
+									<div class="checkout__order-inner">
+										<table class="checkout__summary">
+											<thead>
+										        <tr><th>My Subscription</th><th>Price</th></tr>
+										    </thead>
+										    <tfoot>
+										        <tr><th colspan="2">Total <span class="checkout__total">$99.97</span></th></tr>
+										    </tfoot>
+										    <tbody>
+												<tr><td><strong>Yearly Month Subscription</strong></td><td><strong>$99.97</strong></td></tr>
+											</tbody>
+										</table><!-- /checkout__summary -->
+										<a href="http://www.paypal.com">
+										<button class="checkout__option checkout__option--silent checkout__cancel"></i> Close</button><button class="checkout__option checkout__option--loud">Pay with PayPal</button></a>
+									</div><!-- /checkout__order-inner -->
+								</div><!-- /checkout__order -->
+							</div><!-- /checkout -->
+			</section> 
+		</div><!-- /container -->
+		<footer>&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.</footer>
+		<script src="js/classie.js"></script>
+		<script>
+			(function() {
+				[].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+					var openCtrl = el.querySelector( '.checkout__button' ),
+						closeCtrls = el.querySelectorAll( '.checkout__cancel' );
+
+					openCtrl.addEventListener( 'click', function(ev) {
+						ev.preventDefault();
+						classie.add( el, 'checkout--active' );
+					} );
+
+					[].slice.call( closeCtrls ).forEach( function( ctrl ) {
+						ctrl.addEventListener( 'click', function() {
+							classie.remove( el, 'checkout--active' );
+						} );
+					} );
+				} );
+			})();
+		</script>
+	</body>
+</html>

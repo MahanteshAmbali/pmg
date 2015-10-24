@@ -1,0 +1,7 @@
+<html>
+<body>
+Sending Verification Email
+${username}
+${link}
+</body>
+</html>

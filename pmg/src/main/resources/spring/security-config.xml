@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<security:global-method-security
+		secured-annotations="enabled" />
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			user-service-ref="loginService">
+			<security:password-encoder hash="sha">
+			</security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+
+	<security:http auto-config="false" entry-point-ref="authenticationEntryPoint"
+		use-expressions="true">
+
+		<security:intercept-url pattern="/login*"
+			access="permitAll" />
+		<security:intercept-url pattern="/denied"
+			access="permitAll" />
+		<security:intercept-url pattern="/logout"
+			access="permitAll" />
+		<security:intercept-url pattern="/static/**"
+			access="permitAll" />
+
+
+		<security:intercept-url pattern="/createaccount"
+			access="permitAll" />
+		<security:intercept-url pattern="/roe" access="permitAll" />
+
+		<security:intercept-url pattern="/quest"
+			access="permitAll" />
+		<security:intercept-url pattern="/getquestions"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/checkans"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/signup"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/savepic"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/resetpassword"
+			access="permitAll" />
+
+
+		<security:intercept-url pattern="/changepassword**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/verifyaccount**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/proof/**"
+			access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/chat"
+			access="hasRole('ROLE_USER')" />
+		<security:intercept-url pattern="/gettoplinks"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/linkreciever"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/contributors"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/allcontributors"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/profile"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/linkverifier"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/dashboard"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/faqs"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/proofresult"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/linkrecieverdata"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/linkverifierdata"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/linkstatus"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+
+		<security:intercept-url pattern="/broadcast"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/linkbroadcaster"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/notify"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/account"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/accountsetup"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/luv"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/complaints"
+			access="hasRole('ROLE_USER')" />
+
+		<security:intercept-url pattern="/**" access="denyAll" />
+		<security:custom-filter position="CONCURRENT_SESSION_FILTER"
+			ref="concurrencyFilter" />
+		<security:custom-filter ref="authenticationFilter"
+			position="FORM_LOGIN_FILTER" />
+		<security:logout logout-success-url="/login?out=true"
+			invalidate-session="true" delete-cookies="true" logout-url="/logout" />
+		<security:access-denied-handler
+			error-page="/denied" />
+	</security:http>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"
+		p:loginFormUrl="/login" />
+	<bean id="customAuthenticationSuccessHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
+		p:defaultTargetUrl="/dashboard" />
+	<bean id="customAuthenticationFailureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"
+		p:defaultFailureUrl="/login?error=true" />
+	<bean id="authenticationFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"
+		p:sessionAuthenticationStrategy-ref="sas" p:authenticationManager-ref="authenticationManager"
+		p:authenticationFailureHandler-ref="customAuthenticationFailureHandler"
+		p:authenticationSuccessHandler-ref="customAuthenticationSuccessHandler"
+		p:usernameParameter="email" p:passwordParameter="password" />
+
+	<bean id="sas"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy"
+		p:maximumSessions="1">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+	</bean>
+</beans>
