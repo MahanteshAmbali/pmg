@@ -6,9 +6,9 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="mail.privateemail.com" />
 		<property name="port" value="465" />
-		<property name="username" value="admin@wishgrab.com" />
+		<property name="username" value="admin@promagizmo.com" />
 		<property name="protocol" value="smtp" />
-		<property name="password" value="Goyal@789" />
+		<property name="password" value="qwerty654321" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>

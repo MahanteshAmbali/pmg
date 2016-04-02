@@ -29,13 +29,13 @@ public class LinkService {
 
 	@Autowired
 	private LinkDao linkDao;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ProofService proofService;
-	
+
 	@Autowired
 	private UserLinkService userlinkService;
 
@@ -61,7 +61,7 @@ public class LinkService {
 			link.setUserId(user.getId());
 			link.setActive(true);
 			link.setCreationTime(new Date());
-			if(link.getLid() != 0 || link.getLid()<=0){
+			if (link.getLid() != 0 || link.getLid() <= 0) {
 				link.setLid(generateLID());
 			}
 			createLink(link);
@@ -106,8 +106,7 @@ public class LinkService {
 		List<Link> links = linkDao.findAllLinksPostedToUser(userid);
 		for (Link link : links) {
 			User user = userService.findById(link.getUserId());
-			LinkReciever linkReciever = new LinkReciever(link.getId(),
-					link.getUrl(), user.getId(), user.getUsername());
+			LinkReciever linkReciever = new LinkReciever(link.getId(), link.getUrl(), user.getId(), user.getEmail());
 			linkRecievers.add(linkReciever);
 		}
 		return linkRecievers;
@@ -118,8 +117,7 @@ public class LinkService {
 		List<Link> links = linkDao.findLimitedLinksPostedToUser(userid, n);
 		for (Link link : links) {
 			User user = userService.findById(userid);
-			LinkReciever linkReciever = new LinkReciever(link.getId(),
-					link.getUrl(), user.getId(), user.getUsername());
+			LinkReciever linkReciever = new LinkReciever(link.getId(), link.getUrl(), user.getId(), user.getEmail());
 			linkRecievers.add(linkReciever);
 		}
 		return linkRecievers;
@@ -149,8 +147,7 @@ public class LinkService {
 			if (!(userlinkService.findByLinkId(proof.getLinkId()).isVerified())) {
 				User user = userService.findById(proof.getUserId());
 				Link link = linkDao.findById(proof.getLinkId());
-				LinkVerifier lv = new LinkVerifier(user.getUsername(),
-						link.getUrl(), user.getDomain(), link.getId(),
+				LinkVerifier lv = new LinkVerifier(user.getEmail(), link.getUrl(), user.getDomain(), link.getId(),
 						proof.getFileName(), proof.getSubmissionDate());
 				linkVerifiers.add(lv);
 			}
@@ -172,14 +169,11 @@ public class LinkService {
 		Map<String, Integer> treeMap = sortByComparator1(map);
 		List<LUV> luvList = new ArrayList<LUV>();
 		for (Map.Entry<String, Integer> entry : treeMap.entrySet()) {
-			System.out.println("Key : " + entry.getKey() + " Value : "
-					+ entry.getValue());
+			System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
 			Link link = linkDao.findById(entry.getKey());
-			long days = (new Date().getTime() - link.getCreationTime()
-					.getTime()) / (24 * 3600 * 1000l);
-			luvList.add(new LUV(link.getCreationTime(), link.getId(),
-					userService.findById(link.getUserId()).getUsername(), link
-							.getUrl(), entry.getValue(), days, link.isActive()));
+			long days = (new Date().getTime() - link.getCreationTime().getTime()) / (24 * 3600 * 1000l);
+			luvList.add(new LUV(link.getCreationTime(), link.getId(), userService.findById(link.getUserId()).getEmail(),
+					link.getUrl(), entry.getValue(), days, link.isActive()));
 			if (i == n) {
 				break;
 			}
@@ -187,25 +181,21 @@ public class LinkService {
 		return luvList;
 	}
 
-	private Map<String, Integer> sortByComparator1(
-			Map<String, Integer> unsortMap) {
+	private Map<String, Integer> sortByComparator1(Map<String, Integer> unsortMap) {
 
 		// Convert Map to List
-		List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(
-				unsortMap.entrySet());
+		List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
 
 		// Sort list with comparator, to compare the Map values
 		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-			public int compare(Map.Entry<String, Integer> o1,
-					Map.Entry<String, Integer> o2) {
+			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 				return (o2.getValue()).compareTo(o1.getValue());
 			}
 		});
 
 		// Convert sorted map back to a Map
 		Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-		for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it
-				.hasNext();) {
+		for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext();) {
 			Map.Entry<String, Integer> entry = it.next();
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
@@ -215,11 +205,10 @@ public class LinkService {
 	public Link findById(String id) {
 		return linkDao.findById(id);
 	}
-	
+
 	public Link findByUserId(String userid) {
-		
+
 		return linkDao.findByUserId(userid);
 	}
-	
-	
+
 }

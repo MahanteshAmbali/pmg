@@ -128,17 +128,15 @@ public class UserService {
 		List<User> userList = findAllActiveUsers();
 		Map<String, Float> map = new HashMap<String, Float>();
 		for (User user : userList) {
-			Float count = (float) ((userlinkService
-					.countLinksPostedToUserAndVerified(user.getId()) * 3 + userlinkService
-					.countLinksServedByUser(user.getId()) * 2) / 5);
+			Float count = (float) ((userlinkService.countLinksPostedToUserAndVerified(user.getId()) * 3
+					+ userlinkService.countLinksServedByUser(user.getId()) * 2) / 5);
 			map.put(user.getId(), (count == null) ? 0 : count);
 		}
 		List<User> userList2 = new ArrayList<User>();
 		Map<String, Float> treeMap = sortByComparator2(map);
 		int i = 0;
 		for (Map.Entry<String, Float> entry : treeMap.entrySet()) {
-			System.out.println("Key : " + entry.getKey() + " Value : "
-					+ entry.getValue());
+			System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
 			userList2.add(findById(entry.getKey()));
 			if (i == n) {
 				break;
@@ -169,10 +167,8 @@ public class UserService {
 		List<ContributorData> userList = new ArrayList<ContributorData>();
 		int i = 0;
 		for (Map.Entry<String, Integer> entry : treeMap.entrySet()) {
-			System.out.println("Key : " + entry.getKey() + " Value : "
-					+ entry.getValue());
-			userList.add(getContributorData(userid, entry.getKey(),
-					entry.getValue()));
+			System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+			userList.add(getContributorData(userid, entry.getKey(), entry.getValue()));
 			if (i == n) {
 				break;
 			}
@@ -180,40 +176,34 @@ public class UserService {
 		return userList;
 	}
 
-	private ContributorData getContributorData(String useridServer,
-			String userid, int value) {
+	private ContributorData getContributorData(String useridServer, String userid, int value) {
 		ContributorData cd = new ContributorData();
 		User user = userDao.findUserById(userid);
 		cd.setContribution((value * (20 + (value - 1) * 5)) / 2);
 		cd.setLevel((Level.BOLT).toString());
 		cd.setLinksVerified(value);
-		cd.setLinksVerifyPercent((int) (value * 100 / userlinkService
-				.countLinksServedByUser(useridServer)));
+		cd.setLinksVerifyPercent((int) (value * 100 / userlinkService.countLinksServedByUser(useridServer)));
 		cd.setRating(feedbackService.getRatingForUser(userid));
-		cd.setUsername(user.getUsername());
+		cd.setUsername(user.getEmail());
 		cd.setPicName(user.getPicName());
 		return cd;
 	}
 
-	private Map<String, Integer> sortByComparator1(
-			Map<String, Integer> unsortMap) {
+	private Map<String, Integer> sortByComparator1(Map<String, Integer> unsortMap) {
 
 		// Convert Map to List
-		List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(
-				unsortMap.entrySet());
+		List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
 
 		// Sort list with comparator, to compare the Map values
 		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-			public int compare(Map.Entry<String, Integer> o1,
-					Map.Entry<String, Integer> o2) {
+			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 				return (o2.getValue()).compareTo(o1.getValue());
 			}
 		});
 
 		// Convert sorted map back to a Map
 		Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-		for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it
-				.hasNext();) {
+		for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext();) {
 			Map.Entry<String, Integer> entry = it.next();
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
@@ -223,21 +213,18 @@ public class UserService {
 	private Map<String, Float> sortByComparator2(Map<String, Float> unsortMap) {
 
 		// Convert Map to List
-		List<Map.Entry<String, Float>> list = new LinkedList<Map.Entry<String, Float>>(
-				unsortMap.entrySet());
+		List<Map.Entry<String, Float>> list = new LinkedList<Map.Entry<String, Float>>(unsortMap.entrySet());
 
 		// Sort list with comparator, to compare the Map values
 		Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
-			public int compare(Map.Entry<String, Float> o1,
-					Map.Entry<String, Float> o2) {
+			public int compare(Map.Entry<String, Float> o1, Map.Entry<String, Float> o2) {
 				return (o2.getValue()).compareTo(o1.getValue());
 			}
 		});
 
 		// Convert sorted map back to a Map
 		Map<String, Float> sortedMap = new LinkedHashMap<String, Float>();
-		for (Iterator<Map.Entry<String, Float>> it = list.iterator(); it
-				.hasNext();) {
+		for (Iterator<Map.Entry<String, Float>> it = list.iterator(); it.hasNext();) {
 			Map.Entry<String, Float> entry = it.next();
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
@@ -246,13 +233,12 @@ public class UserService {
 
 	public MembersTableData getMembersTableData(User user) {
 		MembersTableData mtd = new MembersTableData();
-		mtd.setUsername(user.getUsername());
+		mtd.setUsername(user.getEmail());
 		mtd.setEmail(user.getEmail());
 		mtd.setCountry(user.getCountry());
 		mtd.setLastAccessIp(ipService.getLastAccessIp(user.getId()).getIp());
 		mtd.setLevel(user.getLevel().toString());
-		mtd.setVerifiedClicks(userlinkService
-				.countLinksPostedToUserAndVerified(user.getId()));
+		mtd.setVerifiedClicks(userlinkService.countLinksPostedToUserAndVerified(user.getId()));
 		mtd.setLinkBroadcastCap(user.getLevel().getLinkBroadcastCap());
 		mtd.setRegisteredIp(user.getRegisteredIp());
 		return mtd;
@@ -262,17 +248,15 @@ public class UserService {
 		List<User> userList = findAllUsersByLevel(level);
 		Map<String, Float> map = new HashMap<String, Float>();
 		for (User user : userList) {
-			Float count = (float) ((userlinkService
-					.countLinksPostedToUserAndVerified(user.getId()) * 3 + userlinkService
-					.countLinksServedByUser(user.getId()) * 2) / 5);
+			Float count = (float) ((userlinkService.countLinksPostedToUserAndVerified(user.getId()) * 3
+					+ userlinkService.countLinksServedByUser(user.getId()) * 2) / 5);
 			map.put(user.getId(), (count == null) ? 0 : count);
 		}
 		List<User> userList2 = new ArrayList<User>();
 		Map<String, Float> treeMap = sortByComparator2(map);
 		int i = 0;
 		for (Map.Entry<String, Float> entry : treeMap.entrySet()) {
-			System.out.println("Key : " + entry.getKey() + " Value : "
-					+ entry.getValue());
+			System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
 			userList2.add(findById(entry.getKey()));
 			if (i == 20) {
 				break;
@@ -290,8 +274,7 @@ public class UserService {
 		List<User> userList = new ArrayList<User>();
 		List<Object> principalList = sessionRegistry.getAllPrincipals();
 		for (Object principal : principalList) {
-			String username = ((org.springframework.security.core.userdetails.User) principal)
-					.getUsername();
+			String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
 			userList.add(findByUsername(username));
 		}
 		return userList;
@@ -301,8 +284,7 @@ public class UserService {
 		return userDao.findNewUsersToday();
 	}
 
-	public List<User> findUsersByField(String username, String email,
-			String ip, Level level) {
+	public List<User> findUsersByField(String username, String email, String ip, Level level) {
 		return userDao.findUsersByField(username, email, ip, level);
 	}
 
@@ -325,8 +307,7 @@ public class UserService {
 			country.setCountry(obj.getDisplayCountry());
 			country.setNoOfUsers(entry.getValue());
 			stats.add(country);
-			System.out.println("Key : " + entry.getKey() + "  " + " Value : "
-					+ entry.getValue());
+			System.out.println("Key : " + entry.getKey() + "  " + " Value : " + entry.getValue());
 		}
 		return stats;
 	}
@@ -367,10 +348,8 @@ public class UserService {
 	private long countPendingClicks() {
 		long pendingClicks = 0;
 		for (User user : findAllActiveUsers()) {
-			pendingClicks = userlinkService
-					.countLinksPostedToUser(user.getId())
-					- userlinkService.countLinksPostedToUserAndClicked(user
-							.getId());
+			pendingClicks = userlinkService.countLinksPostedToUser(user.getId())
+					- userlinkService.countLinksPostedToUserAndClicked(user.getId());
 		}
 		return pendingClicks;
 	}
@@ -380,8 +359,7 @@ public class UserService {
 		List<User> activeUsers = findAllActiveUsers();
 		int index = random.nextInt(activeUsers.size());
 		System.out.println("\nIndex :" + index);
-		System.out.println("Randomly Selected USer Email Address is "
-				+ activeUsers.get(index).getEmail());
+		System.out.println("Randomly Selected USer Email Address is " + activeUsers.get(index).getEmail());
 
 		return activeUsers.get(index);
 
@@ -392,8 +370,7 @@ public class UserService {
 		List<User> activeUsers = findAllActiveUsers();
 		int index = random.nextInt(activeUsers.size());
 		System.out.println("\nIndex :" + index);
-		System.out.println("Randomly Selected USer Email Address is "
-				+ activeUsers.get(index).getEmail());
+		System.out.println("Randomly Selected USer Email Address is " + activeUsers.get(index).getEmail());
 
 		return activeUsers.get(index);
 	}

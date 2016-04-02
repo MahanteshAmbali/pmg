@@ -188,8 +188,7 @@ public class AdminController {
 		}
 		int i = 0;
 		while (request.getParameter("username" + i) != null) {
-			User user1 = userService.findByUsername(request
-					.getParameter("username" + i));
+			User user1 = userService.findByEmail(request.getParameter("email" + i));
 			user1.setBanned(false);
 			userService.updateUser(user1);
 			i++;
@@ -206,8 +205,7 @@ public class AdminController {
 		}
 		int i = 0;
 		while (request.getParameter("username" + i) != null) {
-			User user1 = userService.findByUsername(request
-					.getParameter("username" + i));
+			User user1 = userService.findByEmail(request.getParameter("email" + i));
 			user1.setBanned(true);
 			userService.updateUser(user1);
 			i++;
@@ -239,10 +237,10 @@ public class AdminController {
 		return tableData;
 	}
 
-	@RequestMapping(value = "/multipleip/{username}", produces = "application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/multipleip/{email}", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Ip> getMultipleIpForMember(@PathVariable String username) {
-		User user = userService.findByUsername(username);
+	public List<Ip> getMultipleIpForMember(@PathVariable String email) {
+		User user = userService.findByEmail(email);
 		List<Ip> ipList = ipService.getAllIpForUser(user.getId());
 		return ipList;
 	}
@@ -304,8 +302,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/newnotification", method = RequestMethod.POST)
-	public void newNotification(
-			@RequestParam("msg") String msg,
+	public void newNotification(@RequestParam("msg") String msg,
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "level", required = false) String level) {
 
@@ -317,8 +314,7 @@ public class AdminController {
 			notif.setUserId(userService.findByUsername(username).getId());
 			notificationService.newNotification(notif);
 		} else if (level != null) {
-			List<User> userList = userService.findAllUsersByLevel(Level
-					.getLevel(level));
+			List<User> userList = userService.findAllUsersByLevel(Level.getLevel(level));
 			for (User user : userList) {
 				Notification notif = new Notification();
 				notif.setDate(new Date());
@@ -350,9 +346,9 @@ public class AdminController {
 		return "userdetails";
 	}
 
-	@RequestMapping(value = "/userdetails/{username}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody User getUserDetails(@PathVariable String username) {
-		User user = userService.findByUsername(username);
+	@RequestMapping(value = "/userdetails/{email}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody User getUserDetails(@PathVariable String email) {
+		User user = userService.findByEmail(email);
 		return user;
 	}
 }

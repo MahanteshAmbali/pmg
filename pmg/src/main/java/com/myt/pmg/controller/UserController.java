@@ -2,19 +2,16 @@ package com.myt.pmg.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.mail.Message;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -147,7 +144,7 @@ public class UserController {
 			@ModelAttribute("user") User user, HttpServletRequest request) {
 
 		
-		if (!userService.usernameTaken(user.getUsername())) {
+		if (!userService.usernameTaken(user.getEmail())) {
 			// result.rejectValue("name", );
 			System.out.println("Username  exists...!!!!!!!");
 			return "signup";
@@ -156,12 +153,15 @@ public class UserController {
 			// TO DO set active after clicking the mail verification
 		//	user.setActive(true);
 			userService.createUser(user);
-			velocityTemplateMail.sendVerificationMail(user,request);
+		velocityTemplateMail.sendVerificationMail(user,request);
 		} catch (DuplicateKeyException e) {
 			// result.rejectValue("username", "DuplicateKey.user.username");
+			logger.error("Duplicate Key>" + e);
 			return "signup";
 		}catch(Exception e){
 			//userService.createUser(null);
+			logger.error("Registration Failed >" + e);
+			e.printStackTrace();
 			return "redirect:/login?signupcomplete=false";
 		}
 		 

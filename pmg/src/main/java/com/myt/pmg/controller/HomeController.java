@@ -68,7 +68,7 @@ public class HomeController {
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String home(Model model, Principal principal,
 			HttpServletRequest request, HttpSession session) {
-		User user = userService.findByUsername(principal.getName());
+		User user = userService.findByEmail(principal.getName());
 		if (session.getAttribute(SESSION_OBJ) == null) {
 			UtilFunction.setCurrentUser(session, user);
 			String ipAddress = request.getHeader("X-FORWARDED-FOR");

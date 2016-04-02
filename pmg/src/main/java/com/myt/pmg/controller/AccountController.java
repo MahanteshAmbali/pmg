@@ -37,7 +37,7 @@ public class AccountController {
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String accountPage(Model model, Principal principal,
 			HttpServletRequest request, HttpSession session) {
-		User user = userService.findByUsername(principal.getName());
+		User user = userService.findByEmail(principal.getName());
 		if (session.getAttribute(SESSION_OBJ) == null) {
 			UtilFunction.setCurrentUser(session, user);
 		}
@@ -56,7 +56,7 @@ public class AccountController {
 	public String accountSetup(Model model, Principal principal,
 			HttpServletRequest request, HttpSession session,
 			@ModelAttribute("account") Account account) {
-		User user = userService.findByUsername(principal.getName());
+		User user = userService.findByEmail(principal.getName());
 		if (session.getAttribute(SESSION_OBJ) == null) {
 			UtilFunction.setCurrentUser(session, user);
 		}

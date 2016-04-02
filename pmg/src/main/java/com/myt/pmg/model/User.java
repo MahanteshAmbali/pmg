@@ -35,11 +35,9 @@ public class User extends BasicEntity {
 	}
 
 	@Indexed(unique = true)
-	private String username;
-	@Indexed(unique = true)
 	private String email;
 	private String password;
-	
+
 	private String firstname;
 	private String lastname;
 	private String gender;
@@ -48,21 +46,13 @@ public class User extends BasicEntity {
 	private String country;
 	private String picName;
 	private String remarks;
-	
+
 	private boolean active = false;
 	private boolean banned = false;
 	private Level level = Level.SNAIL;
 	private Date registrationDate = new Date();
 	private String registeredIp;
-	private String[] role ;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	private String role;
 
 	public String getEmail() {
 		return email;
@@ -176,25 +166,22 @@ public class User extends BasicEntity {
 		this.registeredIp = registeredIp;
 	}
 
-	public String[] getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(String[] role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 
-		return "User [username=" + username + ", email=" + email
-				+ ", password=" + password + ", active=" + active + ", banned="
-				+ banned + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", gender=" + gender + ", dob=" + dob + ", domain="
-				+ domain + ", country=" + country + ", picName=" + picName
-				+ ", remarks=" + remarks + ", level=" + level
-				+ ", registrationDate=" + registrationDate + ", registeredIp="
-				+ registeredIp + ", role=" + role + "]";
+		return "User [ email=" + email + ", password=" + password + ", active=" + active + ", banned=" + banned
+				+ ", firstname=" + firstname + ", lastname=" + lastname + ", gender=" + gender + ", dob=" + dob
+				+ ", domain=" + domain + ", country=" + country + ", picName=" + picName + ", remarks=" + remarks
+				+ ", level=" + level + ", registrationDate=" + registrationDate + ", registeredIp=" + registeredIp
+				+ ", role=" + role + "]";
 	}
 
 	/**
@@ -205,7 +192,8 @@ public class User extends BasicEntity {
 	}
 
 	/**
-	 * @param domain the domain to set
+	 * @param domain
+	 *            the domain to set
 	 */
 	public void setDomain(String domain) {
 		this.domain = domain;

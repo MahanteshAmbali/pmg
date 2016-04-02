@@ -35,62 +35,48 @@
 <!-- IonIcons -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
-<script type="text/javascript">
-	(function($) {
 
-		$.fn.shuffle = function() {
-			return this.each(function() {
-				var items = $(this).children();
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js"></script>
 
-				return (items.length) ? $(this).html($.shuffle(items, $(this)))
-						: this;
-			});
-		}
+<script>
+	  
+	  $(document).ready(function () {
 
-		$.fn.validate = function() {
-			var res = false;
-			this
-					.each(function() {
-						var arr = $(this).children();
-						res = ((arr[0].innerHTML == "P")
-								&& (arr[1].innerHTML == "ro")
-								&& (arr[2].innerHTML == "Ma")
-								&& (arr[3].innerHTML == "G")
-								&& (arr[4].innerHTML == "iz") && (arr[5].innerHTML == "mo"));
-					});
-			return res;
-		}
+    $('#myform').validate({ // initialize the plugin
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+			 remail: {
+				required: true,
+				equalTo: "#email"
+			},
+			fullName:{
+				required: true
+			},
+			
+			password:{
+			required: true,
+			},
+			cpassword:{
+				required: true,
+				equalTo: "#password"
+			}
+        }
+    });
 
-		$.shuffle = function(arr, obj) {
-			for (var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x)
-				;
-			if (arr[0].innerHTML == "P")
-				obj.html($.shuffle(arr, obj))
-			else
-				return arr;
-		}
+});
 
-	})(jQuery);
-
-	$(function() {
-		$("#sortable").sortable();
-		$("#sortable").disableSelection();
-		$('ul').shuffle();
-
-		$("#formsubmit").click(
-				function() {
-					($('ul').validate()) ? swal("Yeah, You Spelled It Right!",
-							"Enjoy The Ride :)") : swal("No, It Ain't Right!",
-							"Try Again ;(");
-				});
-	});
+</script>
 </script>
 </head>
 <body>
 	<div class="container">
 		<section class="content bgcolor-1">
 			<h2>ProMaGizmo | PMG | Sign-UP</h2>
-			<form:form action="signup" method="post" modelAttribute="user">
+			<form:form id="myform" action="signup" method="post" modelAttribute="user">
 				<span class="input input--nao"> <input
 					class="input__field input__field--nao" type="text" id="fullName"
 					name="fullName" /> <label class="input__label input__label--nao"
@@ -102,7 +88,7 @@
 							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg>
 				</span>
-				<span class="input input--nao"> <input
+				<!-- 	<span class="input input--nao"> <input
 					class="input__field input__field--nao" type="text" id="username"
 					name="username" /> <label class="input__label input__label--nao"
 					for="input-1"> <span
@@ -112,7 +98,7 @@
 						<path
 							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg>
-				</span>
+				</span>  -->
 				<span class="input input--nao"> <input
 					class="input__field input__field--nao" type="text" id="email"
 					name="email" /> <label class="input__label input__label--nao"
@@ -139,9 +125,9 @@
 
 
 				<span class="input input--nao"> <input
-					class="input__field input__field--nao" type="text" id="password"
-					name="password" /> <label class="input__label input__label--nao"
-					for="input-1"> <span
+					class="input__field input__field--nao" type="password"
+					id="password" name="password" /> <label
+					class="input__label input__label--nao" for="input-1"> <span
 						class="input__label-content input__label-content--nao">Password*</span>
 				</label> <svg class="graphic graphic--nao" width="300%" height="100%"
 						viewBox="0 0 1200 60" preserveAspectRatio="none">
@@ -150,9 +136,9 @@
 					</svg>
 				</span>
 				<span class="input input--nao"> <input
-					class="input__field input__field--nao" type="text" id="cpassword"
-					name="cpassword" /> <label class="input__label input__label--nao"
-					for="input-2"> <span
+					class="input__field input__field--nao" type="password"
+					id="cpassword" name="cpassword" /> <label
+					class="input__label input__label--nao" for="input-2"> <span
 						class="input__label-content input__label-content--nao">Confirm
 							Passorwd*</span>
 				</label> <svg class="graphic graphic--nao" width="300%" height="100%"
@@ -196,20 +182,7 @@
 							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg>
 				</span>
-					<span class="input input--nao"> 
-					<select class="input__field input__field--nao" id="role" name="role" >
-						<option value="ROLE_USER" >User</option>
-						<option value="ROLE_ADMIN">Admin</option>
-					</select>
-					 <label class="input__label input__label--nao"
-					for="input-3"> <span
-						class="input__label-content input__label-content--nao">Role*</span>
-				</label> <svg class="graphic graphic--nao" width="300%" height="100%"
-						viewBox="0 0 1200 60" preserveAspectRatio="none">
-						<path
-							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
-					</svg>
-				</span>
+
 				<fieldset>
 					<legend>
 						Drag & Spell </b>"ProMaGizmo"

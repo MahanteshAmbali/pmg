@@ -328,7 +328,8 @@
 
 			<div class="col s15 m5 l5">
 				<div class="card z-depth-3-hover">
-					<form:form action="changepassword" method="post" modelAttribute="user">
+					<form:form action="changepassword" method="post"
+						modelAttribute="user">
 						<div class="title blue white-text">
 							<h3>Reset Password</h3>
 						</div>

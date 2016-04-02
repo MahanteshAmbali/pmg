@@ -85,7 +85,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-		<jsp:include page="header.jsp"/>
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>

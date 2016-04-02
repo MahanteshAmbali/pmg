@@ -88,7 +88,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-				<jsp:include page="header.jsp" />
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -504,7 +504,7 @@
 		<i class="fa fa-copyright"></i> 2015 <strong>ProMaGizmo | PMG</strong>.
 		All rights reserved.
 	</footer>
-	
+
 	<!-- DEMO [REMOVE IT ON PRODUCTION] -->
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/pmg/js/_demo.js"></script>

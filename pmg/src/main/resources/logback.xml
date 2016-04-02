@@ -10,21 +10,30 @@
 	<!-- To enable JMX Management -->
 	<jmxConfigurator />
 
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%-5level %logger{0} - %msg%n</pattern>
-		</encoder>
-	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender"> 
+    <file>log/pmg.log</file>
+    
+    <encoder>
+      <pattern>
+        %date %level [%thread] %logger{36} [%file:%line] %msg%n
+      </pattern>
+    </encoder>
+  </appender>
 
 	<!--<logger name="org.hibernate" level="debug"/> -->
 	<!-- Uncomment and add your logger here: <logger name="org.springframework.samples.service.service" 
 		level="debug"/> -->
-
-	<root level="info">
-		<appender-ref ref="console" />
-	</root>
+		
+		
+  <logger name="org.springframework" level="warn" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
+  
+   <logger name="com.myt.pmg" level="debug" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
 
 	<root level="debug">
-		<appender-ref ref="console" />
+		<appender-ref ref="FILE" />
 	</root>
 </configuration>
