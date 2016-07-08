@@ -12,25 +12,19 @@ public class AccountService {
 	@Autowired
 	private AccountDao accountDao;
 
-	public Account findOne(String userId) {
-
-		return accountDao.findOne(userId);
-	}
-
-	public Account findById(String userId) {
-
-		return accountDao.findById(userId);
-	}
-
-	public void saveAccount(Account account) {
-		accountDao.updateUser(account);
+	public Account saveAccount(Account account) {
+		return accountDao.updateUser(account);
 	}
 
 	public String addAccount(Account account) {
 		return accountDao.add(account);
 	}
+
+	public Account findByUserId(String userId) {
+		return accountDao.findByUserId(userId);
+	}
 	
-	public Account findByUserEmail(String userEmail){
-		return accountDao.findByUserEmail(userEmail);
+	public void findAndUpdateLinksSubmitted(String userId) {
+		accountDao.findAndUpdateLinksSubmitted(userId);
 	}
 }

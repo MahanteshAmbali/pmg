@@ -1,18 +1,21 @@
 package com.myt.pmg.model;
 
-import org.springframework.data.mongodb.core.index.Indexed;
+import java.util.Date;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="userlink")
+@Document(collection = "userlink")
 public class UserLink extends BasicEntity {
-	
-	@Indexed(unique = false)
-	private String userId=null;
+
+	// @Indexed(unique = false)
+	private String userId = null;
 	private String broadcasterUserId = null;
-	private String linkId=null;
-	private boolean verified = false;
-	private boolean clicked = false;
-	private String proofId = null;
+	private String linkId = null;
+//	private boolean clicked = false;
+//	private String proofId = null;
+//	private String videourl
+	private Date linkbroadcastingDate;
+	private Date linkrecvDate;
 
 	public String getUserId() {
 		return userId;
@@ -30,37 +33,7 @@ public class UserLink extends BasicEntity {
 		this.linkId = linkId;
 	}
 
-	public boolean isVerified() {
-		return verified;
-	}
-
-	public void setVerified(boolean verified) {
-		this.verified = verified;
-	}
-
-	public boolean isClicked() {
-		return clicked;
-	}
-
-	public void setClicked(boolean clicked) {
-		this.clicked = clicked;
-	}
-
-	public String getProofId() {
-		return proofId;
-	}
-
-	public void setProofId(String proofId) {
-		this.proofId = proofId;
-	}
-
-	@Override
-	public String toString() {
-		return "UserLink [userId=" + userId + ", linkId=" + linkId
-				+ ", verified=" + verified + ", clicked=" + clicked
-				+ ", proofId=" + proofId + "]";
-	}
-
+	
 	public String getBroadcasterUserId() {
 		return broadcasterUserId;
 	}
@@ -69,4 +42,35 @@ public class UserLink extends BasicEntity {
 		this.broadcasterUserId = broadcasterUserId;
 	}
 
+	/**
+	 * @return the linkrecvDate
+	 */
+	public Date getLinkrecvDate() {
+		return linkrecvDate;
+	}
+
+	/**
+	 * @param linkrecvDate
+	 *            the linkrecvDate to set
+	 */
+	public void setLinkrecvDate(Date linkrecvDate) {
+		this.linkrecvDate = linkrecvDate;
+	}
+
+	
+
+	/**
+	 * @return the linkbroadcastingDate
+	 */
+	public Date getLinkbroadcastingDate() {
+		return linkbroadcastingDate;
+	}
+
+	/**
+	 * @param linkbroadcastingDate
+	 *            the linkbroadcastingDate to set
+	 */
+	public void setLinkbroadcastingDate(Date linkbroadcastingDate) {
+		this.linkbroadcastingDate = linkbroadcastingDate;
+	}
 }

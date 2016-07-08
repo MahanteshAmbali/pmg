@@ -67,7 +67,7 @@ public class XmppManager {
 		if (!connection.isAuthenticated()) {
 			AccountManager acManager = AccountManager.getInstance(connection);
 			try {
-				acManager.createAccount(user.getUsername(), user.getPassword());
+				acManager.createAccount(user.getEmail(), user.getPassword());
 			} catch (NoResponseException e) {
 				e.printStackTrace();
 			} catch (XMPPErrorException e) {

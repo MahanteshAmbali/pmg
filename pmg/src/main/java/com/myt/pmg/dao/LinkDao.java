@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.myt.pmg.model.Link;
+import com.myt.pmg.model.Link.Linkstatus;
 import com.myt.pmg.model.UserLink;
 
 @Repository
@@ -20,13 +21,11 @@ public class LinkDao extends BasicDaoImpl<Link> {
 
 	public List<Link> findAll() {
 		System.out.println("Link Dao");
-		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(
-				Link.class);
-		return (List<Link>) getMongoTemplate().findAll(Link.class,
-				COLLECTION_NAME);
+		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(Link.class);
+		return (List<Link>) getMongoTemplate().findAll(Link.class, COLLECTION_NAME);
 	}
 
-	public int count() {
+	public long count() {
 		return super.count(Link.class);
 	}
 
@@ -34,21 +33,24 @@ public class LinkDao extends BasicDaoImpl<Link> {
 		return super.findById(id, Link.class);
 	}
 
+	public Link findByLid(String lid) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("lid").is(Integer.valueOf(lid)));
+		return getMongoTemplate().findOne(query, Link.class);
+
+	}
+
 	public List<Link> findAllLinksPostedToUser(String userid) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("userId").is(userid));
-		List<UserLink> userlinkList = getMongoTemplate().find(query,
-				UserLink.class);
+		List<UserLink> userlinkList = getMongoTemplate().find(query, UserLink.class);
 		List<Link> linkList = new ArrayList<Link>();
-		for (UserLink userLink : userlinkList) {
-			System.out.println(userLink);
-			if (!userLink.isClicked())
-				linkList.add(findById(userLink.getLinkId()));
-		}
-		for (Link link : linkList) {
-			System.out.println(link);
-		}
-		return linkList;
+		/*
+		 * for (UserLink userLink : userlinkList) {
+		 * System.out.println(userLink); if (!userLink.isClicked())
+		 * linkList.add(findById(userLink.getLinkId())); } for (Link link :
+		 * linkList) { System.out.println(link); } //return linkList;
+		 */ return null;
 	}
 
 	public List<Link> getLinksSortByTime(int n) {
@@ -100,8 +102,7 @@ public class LinkDao extends BasicDaoImpl<Link> {
 		query.addCriteria(Criteria.where("userid").is(userid));
 		query.with(new Sort(Sort.Direction.ASC, "lastTraversedTime"));
 		query.limit(n);
-		List<UserLink> userlinkList = getMongoTemplate().find(query,
-				UserLink.class);
+		List<UserLink> userlinkList = getMongoTemplate().find(query, UserLink.class);
 		if (userlinkList.isEmpty())
 			logger.error("userlinklist is empty");
 
@@ -126,14 +127,35 @@ public class LinkDao extends BasicDaoImpl<Link> {
 		return getMongoTemplate().find(query, Link.class);
 	}
 
-	public Link findByUserId(String userid) {
+	public List<Link> findByUserId(String userid) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("userId").is(userid));
-		// Presently It returns only one link for one user
-		System.out.println("super.findById(userid, Link.class)"
-				+ super.findById(userid, Link.class));
-		// return super.findById(userid, Link.class);
-		return getMongoTemplate().find(query, Link.class).get(0);
+	/*	query.addCriteria(Criteria.where("clicked").is(false));
+		query.addCriteria(Criteria.where("verified").is(false));
+		query.addCriteria(Criteria.where("active").is(true));*/
+		return getMongoTemplate().find(query, Link.class);
+	}
+
+	public boolean isurlexists(String url) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("url").is(url));
+		if (getMongoTemplate().findOne(query, Link.class) == null)
+			return true;
+		else
+			return false;
+		// URL Matches
+
+		// If empty then no url is present
+		// return false;
+	}
+
+	public Link findByIdAndIsClicked(String linkId) {
+
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(linkId));
+		//query.addCriteria(Criteria.where("clicked").is(true));
+		
+		return getMongoTemplate().findOne(query, Link.class);
 	}
 
 }

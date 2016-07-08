@@ -1,3 +1,4 @@
+
 package com.myt.pmg.model;
 
 import java.util.Date;
@@ -35,34 +36,29 @@ public class User extends BasicEntity {
 	}
 
 	@Indexed(unique = true)
-	private String username;
-	@Indexed(unique = true)
 	private String email;
+
+	private String domain;
 	private String password;
-	
+
 	private String firstname;
 	private String lastname;
 	private String gender;
-	private Date dob;
-	private String domain;
+	
+	private String dob;
+	
+
 	private String country;
 	private String picName;
 	private String remarks;
-	
+
 	private boolean active = false;
 	private boolean banned = false;
 	private Level level = Level.SNAIL;
 	private Date registrationDate = new Date();
 	private String registeredIp;
-	private String[] role ;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	private String role;
+	private String pic_id;
 
 	public String getEmail() {
 		return email;
@@ -120,13 +116,7 @@ public class User extends BasicEntity {
 		this.gender = gender;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+	
 
 	public String getCountry() {
 		return country;
@@ -176,25 +166,22 @@ public class User extends BasicEntity {
 		this.registeredIp = registeredIp;
 	}
 
-	public String[] getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(String[] role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 
-		return "User [username=" + username + ", email=" + email
-				+ ", password=" + password + ", active=" + active + ", banned="
-				+ banned + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", gender=" + gender + ", dob=" + dob + ", domain="
-				+ domain + ", country=" + country + ", picName=" + picName
-				+ ", remarks=" + remarks + ", level=" + level
-				+ ", registrationDate=" + registrationDate + ", registeredIp="
-				+ registeredIp + ", role=" + role + "]";
+		return "User [ email=" + email + ", password=" + password + ", active=" + active + ", banned=" + banned
+				+ ", firstname=" + firstname + ", lastname=" + lastname + ", gender=" + gender + ", dob=" + getDob()
+				+ ", domain=" + domain + ", country=" + country + ", picName=" + picName + ", remarks=" + remarks
+				+ ", level=" + level + ", registrationDate=" + registrationDate + ", registeredIp=" + registeredIp
+				+ ", role=" + role + "]";
 	}
 
 	/**
@@ -205,10 +192,40 @@ public class User extends BasicEntity {
 	}
 
 	/**
-	 * @param domain the domain to set
+	 * @param domain
+	 *            the domain to set
 	 */
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	/**
+	 * @return the pic_id
+	 */
+	public String getPic_id() {
+		return pic_id;
+	}
+
+	/**
+	 * @param pic_id
+	 *            the pic_id to set
+	 */
+	public void setPic_id(String pic_id) {
+		this.pic_id = pic_id;
+	}
+
+	/**
+	 * @return the dob
+	 */
+	public String getDob() {
+		return dob;
+	}
+
+	/**
+	 * @param dob the dob to set
+	 */
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
 }

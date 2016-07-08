@@ -1,7 +1,9 @@
 package com.myt.pmg.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -13,19 +15,15 @@ import com.myt.pmg.model.UserLink;
 public class UserLinkDao extends BasicDaoImpl<UserLink> {
 
 	public List<UserLink> findAll() {
-		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(
-				UserLink.class);
-		return (List<UserLink>) getMongoTemplate().findAll(UserLink.class,
-				COLLECTION_NAME);
+		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(UserLink.class);
+		return (List<UserLink>) getMongoTemplate().findAll(UserLink.class, COLLECTION_NAME);
 	}
 
 	public List<UserLink> findAllById(String id) {
-		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(
-				UserLink.class);
+		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(UserLink.class);
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").is(id));
-		return (List<UserLink>) getMongoTemplate().find(query, UserLink.class,
-				COLLECTION_NAME);
+		return (List<UserLink>) getMongoTemplate().find(query, UserLink.class, COLLECTION_NAME);
 	}
 
 	public int count() {
@@ -89,17 +87,18 @@ public class UserLinkDao extends BasicDaoImpl<UserLink> {
 		query.addCriteria(Criteria.where("linkId").is(linkid));
 		return getMongoTemplate().findOne(query, UserLink.class);
 	}
-	
-	public UserLink findByUserId(String userid) {
+
+	public List<UserLink> findByUserId(String userid) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("userId").is(userid));
-		return getMongoTemplate().findOne(query, UserLink.class);
+		// return getMongoTemplate().findOne(query, UserLink.class);
+		return getMongoTemplate().find(query, UserLink.class);
 	}
-	
-	public UserLink findByBroadcasterId(String broadcasterUserId) {
+
+	public List<UserLink> findByBroadcasterId(String broadcasterUserId) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("broadcasterUserId").is(broadcasterUserId));
-		return getMongoTemplate().findOne(query, UserLink.class);
+		return getMongoTemplate().find(query, UserLink.class);
 	}
 
 	public void update(UserLink userlink) {
@@ -112,4 +111,27 @@ public class UserLinkDao extends BasicDaoImpl<UserLink> {
 		query.addCriteria(Criteria.where("clicked").is(true));
 		return getMongoTemplate().count(query, UserLink.class);
 	}
+
+	public UserLink getlatestdate(String broadcasterUserId, String userId) {
+		Query query = new Query();
+		// query.limit(10);
+
+		query.addCriteria(Criteria.where("broadcasterUserId").is(broadcasterUserId)
+				.andOperator(Criteria.where("userId").is(userId)));
+
+		query.with(new Sort(Sort.Direction.DESC, "linkbroadcastingDate"));
+		List<UserLink> userlink = getMongoTemplate().find(query, UserLink.class);
+		return userlink.get(0);
+	}
+
+	public long countRows(Class<UserLink> clazz, String broadcasterUserId, String userId) {
+		Query query = new Query();
+
+		query.addCriteria(Criteria.where("broadcasterUserId").is(broadcasterUserId)
+				.andOperator(Criteria.where("userId").is(userId)));
+
+		query.addCriteria(Criteria.where("id").exists(true));
+		return getMongoTemplate().count(query, clazz);
+	}
+
 }

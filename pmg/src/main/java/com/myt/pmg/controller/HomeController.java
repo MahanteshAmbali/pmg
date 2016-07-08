@@ -1,5 +1,6 @@
 package com.myt.pmg.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.myt.pmg.chat.XmppManager;
 import com.myt.pmg.common.UtilFunction;
 import com.myt.pmg.dto.ContributorData;
 import com.myt.pmg.model.Account;
@@ -26,6 +26,7 @@ import com.myt.pmg.model.Ip;
 import com.myt.pmg.model.User;
 import com.myt.pmg.service.AccountService;
 import com.myt.pmg.service.FaqService;
+import com.myt.pmg.service.GridFSService;
 import com.myt.pmg.service.IpService;
 import com.myt.pmg.service.UserService;
 
@@ -37,46 +38,34 @@ public class HomeController {
 	private UserService userService;
 
 	@Autowired
+	private AccountService accountService;
+
+	@Autowired
 	private IpService ipService;
 
 	@Autowired
-	private AccountService accountService;
-
-	private XmppManager xmppManager;
-
-	private static String SESSION_OBJ = "SessionObj";
+	GridFSService gridFSService;
 
 	private FaqService faqService;
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	public void setIpService(IpService ipService) {
-		this.ipService = ipService;
-	}
-
-	public void setFaqService(FaqService faqService) {
-		this.faqService = faqService;
-	}
-
-	public void setXmppManager(XmppManager xmppManager) {
-		this.xmppManager = xmppManager;
-	}
+	private static String SESSION_OBJ = "SessionObj";
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String home(Model model, Principal principal,
-			HttpServletRequest request, HttpSession session) {
-		User user = userService.findByUsername(principal.getName());
+	public String home(Model model, Principal principal, HttpServletRequest request, HttpSession session)
+			throws IOException {
+
+		User user = userService.findByEmail(principal.getName());
+		Account account = accountService.findByUserId(user.getEmail());
+		logger.info("On COntroller Login!!!!!!!!!!" + user);
 		if (session.getAttribute(SESSION_OBJ) == null) {
 			UtilFunction.setCurrentUser(session, user);
 			String ipAddress = request.getHeader("X-FORWARDED-FOR");
-			Account account = new Account();
-			if (accountService.findByUserEmail(user.getEmail()) != null) {
-				account.setUserEmail(user.getEmail());
-				accountService.saveAccount(account);
-			}
+
+			/*
+			 * if (accountService.findByUserId(user.getId()) != null) {
+			 * accountService.saveAccount(account); }
+			 */
 			if (ipAddress == null) {
 				ipAddress = request.getRemoteAddr();
 			}
@@ -98,7 +87,20 @@ public class HomeController {
 			}
 		}
 		model.addAttribute("user", user);
+		model.addAttribute("account", account);
 		logger.info("Logon" + user);
+
+		String path = (String) session.getAttribute("path");
+		
+		System.out.println(":::::::::::::Path from the Session Object:::::::::::" + path);
+		if (path == null)
+			path = gridFSService.getpic(user, session);
+
+		System.out.println("::::::::::::::::Image File Name:::::::::" + path);
+		if (path != null) {
+			model.addAttribute("path", path);
+		}
+
 		return "dashboard";
 	}
 
@@ -130,15 +132,14 @@ public class HomeController {
 		model.addAttribute("faqList", faqList);
 		return "faqs";
 	}
-	
+
 	@RequestMapping(value = "/denied", method = RequestMethod.GET)
 	public String deny() {
 		return "denied";
 	}
 
 	@RequestMapping(value = "/saveip", method = RequestMethod.POST)
-	public void saveLastAccessIp(@RequestParam("ip") String accessip,
-			HttpSession session) {
+	public void saveLastAccessIp(@RequestParam("ip") String accessip, HttpSession session) {
 		User user = UtilFunction.getCurrentUser(session);
 		Ip ip = new Ip();
 		ip.setIp(accessip);

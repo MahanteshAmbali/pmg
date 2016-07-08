@@ -76,9 +76,9 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-			
-				<jsp:include page="header.jsp"/>
-			
+
+			<jsp:include page="header.jsp" />
+
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -104,26 +104,7 @@
 	<!-- Main Content -->
 	<section class="content-wrap">
 		<!-- Breadcrumb -->
-		<div class="page-title z-depth-1">
-			<div id="nt-title-container">
-				<ul id="nt-title">
-					<li>A powerful, flexible and animated vertical news ticker
-						plugin.</li>
-					<li>Provides hight flexibility thanks to numerous callbacks &
-						methods.</li>
-					<li>Fully customizable to every kind of vertical scrolling
-						need.</li>
-					<li>Light-weight and optimized JQuery plugin.</li>
-				</ul>
-			</div>
-			<div class="col s12 m3 l2 right-align">
-				<a
-					class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"
-					data-tooltip="Chat with US" data-position="left"> <i
-					class="fa fa-comments"></i>
-				</a>
-			</div>
-		</div>
+
 		<!-- /Breadcrumb -->
 		<div class="card z-depth-2 col s12">
 			<div class="title blue white-text z-depth-1">
@@ -147,7 +128,7 @@
 						<div class="col s6 ">
 							<select>
 								<option value="" disabled selected>Choose Money Site</option>
-								<option class="blue-text" value="1">
+								<option class="blue-text" value="1" selected="selected">
 									<c:out value="${user.domain}" />
 								</option>
 							</select>
@@ -159,7 +140,9 @@
 							class="materialize-textarea" name="urls"></textarea>
 
 						<label for="textarea_icon">Submit Your Ad Containing Links
-							To Broadcast</label>
+							To Broadcast Choose Money Site (<b><c:out
+									value="${user.domain}" /></b>)
+						</label>
 					</div>
 					<div class="row">
 						<div class="col s12 l12">
@@ -180,7 +163,8 @@
 		</div>
 
 		<!--LB-->
-		<form action="linkbroadcaster?generateLID=false" method="post">
+		<form action="linkbroadcaster?generateLID=false&urls=" method="post"
+			autocomplete="off">
 			<div class="card z-depth-2 col l12 m8 s6">
 				<div class="title blue white-text z-depth-1">
 					<h5>
@@ -209,75 +193,59 @@
 								<th class="center tooltipped" data-position="top"
 									data-delay="50" data-tooltip="Link Submitted On"
 									style="width: 12%">Submision Date</th>
-								<th style="width: 5%" class="center tooltipped"
-									data-position="top" data-delay="50"
-									data-tooltip="Select the Links to Broadcast">Check</th>
+
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${linkLists}" var="link">
+							<c:forEach items="${linkLists}" var="link" varStatus="counter">
 								<tr>
-									<td class="center">1</td>
-									<td class="center"><c:if test="${link.lid !=null }">
-											<c:out value="${link.lid}" />
-											<input type="hidden" value="${link.lid}" name="lid" />
-										</c:if></td>
-									<td class="center"><c:if test="${link.url !=null }">
-											<c:out value="${link.url}" />
-											<input type="hidden" value="${link.url}" name="domain" />
-										</c:if></td>
-									<td><div class="input-field">
-											<input id="input_text" type="text" name="keyword"
-												class="validate"> <label for="input_text">Relevant
-												Keyword</label>
-										</div></td>
-									<td class="center"><c:if
-											test="${link.creationTime !=null }">
-											<c:out value="${link.creationTime}" />
-											<input type="hidden" value="${link.creationTime}"
-												name="ctime" />
-										</c:if></td>
-									<td class="center"><input class="check check-blue"
-										type="checkbox" id="checkbox1" /> <label
-										class="check check-blue" for="checkbox1"> </label></td>
+
+									<c:if test="${link.linkstatus == 'PENDING'}">
+
+										<td class="center">${counter.count}</td>
+										<td class="center"><c:if test="${link.lid !=null }">
+												<c:out value="${link.lid}" />
+												<input type="hidden" value="${link.lid}" name="lid" />
+											</c:if></td>
+										<td class="center"><c:if test="${link.url !=null }">
+												<c:out value="${link.url}" />
+												<input type="hidden" value="${link.url}" name="domain" />
+											</c:if></td>
+										<td><div class="input-field">
+												<input id="keyword" type="text" name="keyword"
+													class="validate" size="10" required="required"> <label
+													for="keyword">Relevant Keyword</label>
+											</div></td>
+										<td class="center"><c:if
+												test="${link.creationTime !=null }">
+												<c:out value="${link.creationTime}" />
+												<input type="hidden" value="${link.creationTime}"
+													name="ctime" />
+											</c:if></td>
+
+									</c:if>
 								</tr>
 							</c:forEach>
+
 						</tbody>
 					</table>
 
 					<div class="row">
-						<div class="col s6 l6">
-							<!-- Dropdown Trigger -->
-							<div class="div btn-group tooltipped" data-position="right"
-								data-delay="50"
-								data-tooltip="Edit / Delete the Selected Link Before Broadcasting">
-								<a href="#!" class="waves-effect waves-light btn ">Save</a> <a
-									href="#!" class="waves-effect waves-light btn dropdown-button"
-									data-activates='dropdown2'><span
-									class="mdi-navigation-expand-more"></span></a>
-							</div>
-
-							<!-- Dropdown Structure -->
-							<ul id='dropdown2' class="dropdown-content">
-								<li><a href="#!" class="waves-effect waves-blue">Edit</a></li>
-								<li class="divider"></li>
-								<li><a href="#!" class="waves-effect waves-red">Delete</a></li>
-							</ul>
-						</div>
-
 
 						<div class="col s6 l6">
 							<ul class="note">
-								<li class="warning confirm right"><input type="submit"
-									class="btn waves-effect lb waves-light tooltipped"
-									data-position="left" data-delay="50"
-									data-tooltip="Broadcast My Selected Link to Other Players"
-									value="Begin Broadcaster" /> <!-- <button class="btn waves-effect lb waves-light tooltipped"
+								<li class="warning confirm right">
+									<button class="btn waves-effect lb waves-light tooltipped"
 										data-position="left" data-delay="50"
 										data-tooltip="Broadcast My Selected Link to Other Players"
 										type="submit">
 										Begin Broadcasting <i class="fa fa-bullhorn right"></i>
-									</button> --></li>
+									</button> <!-- 	<input type="submit"
+									class="btn waves-effect lb waves-light tooltipped"
+									data-position="left" data-delay="50"
+									data-tooltip="Broadcast My Selected Link to Other Players"
+									value="Begin Broadcaster" /> --> <!--  -->
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -480,55 +448,55 @@
 	<!-- endbuild -->
 
 	<script>
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: '${pageContext.request.contextPath}/static/./music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  '${pageContext.request.contextPath}/static/./music/ding.mp3'
-            });
+		// elevator.
+		var elementButton = document.querySelector('footer');
+		var elevator = new Elevator(
+				{
+					element : elementButton,
+					mainAudio : '${pageContext.request.contextPath}/static/./music/elevator-music.mp3', // Music from http://www.bensound.com/
+					endAudio : '${pageContext.request.contextPath}/static/./music/ding.mp3'
+				});
 
-			// Link Submitter
-			document.querySelector('ul.note li.success button.a1').onclick = function(){
-		swal({ 
-		title:  "Well Done Username",
-		text: "Links are Submitted Successfully !!!",
-		timer: 3000,
-		type: "success",
-		showConfirmButton: false
-		
-	});
-};
+		// Link Submitter
+		document.querySelector('ul.note li.success button.a1').onclick = function() {
+			swal({
+				title : "Well Done Username",
+				text : "Links are Submitted Successfully !!!",
+				timer : 3000,
+				type : "success",
+				showConfirmButton : false
 
-// Link Broadcastor
-document.querySelector('ul.note li.warning.confirm button.lb').onclick = function(){
-	swal({
-		title: "Are you sure Username?",
-		text: "Cancel & Recheck If Not Sure!",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, Do IT!',
-		closeOnConfirm: false
-	},
-	function(){
-		swal("Sarting...!", "Link Broadcasting Begins NOW!", "success");
-	});
-};
-			
-  </script>
+			});
+		};
+
+		// Link Broadcastor
+		document.querySelector('ul.note li.warning.confirm button.lb').onclick = function() {
+			swal({
+				title : "Are you sure Username?",
+				text : "Cancel & Recheck If Not Sure!",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : '#DD6B55',
+				confirmButtonText : 'Yes, Do IT!',
+				closeOnConfirm : false
+			},
+					function() {
+						swal("Sarting...!", "Link Broadcasting Begins NOW!",
+								"success");
+					});
+		};
+	</script>
 	<script>
-    		
-    		$(window).load(function(){
-	            $('code.language-javascript').mCustomScrollbar();
-	        });
-            var nt_title = $('#nt-title').newsTicker({
-                row_height: 40,
-                max_rows: 1,
-                duration: 3000,
-                pauseOnHover: 1
-            });
-        </script>
+		$(window).load(function() {
+			$('code.language-javascript').mCustomScrollbar();
+		});
+		var nt_title = $('#nt-title').newsTicker({
+			row_height : 40,
+			max_rows : 1,
+			duration : 3000,
+			pauseOnHover : 1
+		});
+	</script>
 
 </body>
 

@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>  <html class="lt-ie7"> <![endif]-->
 <!--[if IE 7]>     <html class="lt-ie8"> <![endif]-->
@@ -7,6 +12,31 @@
 <!--<![endif]-->
 
 <head>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(document).ready(function() {
+		var status = [];
+
+		<c:forEach items="${links}" var="link">
+			status.push('${link.linkstatus}');
+		</c:forEach>
+
+		$.each(status, function(index, stat) {
+			if (stat.toLowerCase().indexOf("clicked") >= 0) {
+				$("#cstatus").prop("checked", true)
+			}
+
+			if (stat.toLowerCase().indexOf("pending") >= 0) {
+				$("#pstatus").prop("checked", true)
+			}
+
+			if (stat.toLowerCase().indexOf("verified") >= 0) {
+				$("#vstatus").prop("checked", true)
+			}
+		});
+	});
+</script>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>ProMaGizmo | PMG</title>
@@ -85,7 +115,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-				<jsp:include page="header.jsp" />
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -111,29 +141,10 @@
 	<!-- Main Content -->
 	<section class="content-wrap">
 		<!-- Breadcrumb -->
-		<div class="page-title z-depth-1">
-			<div id="nt-title-container">
-				<ul id="nt-title">
-					<li>A powerful, flexible and animated vertical news ticker
-						plugin.</li>
-					<li>Provides hight flexibility thanks to numerous callbacks &
-						methods.</li>
-					<li>Fully customizable to every kind of vertical scrolling
-						need.</li>
-					<li>Light-weight and optimized JQuery plugin.</li>
-				</ul>
-			</div>
-			<div class="col s12 m3 l2 right-align">
-				<a
-					class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"
-					data-tooltip="Chat with US" data-position="left"> <i
-					class="fa fa-comments"></i>
-				</a>
-			</div>
-		</div>
+
 		<!-- /Breadcrumb -->
 
-
+		<!-- Externilize to File -->
 		<div class="card  z-depth-2 col s12">
 			<div class="title blue lighten-2 white-text card-header z-depth-1">
 				<h5>
@@ -197,7 +208,7 @@
 				<div class="row">
 					<div class="col l12">
 						<div class="table-responsive">
-							<table id="datatable1" class="table table-bordered">
+							<table class="table table-bordered ">
 								<thead class="blue lighten-2 white-text">
 									<tr>
 										<th class="center tooltipped" data-position="top"
@@ -216,32 +227,37 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="center">
-											<p>
-												<input type="checkbox" id="check1" /> <label for="check1"></label>
-											</p>
-										</td>
-										<td class="center">03/03/2015</td>
-										<td class="center">#659847</td>
-										<td class="center">http://abc.com.xyz.html</td>
-										<td class="center">This is the best keyword</td>
-										<td><input class="d-blue" name="radios1" type="radio"
-											id="pending" /> <label for="pending"
-											class="tooltipped blue-text" data-position="left"
-											data-delay="50" data-tooltip="This link is NOT Clicked YET">
-												Pending</label> <input class="d-orange" name="radios1" type="radio"
-											id="clicked" /> <label for="clicked"
-											class="tooltipped orange-text" data-position="left"
-											data-delay="50"
-											data-tooltip="Waiting Verification (Go To Link Verifier)">
-												Clicked</label> <input class="d-green" name="radios1" type="radio"
-											id="verified" /> <label for="verified"
-											class="tooltipped green-text" data-position="left"
-											data-delay="50" data-tooltip="You have Verified IT">
-												Verified</label></td>
+									<c:forEach items="${links}" var="link">
+										<tr>
 
-									</tr>
+
+											<td class="center">
+												<p>
+													<input type="checkbox" id="check1" /> <label for="check1"></label>
+												</p>
+											</td>
+											<td class="center"><c:out
+													value="${link.lastTraveredTime}"></c:out></td>
+											<td class="center"><c:out value="${link.lid}"></c:out></td>
+											<td class="center"><c:out value="${link.adurl}"></c:out></td>
+											<td class="center"><c:out value="${link.keyword}"></c:out></td>
+											<td><input id="pstatus" class="d-blue" name="pstatus"
+												type="radio" /> <label for="pending"
+												class="tooltipped blue-text" data-position="left"
+												data-delay="50" data-tooltip="This link is NOT Clicked YET">
+													Pending </label> <input id="cstatus" class="d-orange"
+												name="cstatus" type="radio" /> <label for="clicked"
+												class="tooltipped orange-text" data-position="left"
+												data-delay="50"
+												data-tooltip="Waiting Verification (Go To Link Verifier)">
+													Clicked </label> <input class="d-green" name="vstatus" type="radio"
+												id="vstatus" /> <label for="verified"
+												class="tooltipped green-text" data-position="left"
+												data-delay="50" data-tooltip="You have Verified IT">
+													Verified</label></td>
+
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -255,6 +271,8 @@
 			</div>
 			<!--end .section-body -->
 		</div>
+
+		<!-- Externilize to File -->
 		<!--end #content-->
 		<div class="card  z-depth-2 col s12">
 			<div class="title blue lighten-2 white-text card-header z-depth-1">
@@ -318,7 +336,7 @@
 				<div class="row">
 					<div class="col l12">
 						<div class="table-responsive">
-							<table id="datatable2" class="table table-bordered">
+							<table class="table table-bordered">
 								<thead class="blue lighten-2 white-text">
 									<tr>
 										<th class="center tooltipped" data-position="top"
@@ -336,45 +354,47 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="center">
-											<p>
-												<input type="checkbox" id="check2" /> <label for="check2"></label>
-											</p>
-										</td>
-										<td class="center">03/03/2015</td>
-										<td class="center">Demi More</td>
-										<td class="center">
-											<!-- Modal Trigger --> <a class="modal-trigger" href="#VUID">#65849
-										</a> <!-- Modal Structure -->
-											<div id="VUID" class="modal-fx blue white-text lighten-1">
-												<h4>Verifier's URL</h4>
-												<hr class="white">
-												<ul>
-													<li style="font-size: 1.3em" class="center">http://www.abc.com/xzy.html</li>
-												</ul>
-												<div class="action-bar">
-													<a href="#"
-														class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
-														| GOT IT!</a>
+									<c:forEach items="${myClickStatuslist}" var="myclickstatus">
+										<tr>
+											<td class="center">
+												<p>
+													<input type="checkbox" id="check2" /> <label for="check2"></label>
+												</p>
+											</td>
+											<td class="center">${myclickstatus.clickedon}</td>
+											<td class="center">${myclickstatus.ownerId}</td>
+											<td class="center">
+												<!-- Modal Trigger --> <a class="modal-trigger" href="#VUID">${myclickstatus.lid}
+											</a> <!-- Modal Structure -->
+												<div id="VUID" class="modal-fx blue white-text lighten-1">
+													<h4>Verifier's URL</h4>
+													<hr class="white">
+													<ul>
+														<li style="font-size: 1.3em" class="center">${myclickstatus.verifierUrl}</li>
+													</ul>
+													<div class="action-bar">
+														<a href="#"
+															class="waves-effect waves-blue white blue-text btn btn-small modal-action modal-close">OK
+															| GOT IT!</a>
+													</div>
 												</div>
-											</div>
-										</td>
-										<td><input class="d-blue" name="state1" type="radio"
-											id="p" /> <label for="p" class="tooltipped blue-text"
-											data-position="left" data-delay="50"
-											data-tooltip="Verification Of This Link Is Pending">
-												Pending</label> <input class="d-red" name="state1" type="radio"
-											id="p1" /> <label for="p1" class="tooltipped red-text"
-											data-position="left" data-delay="50"
-											data-tooltip="Verifier Has Rejected & lodged Complaint (Now PMG Will Check This Link)">
-												Rejected</label> <input class="d-green" name="state1" type="radio"
-											id="p2" /> <label for="p2" class="tooltipped green-text"
-											data-position="left" data-delay="50"
-											data-tooltip="Verifier Has Accepted and Expressed Appriciation">
-												Awarded</label></td>
+											</td>
+											<td><input class="d-blue" name="state1" type="radio"
+												id="p" /> <label for="p" class="tooltipped blue-text"
+												data-position="left" data-delay="50"
+												data-tooltip="Verification Of This Link Is Pending">
+													Pending</label> <input class="d-red" name="state1" type="radio"
+												id="p1" /> <label for="p1" class="tooltipped red-text"
+												data-position="left" data-delay="50"
+												data-tooltip="Verifier Has Rejected & lodged Complaint (Now PMG Will Check This Link)">
+													Rejected</label> <input class="d-green" name="state1" type="radio"
+												id="p2" /> <label for="p2" class="tooltipped green-text"
+												data-position="left" data-delay="50"
+												data-tooltip="Verifier Has Accepted and Expressed Appriciation">
+													Awarded</label></td>
 
-									</tr>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

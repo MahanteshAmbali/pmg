@@ -31,6 +31,14 @@
 		<security:intercept-url pattern="/static/**"
 			access="permitAll" />
 
+		<security:intercept-url pattern="/resetpasswd/**"
+			access="permitAll" />
+			
+		<security:intercept-url pattern="/forgot/**"
+			access="permitAll" />
+			
+			<security:intercept-url pattern="/view/**"
+			access="permitAll" />
 
 		<security:intercept-url pattern="/createaccount"
 			access="permitAll" />
@@ -49,6 +57,9 @@
 
 		<security:intercept-url pattern="/savepic"
 			access="permitAll" />
+			
+		<security:intercept-url pattern="/showpic"
+			access="permitAll" />
 
 		<security:intercept-url pattern="/resetpassword"
 			access="permitAll" />
@@ -60,10 +71,15 @@
 		<security:intercept-url pattern="/verifyaccount**"
 			access="permitAll" />
 
+		<security:intercept-url pattern="/thankyou**"
+			access="permitAll" />
+
 		<security:intercept-url pattern="/proof/**"
 			access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/chat"
+
+		<security:intercept-url pattern="/uploadpic/**"
 			access="hasRole('ROLE_USER')" />
+
 		<security:intercept-url pattern="/gettoplinks"
 			access="hasRole('ROLE_USER')" />
 
@@ -77,6 +93,13 @@
 			access="hasRole('ROLE_USER')" />
 
 		<security:intercept-url pattern="/profile"
+			access="hasRole('ROLE_USER')" />
+			
+			<security:intercept-url pattern="/edituser"
+			access="hasRole('ROLE_USER')" />
+
+
+		<security:intercept-url pattern="/emailver"
 			access="hasRole('ROLE_USER')" />
 
 		<security:intercept-url pattern="/linkverifier"
@@ -125,6 +148,8 @@
 			access="hasRole('ROLE_USER')" />
 
 		<security:intercept-url pattern="/**" access="denyAll" />
+
+
 		<security:custom-filter position="CONCURRENT_SESSION_FILTER"
 			ref="concurrencyFilter" />
 		<security:custom-filter ref="authenticationFilter"

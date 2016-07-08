@@ -1,18 +1,13 @@
 package com.myt.pmg.model;
 
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "account")
 public class Account extends BasicEntity {
 
-	@Indexed(unique = true)
-	private String userEmail;
+	private String userId;
 
-	@Indexed(unique = true)
-	private String domain;
-
-	private String linksSubmitted;
+	private int linksSubmitted=0;
 
 	// ToDO change to datatimme
 	private String[] bestTime;
@@ -28,34 +23,16 @@ public class Account extends BasicEntity {
 
 	private int earnings;
 
-	/**
-	 * @return the domain
-	 */
-	public String getDomain() {
-		return domain;
+	private int weektarget;
+
+	private int monthtarget;
+
+	public int getMonthtarget() {
+		return monthtarget;
 	}
 
-	/**
-	 * @param domain
-	 *            the domain to set
-	 */
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
-	/**
-	 * @return the linksSubmitted
-	 */
-	public String getLinksSubmitted() {
-		return linksSubmitted;
-	}
-
-	/**
-	 * @param linksSubmitted
-	 *            the linksSubmitted to set
-	 */
-	public void setLinksSubmitted(String linksSubmitted) {
-		this.linksSubmitted = linksSubmitted;
+	public void setMonthtarget(int monthtarget) {
+		this.monthtarget = monthtarget;
 	}
 
 	/**
@@ -147,33 +124,57 @@ public class Account extends BasicEntity {
 	public void setEarnings(int earnings) {
 		this.earnings = earnings;
 	}
+
 	/**
-	 * @return the userEmail
+	 * @return the userId
 	 */
-	public String getUserEmail() {
-		return userEmail;
+	public String getUserId() {
+		return userId;
 	}
 
 	/**
-	 * @param userEmail the userEmail to set
+	 * @param userId
+	 *            the userId to set
 	 */
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * @return the weektarget
+	 */
+	public int getWeektarget() {
+		return weektarget;
+	}
+
+	/**
+	 * @param weektarget
+	 *            the weektarget to set
+	 */
+	public void setWeektarget(int weektarget) {
+		this.weektarget = weektarget;
 	}
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("userEmail=" + getUserEmail());
-		sb.append(" domain=" + domain);
-		sb.append(" links submitted=" + linksSubmitted);
-		sb.append(" bestTime=" + bestTime[0]);
-		sb.append(" days=" + days);
-		sb.append(" duration=" + duration);
-		sb.append(" dailyBroadcastingRate = " + dailyBroadcastingRate);
-		sb.append(" vacation=" + vacation);
-		sb.append(" earnings=" + earnings);
+		String var = "LinkSubmitted" + getLinksSubmitted() + "Best Time From" + bestTime[0] + ",Best Time TO"
+				+ bestTime[1];
+		System.out.println(var);
+		return var;
+	}
 
-		return sb.toString();
+	/**
+	 * @return the linksSubmitted
+	 */
+	public int getLinksSubmitted() {
+		return linksSubmitted;
+	}
+
+	/**
+	 * @param linksSubmitted
+	 *            the linksSubmitted to set
+	 */
+	public void setLinksSubmitted(int linksSubmitted) {
+		this.linksSubmitted = linksSubmitted;
 	}
 }

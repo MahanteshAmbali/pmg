@@ -14,16 +14,19 @@ import com.myt.pmg.model.User.Level;
 public class UserDao extends BasicDaoImpl<User> {
 
 	public List<User> findAll() {
-		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(
-				User.class);
-		return (List<User>) getMongoTemplate().findAll(User.class,
-				COLLECTION_NAME);
+		final String COLLECTION_NAME = getMongoTemplate().getCollectionName(User.class);
+		return (List<User>) getMongoTemplate().findAll(User.class, COLLECTION_NAME);
 	}
 
-	public boolean usernameExists(String username) {
+	public boolean usernameExists(String email, String domain) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("username").is(username));
-		if (getMongoTemplate().find(query, User.class) == null)
+		Criteria criteria = new Criteria();
+		criteria.orOperator(Criteria.where("email").is(email), Criteria.where("domain").is(domain));
+		query.addCriteria(criteria);
+
+		if (getMongoTemplate().find(query, User.class).isEmpty())
+			// Empty then no User email and domain combination exists in DB , So
+			// allow to register
 			return false;
 		else
 			return true;
@@ -48,7 +51,6 @@ public class UserDao extends BasicDaoImpl<User> {
 	public User findUserByEmail(String email) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("email").is(email));
-		System.out.println("Here in Email Dao Validation" +(User) getMongoTemplate().findOne(query, User.class) );
 		return (User) getMongoTemplate().findOne(query, User.class);
 	}
 
@@ -58,8 +60,7 @@ public class UserDao extends BasicDaoImpl<User> {
 		return (List<User>) getMongoTemplate().find(query, User.class);
 	}
 
-	public List<User> findUsersByField(String username, String email,
-			String ip, Level level) {
+	public List<User> findUsersByField(String username, String email, String ip, Level level) {
 		String fieldValue = null, fieldName = null;
 		if (username != null) {
 			fieldName = "username";
@@ -81,8 +82,7 @@ public class UserDao extends BasicDaoImpl<User> {
 
 	public List<User> findNewUsersToday() {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("registrationDate").gt(
-				new Date((new Date().getTime()) - 24 * 3600 * 1000l)));
+		query.addCriteria(Criteria.where("registrationDate").gt(new Date((new Date().getTime()) - 24 * 3600 * 1000l)));
 		return getMongoTemplate().find(query, User.class);
 	}
 
@@ -127,8 +127,7 @@ public class UserDao extends BasicDaoImpl<User> {
 
 	public long countUsersRegisteredToday() {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("registrationDate").gt(
-				new Date((new Date().getTime()) - 24 * 3600 * 1000l)));
+		query.addCriteria(Criteria.where("registrationDate").gt(new Date((new Date().getTime()) - 24 * 3600 * 1000l)));
 		return getMongoTemplate().count(query, User.class);
 	}
 
@@ -138,5 +137,14 @@ public class UserDao extends BasicDaoImpl<User> {
 		query.addCriteria(Criteria.where("level").is(level));
 		return getMongoTemplate().count(query, User.class);
 
+	}
+
+	public boolean domainExists(String domain) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("domain").is(domain));
+		if (getMongoTemplate().find(query, User.class) == null)
+			return false;
+		else
+			return true;
 	}
 }

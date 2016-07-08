@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-<context:component-scan base-package="com.myt.pmg" />
-	<context:annotation-config/>
+	<context:component-scan base-package="com.myt.pmg" />
+	<context:annotation-config />
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
@@ -18,24 +17,5 @@
 	<bean id="sessionRegistry"
 		class="org.springframework.security.core.session.SessionRegistryImpl" />
 
-<!-- 	<bean id="linkBroadcastEngine" class="com.myt.pmg.engine.LinkBroadcastEngine"
-		scope="singleton" init-method="startEngine" lazy-init="false"
-		autowire="default" abstract="false">
 
-		<property name="customScheduler" ref="customScheduler"></property>
-	</bean>
-	
-	
-	<bean id="customScheduler" class="com.myt.pmg.engine.CustomScheduler">
-		<property name="linkService" ref="linkService"></property>
-		<property name="userlinkService" ref="userlinkService"></property>
-		<property name="userService" ref="userService"></property>
-	</bean>
-	<bean id="xmppManager" class="com.myt.pmg.chat.XmppManager">
-		<constructor-arg value="arpit-rig"></constructor-arg>
-		<constructor-arg value="5222"></constructor-arg>
-	</bean>
-	<bean id="downloadHandler"
-		class="com.myt.pmg.helper.DownloadHandler">
-	</bean>-->
 </beans>

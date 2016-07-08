@@ -76,7 +76,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-				<jsp:include page="header.jsp" />
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -454,39 +454,37 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
 	<script>
+		// elevator.
+		var elementButton = document.querySelector('footer');
+		var elevator = new Elevator({
+			element : elementButton,
+			mainAudio : '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
+			endAudio : '../.././music/ding.mp3'
+		});
 
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  '../.././music/ding.mp3'
-            });
+		// Appriciate More
+		document.querySelector('ul.note li.success button.am').onclick = function() {
+			swal({
+				title : "Great Job Username",
+				text : "Successfully Appriciated !!!",
+				timer : 3000,
+				type : "success",
+				showConfirmButton : false
 
-			// Appriciate More
-			document.querySelector('ul.note li.success button.am').onclick = function(){
-		swal({ 
-		title:  "Great Job Username",
-		text: "Successfully Appriciated !!!",
-		timer: 3000,
-		type: "success",
-		showConfirmButton: false
-		
-	});
-};
-        </script>
+			});
+		};
+	</script>
 	<script>
-    		
-    		$(window).load(function(){
-	            $('code.language-javascript').mCustomScrollbar();
-	        });
-            var nt_title = $('#nt-title').newsTicker({
-                row_height: 40,
-                max_rows: 1,
-                duration: 3000,
-                pauseOnHover: 1
-            });
-        </script>
+		$(window).load(function() {
+			$('code.language-javascript').mCustomScrollbar();
+		});
+		var nt_title = $('#nt-title').newsTicker({
+			row_height : 40,
+			max_rows : 1,
+			duration : 3000,
+			pauseOnHover : 1
+		});
+	</script>
 
 </body>
 

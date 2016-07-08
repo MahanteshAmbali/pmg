@@ -81,7 +81,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-				<jsp:include page="header.jsp" />
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -892,32 +892,30 @@
 		href="${pageContext.request.contextPath}/static/assets/core/markitup/sets/default/style.css"
 		rel="stylesheet" type="text/css" />
 	<script>
+		// elevator.
+		var elementButton = document.querySelector('footer');
+		var elevator = new Elevator({
+			element : elementButton,
+			mainAudio : '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
+			endAudio : '../.././music/ding.mp3'
+		});
 
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: '../.././music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  '../.././music/ding.mp3'
-            });
-			
-				// ban
-document.querySelector('ul.note li.warning.confirm button.ban').onclick = function(){
-	swal({
-		title: "Are you sure Master?",
-		text: "Cancel & Recheck If Not Sure!",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, Do IT!',
-		closeOnConfirm: false
-	},
-	function(){
-		swal("Banned!", "The User has been Banned successfully!", "success");
-	});
-};
-
-        </script>
+		// ban
+		document.querySelector('ul.note li.warning.confirm button.ban').onclick = function() {
+			swal({
+				title : "Are you sure Master?",
+				text : "Cancel & Recheck If Not Sure!",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : '#DD6B55',
+				confirmButtonText : 'Yes, Do IT!',
+				closeOnConfirm : false
+			}, function() {
+				swal("Banned!", "The User has been Banned successfully!",
+						"success");
+			});
+		};
+	</script>
 
 </body>
 

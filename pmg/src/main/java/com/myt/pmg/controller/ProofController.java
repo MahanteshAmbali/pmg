@@ -67,8 +67,7 @@ public class ProofController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		ResourceBundleMessageSource bean = new ResourceBundleMessageSource();
 		bean.setBasename("paths");
-		String saveDirectory = bean.getMessage("File.proof.savepath", null,
-				Locale.getDefault());
+		String saveDirectory = bean.getMessage("File.proof.savepath", null, Locale.getDefault());
 		int i = 0;
 		Map<?, ?> map = multipartRequest.getFileMap();
 		MultipartFile mfile = null;
@@ -79,18 +78,16 @@ public class ProofController {
 			long hash = (new Date()).getTime();
 			fileName = hash + fileName;
 			if (!"".equalsIgnoreCase(fileName)) {
-				UserLink ul = userlinkService.findByLinkId(request
-						.getParameter("linkIds" + i));
+				UserLink ul = userlinkService.findByLinkId(request.getParameter("linkIds" + i));
 				if (ul != null) {
 					mfile.transferTo(new File(saveDirectory + fileName));
 					System.out.println(saveDirectory + fileName);
 					proof.setLinkId(request.getParameter("linkIds" + i));
 					proof.setFileName(fileName);
-					proof.setUserId(UtilFunction.getCurrentUser(session)
-							.getId());
+					proof.setUserId(UtilFunction.getCurrentUser(session).getId());
 					proof.setSubmissionDate(new Date());
 					proofService.createProof(proof);
-					ul.setClicked(true);
+					// ul.setClicked(true);
 					// ul.setProofId(proofId);
 					userlinkService.update(ul);
 					i++;
@@ -101,8 +98,7 @@ public class ProofController {
 	}
 
 	@RequestMapping(value = "/downloadproof", method = RequestMethod.POST)
-	public void downloadProof(HttpServletRequest request,
-			HttpServletResponse response,
+	public void downloadProof(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("fileName") String fileName) {
 		downloadHandler.doDownload(request, response, fileName);
 	}

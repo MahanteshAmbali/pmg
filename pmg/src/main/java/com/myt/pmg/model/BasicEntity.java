@@ -2,8 +2,9 @@ package com.myt.pmg.model;
 
 import org.springframework.data.annotation.Id;
 
-
 public abstract class BasicEntity {
+	
+	
 	@Id
 	private String id;
 
@@ -14,6 +15,5 @@ public abstract class BasicEntity {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
+
 }

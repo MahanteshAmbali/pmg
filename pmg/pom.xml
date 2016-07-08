@@ -8,7 +8,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-
 	<name>ProMaGizmo</name>
 
 	<properties>
@@ -36,25 +35,29 @@
 		<junit.version>4.11</junit.version>
 
 	</properties>
+
 	<build>
 		<finalName>pmg</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<url>http://localhost:8080/manager/text</url>
-					<server>mytomcat</server>
-					<path>/pmg</path>
-				</configuration>
-			</plugin>
+			<!-- <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+				<version>2.2</version> <configuration> <url>http://localhost:8080/manager/text</url> 
+				<server>mytomcat</server> <path>/pmg</path> </configuration> </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<version>1.7</version>
-
 			</plugin>
+			
+			 <plugin>
+	<groupId>org.eclipse.jetty</groupId>
+	<artifactId>jetty-maven-plugin</artifactId>
+	<version>9.2.11.v20150529</version>
+	 <configuration>
+    <webApp>
+      <contextPath>/pmg</contextPath>
+    </webApp>
+  </configuration>
+  </plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -63,10 +66,68 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<m2eclipse>true</m2eclipse>
+					<downloadSources>true</downloadSources>
 				</configuration>
 			</plugin>
+
+
+		
+
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+
+
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
+				<version>2.5.1</version> <configuration> <formats> <format>xml</format> <format>html</format> 
+				</formats> <aggregate>true</aggregate> </configuration> </plugin> -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.5</version>
+				<configuration>
+
+					<targetDirectory>target/reports</targetDirectory>
+					<linkXref>true</linkXref>
+					<sourceEncoding>UTF-8</sourceEncoding>
+					<minimumTokens>30</minimumTokens>
+					<targetJdk>1.7</targetJdk>
+					<minimumPriority>5</minimumPriority>
+					<failOnViolation>true</failOnViolation>
+					<failurePriority>1</failurePriority>
+					<verbose>true</verbose>
+					<rulesets>
+						<ruleset>pmd.xml</ruleset>
+					</rulesets>
+					<format>html</format>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+	</reporting>
+
 
 	<dependencies>
 
@@ -172,11 +233,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -263,7 +320,6 @@
 			<artifactId>javax.websocket-api</artifactId>
 			<version>1.1</version>
 		</dependency>
+
 	</dependencies>
-
-
 </project>

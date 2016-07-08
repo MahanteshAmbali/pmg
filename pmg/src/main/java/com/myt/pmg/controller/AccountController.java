@@ -1,3 +1,4 @@
+
 package com.myt.pmg.controller;
 
 import java.security.Principal;
@@ -18,51 +19,50 @@ import com.myt.pmg.common.UtilFunction;
 import com.myt.pmg.model.Account;
 import com.myt.pmg.model.User;
 import com.myt.pmg.service.AccountService;
-import com.myt.pmg.service.UserService;
 
 @Controller
 public class AccountController {
 
 	static final Logger logger = Logger.getLogger(AccountController.class);
 
-	private static String SESSION_OBJ = "SessionObj";
-
-	@Autowired
-	private UserService userService;
-
 	@Autowired
 	private AccountService accountService;
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
-	public String accountPage(Model model, Principal principal,
-			HttpServletRequest request, HttpSession session) {
-		User user = userService.findByUsername(principal.getName());
-		if (session.getAttribute(SESSION_OBJ) == null) {
-			UtilFunction.setCurrentUser(session, user);
+	public String accountPage(Model model, Principal principal, HttpServletRequest request, HttpSession session) {
+		// User user = userService.findByEmail(principal.getName());
+		User user = UtilFunction.getCurrentUser(session);
+		if (null == user) {
+			// Send User to same Page showing user is not logged in
+			return "login";
 		}
+		// Account account = accountService.findByUserId(user.getId());
+		Account account = accountService.findByUserId(user.getEmail());
 
-		Account account = accountService.findByUserEmail(user.getEmail());
-		if (account != null) {
-			System.out.println(account.toString());
-			model.addAttribute("account", account);
-		}
+		model.addAttribute("account", account);
+		model.addAttribute("user", user);
 
 		return "account";
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/accountsetup", method = RequestMethod.POST)
-	public String accountSetup(Model model, Principal principal,
-			HttpServletRequest request, HttpSession session,
+	public String accountSetup(Model model, Principal principal, HttpServletRequest request, HttpSession session,
 			@ModelAttribute("account") Account account) {
-		User user = userService.findByUsername(principal.getName());
-		if (session.getAttribute(SESSION_OBJ) == null) {
-			UtilFunction.setCurrentUser(session, user);
+		User user = UtilFunction.getCurrentUser(session);
+		if (null == user) {
+			return "login";
 		}
-		account.setUserEmail(user.getEmail());
-		String uid = accountService.addAccount(account);
-		System.out.println("*******Account Created for User" + uid);
+		account.setUserId(user.getEmail());
+		Account test = accountService.findByUserId(user.getEmail());
+		if (test != null){
+			//Account is not null then updating the existing the account
+			account.setId(test.getId());
+		}
+		account = accountService.saveAccount(account);
+		System.out.println("*******Account Created for User" + account.getUserId());
+		model.addAttribute("user", user);
 
 		return "account";
 	}

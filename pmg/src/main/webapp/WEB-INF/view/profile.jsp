@@ -11,6 +11,25 @@
 <!--<![endif]-->
 
 <head>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(document).ready(function() {
+
+		var gender = '<c:out value="${user.gender}"/>';
+
+		if (gender.toLowerCase().indexOf("male") >= 0) {
+			alert('Gender >>' + gender)
+			$("#male").prop("checked", true)
+		}
+
+		if (gender.toLowerCase().indexOf("female") >= 0) {
+			alert('Gender >>' + gender)
+			$("#female").prop("checked", true)
+		}
+
+	});
+</script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>ProMaGizmo | PMG</title>
@@ -22,6 +41,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/fonts/Chant/chant.css"
 	charset="utf-8" />
+
 
 <!--Alert-->
 <link rel="stylesheet" type="text/css"
@@ -58,6 +78,7 @@
 	href="${pageContext.request.contextPath}/static/assets/core/pmg/css/pmg.css" />
 <!-- endbuild -->
 
+
 </head>
 
 <body class="aside-toggled">
@@ -80,34 +101,7 @@
 			</a>
 			<!-- Sidebar toggle -->
 			<!-- Menu -->
-			<ul>
-				<li class="waves-effect waves-light"><a>Bolt &ensp; 67 <i
-						class="fa fa-star yellow-text"></i></a></li>
-				<li class="waves-effect waves-light"><a class="tooltipped"
-					data-position="buttom" data-delay="50"
-					data-tooltip="Notification / Messages"><i class="fa fa-bell"></i><sup
-						class="badge red white-text">1</sup></a></li>
-				<li class="user"><a id="step4" class="dropdown-button"
-					href="#!" data-activates="user-dropdown"> <img
-						src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-						alt="John Doe" class="circle">John Doe<i
-						class="mdi-navigation-expand-more right"></i>
-				</a>
-					<ul id="user-dropdown" class="dropdown-content">
-						<li id="step3"><a href="profile.html"><i
-								class="fa fa-user"></i> Profile</a></li>
-						<li><a href="notify.html"><i class="fa fa-envelope"></i>
-								Notification <span class="badge new">2</span></a></li>
-						<li><a href="account-setup.html"><i class="fa fa-cogs"></i>
-								Settings</a></li>
-						<li><a href="lock.html"><i class="mdi mdi-action-lock"></i>
-								Lock Account</a></li>
-						<li class="divider"></li>
-						<li><a
-							href="${pageContext.request.contextPath}/static/sign-in.html"><i
-								class="mdi-action-settings-power"></i> Logout</a></li>
-					</ul></li>
-			</ul>
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -134,26 +128,7 @@
 	<!-- Main Content -->
 	<section class="content-wrap">
 		<!-- Breadcrumb -->
-		<div class="page-title z-depth-1">
-			<div id="nt-title-container">
-				<ul id="nt-title">
-					<li>A powerful, flexible and animated vertical news ticker
-						plugin.</li>
-					<li>Provides hight flexibility thanks to numerous callbacks &
-						methods.</li>
-					<li>Fully customizable to every kind of vertical scrolling
-						need.</li>
-					<li>Light-weight and optimized JQuery plugin.</li>
-				</ul>
-			</div>
-			<div class="col s12 m3 l2 right-align">
-				<a
-					class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"
-					data-tooltip="Chat with US" data-position="left"> <i
-					class="fa fa-comments"></i>
-				</a>
-			</div>
-		</div>
+
 		<!-- /Breadcrumb -->
 		<div class="row">
 			<div class="col s12 m12 l12">
@@ -161,30 +136,37 @@
 
 					<div class="btn-group right">
 						<h5 class="center">Upload Photo</h5>
-						<form action="/photo-upload" class="dropzone" id="my-dropzone"></form>
+
+						<form action="uploadpic" method="post" name=formpic
+							enctype="multipart/form-data">
+							<input type="file" class="center dropzone" name="file"
+								id="my-dropzone" /> <br /> <br /> <br />
+
+							<button class="center btn waves-effect lb waves-light tooltipped"
+								data-delay="50" data-tooltip="Upload" type="submit">
+								Upload!!! <i class="fa fa-bullhorn"></i>
+							</button>
+
+						</form>
+
 					</div>
 					<div class="col s3 m3 l3">
 						<div class="photo">
-							<img
-								src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-								alt="Jogh Doe">
+							<img style="max-width: 100%; height: 100%;"
+								src="${pageContext.request.contextPath}/static/${path}"
+								alt="${user.firstname}" />
 						</div>
 					</div>
 					<div class="col s3 m4 l4">
 						<address>
-							<h2>Michael Berger</h2>
+							<h4>
+								NAME:
+								<c:out value="${user.firstname}" />
+							</h4>
 							<strong>CURRENT LEVEL:</strong> <strong><a
 								href="javascript:void(0);"><c:out value="${user.level}" />.</a></strong><br>
 							<abbr title="Work email">e-mail:</abbr> <strong><a
 								href="mailto:#"><c:out value="${user.email}"></c:out></a></strong><br>
-							<abbr title="Estimated Earnings">Estimated Earning: <em
-								class="fa fa-dollar"></em>
-							</abbr> <strong><a href="javascript:void(0);">2000</a></strong><br>
-							<abbr title="Total Links Served">Total Links Served: </abbr> <strong><a
-								href="javascript:void(0);">200</a></strong><br> <abbr
-								title="Appreciation Gained">Appreciation Gained: </abbr> <strong><a
-								href="javascript:void(0);">97</a></strong> <em
-								class="fa fa-star fa-sm text-warning inbox-mail-starred"></em> <br>
 						</address>
 					</div>
 				</div>
@@ -201,7 +183,8 @@
 
 
 					<div class="content">
-						<form:form action="edituser" method="post" modelAttribute="user">
+						<form:form action="edituser" method="post"
+							modelAttribute="editUser">
 
 							<div class="btn-group right">
 
@@ -217,10 +200,11 @@
 									<h4>First Name</h4>
 									<div class="input-field">
 										<i class="fa fa-user prefix"></i> <input id="firstname"
-											type="text" name="firstname"> <label for="firstname"><c:if
-												test="${user.firstname !=null }">
-												<c:out value="${user.firstname }" />
-											</c:if></label>
+											type="text" name="firstname"> <label for="firstname">
+											<c:if test="${user.firstname !=null }">
+												<c:out value="${user.firstname}" />
+											</c:if>
+										</label>
 									</div>
 								</div>
 							</div>
@@ -242,8 +226,8 @@
 									<h4>Registered E-Mail</h4>
 									<div class="input-field">
 										<i class="fa fa-envelope prefix"></i> <input id="email"
-											type="email" name="email"> <label for="email"><c:if
-												test="${user.email !=null }">
+											type="email" readonly="readonly" name="email"> <label
+											for="email"><c:if test="${user.email !=null }">
 												<c:out value="${user.email }" />
 											</c:if></label>
 									</div>
@@ -257,8 +241,8 @@
 									<h4>Registered Domain</h4>
 									<div class="input-field">
 										<i class="mdi mdi-av-web prefix"></i> <input id=domain
-											type="text" name="domain"> <label for="domain"><c:if
-												test="${user.domain !=null }">
+											readonly="readonly" type="text" name="domain"> <label
+											for="domain"><c:if test="${user.domain !=null }">
 												<c:out value="${user.domain }" />
 											</c:if></label>
 									</div>
@@ -285,20 +269,18 @@
 							<p>
 							<h4>Gender</h4>
 							<p></p>
-							<input name="pay-type" type="radio" id="male" checked />
+							<input name="gender" type="radio" id="male" value="Male" />
 							<label class="blue-text" for="male">Male</label>
-							<input name="pay-type" type="radio" id="female" />
+							<input name="gender" type="radio" id="female" value="FeMale" />
 							<label class="blue-text" for="female">Female</label>
-							<input name="pay-type" type="radio" id="other" />
-							<label class="blue-text" for="other">Other</label>
 
 							<div class="row">
 								<div class="col m12 s12">
 									<h4>Country</h4>
 									<div class="input-field">
 										<i class="fa fa-globe prefix"></i> <input id="country"
-											type="text" name="country" disabled> <label
-											for="country"><c:if test="${user.country !=null }">
+											type="text" name="country"> <label for="country"><c:if
+												test="${user.country !=null }">
 												<c:out value="${user.country }" />
 											</c:if></label>
 									</div>
@@ -309,11 +291,12 @@
 								<div class="col s6 l6">
 									<ul class="note">
 										<li class="success">
-											<button
+											<!-- 	<button
 												class="btn waves-effect up waves-light white-text blue tooltipped"
 												data-position="top" data-delay="50"
-												data-tooltip="Update Profile" type="submit" name="action">
-												Update</button>
+												data-tooltip="Update Profile" type="submit" >
+												Update</button> --> <input id="formsubmit" type="submit"
+											class="button" value="Update">
 										</li>
 									</ul>
 								</div>
@@ -328,7 +311,8 @@
 
 			<div class="col s15 m5 l5">
 				<div class="card z-depth-3-hover">
-					<form:form action="changepassword" method="post" modelAttribute="user">
+					<form:form action="changepassword" method="post"
+						modelAttribute="user">
 						<div class="title blue white-text">
 							<h3>Reset Password</h3>
 						</div>
@@ -416,9 +400,8 @@
 					<div class="nano-content">
 						<span class="label">Share - Suggest</span>
 						<div class="user">
-							<img
-								src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-								alt="Felecia Castro" class="circle photo">
+							<img src="${pageContext.request.contextPath}/static/${imgpath}"
+								alt="${user.firstname}" class="circle photo">
 							<div class="name">The CREATOR</div>
 							<div class="status">Chat with Me!</div>
 							<div class="online">
@@ -455,8 +438,7 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img
-									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+								<img src="${pageContext.request.contextPath}/static/${imgpath}"
 									alt="John Doe" class="circle photo">Hi! I am good!
 							</div>
 
@@ -470,8 +452,7 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img
-									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+								<img src="${pageContext.request.contextPath}/static/${imgpath}"
 									alt="John Doe" class="circle photo">Also, we will send
 								the longest word to show how it will fit in the chat window: <strong>Pneumonoultramicroscopicsilicovolcanoconiosis</strong>
 							</div>
@@ -483,8 +464,7 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img
-									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
+								<img src="${pageContext.request.contextPath}/static/${imgpath}"
 									alt="John Doe" class="circle photo">Hi! Glad to see you.
 							</div>
 
@@ -499,9 +479,8 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img
-									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-									alt="John Doe" class="circle photo">I do not use
+								<img src="${pageContext.request.contextPath}/static/${imgpath}"
+									alt="${user.firstname}" class="circle photo">I do not use
 								Facebook. But you can follow me in Twitter.
 							</div>
 
@@ -512,10 +491,9 @@
 							<div class="clear"></div>
 
 							<div class="from-them">
-								<img
-									src="${pageContext.request.contextPath}/static/assets/core/pmg/images/user2.jpg"
-									alt="John Doe" class="circle photo">You can find me here
-								- <a href="https://twitter.com/nkdevv">https://twitter.com/nkdevv</a>
+								<img src="${pageContext.request.contextPath}/static/${imgpath}"
+									alt="${user.firstname}" class="circle photo">You can find
+								me here - <a href="https://twitter.com/nkdevv">https://twitter.com/nkdevv</a>
 							</div>
 
 						</div>

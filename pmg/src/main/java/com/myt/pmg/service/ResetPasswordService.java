@@ -17,22 +17,29 @@ public class ResetPasswordService implements UserDetailsService {
 	@Autowired
 	private UserService userService;
 
-	public UserDetails loadUserByUsername(String email)
-			throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		if (email == null)
 			return null;
 		com.myt.pmg.model.User user = userService.findByEmail(email);
+		System.out.println("Old User" + user.getEmail() + "Password" + user.getPassword());
+		user.setPassword("admin");
+		user.setActive(false);
+		userService.updateUser(user);
+		System.out.println("Updated User" + user.getEmail() + "Password" + user.getPassword());
 
 		if (user == null)
 			throw new UsernameNotFoundException("Oops!");
 
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		for (String role : user.getRole()) {
-			authorities.add(new SimpleGrantedAuthority(role));
-		}
+		/*
+		 * for (String role : user.getRole()) { authorities.add(new
+		 * SimpleGrantedAuthority(role)); }
+		 */
+		user.setRole("ROLE_USER");
+		authorities.add(new SimpleGrantedAuthority(user.getRole()));
 
-		return new User(user.getUsername(), user.getPassword(),
-				user.isActive(), !user.isBanned(), true, true, authorities);
+		return new User(user.getEmail(), user.getPassword(), user.isActive(), !user.isBanned(), true, true,
+				authorities);
 
 	}
 

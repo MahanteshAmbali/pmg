@@ -85,7 +85,7 @@
 			<!-- Sidebar toggle -->
 
 			<!-- Menu -->
-		<jsp:include page="header.jsp"/>
+			<jsp:include page="header.jsp" />
 			<!-- /Menu -->
 		</div>
 	</nav>
@@ -111,26 +111,7 @@
 	<!-- Main Content -->
 	<section class="content-wrap">
 		<!-- Breadcrumb -->
-		<div class="page-title z-depth-1">
-			<div id="nt-title-container">
-				<ul id="nt-title">
-					<li>A powerful, flexible and animated vertical news ticker
-						plugin.</li>
-					<li>Username has pinged you. Why dont you click on their
-						link(s) before your 48hrs window closes!!</li>
-					<li>Fully customizable to every kind of vertical scrolling
-						need.</li>
-					<li>Light-weight and optimized JQuery plugin.</li>
-				</ul>
-			</div>
-			<div class="col s12 m3 l2 right-align">
-				<a
-					class="mail-compose-btn btn-floating btn-extra waves-effect waves-light red z-depth-4-hover chat-toggle tooltipped"
-					data-tooltip="Chat with US" data-position="left"> <i
-					class="fa fa-comments"></i>
-				</a>
-			</div>
-		</div>
+
 		<!-- /Breadcrumb -->
 
 		<div class="card  z-depth-2 col s12">
@@ -152,7 +133,7 @@
 				</p>
 
 				<!-- BEGIN DATATABLE 1 -->
-				<form action="linkreciever?verify=true" method="post">
+				<sf:form action="linkreciever?verify=true" method="post">
 					<div class="row">
 						<div class="col l12">
 							<div class="table-responsive">
@@ -171,42 +152,44 @@
 												data-delay="50" data-tooltip="Enter Visited Ad page URL">Ad
 												URL</th>
 											<th class="center tooltipped" data-position="top"
-												data-delay="50" data-tooltip="Upload Video for verification">Upload</th>
-											<th class="center tooltipped" data-position="top"
-												data-delay="50"
-												data-tooltip="Check and Send for Verification "
-												style="width: 5%">Check</th>
+												data-delay="50" data-tooltip="Upload Video for verification">Video
+												Link</th>
+
 										</tr>
 									</thead>
+
 									<tbody>
 										<tr>
-
-											<td class="center txt-weight">02/05/2015</td>
-
 											<td class="center txt-weight"><c:if
-													test="${posteduser.username !=null }">
-													<c:out value="${posteduser.username}" />
-													<input type="hidden" value="${posteduser.username}"
-														name="posteduser" />
+													test="${linkrecv.linkrecvdDate !=null}">
+													<c:out value="${linkrecv.linkrecvdDate}" />
+													<input type="hidden" value="${linkrecv.linkrecvdDate}"
+														name="linkrecvdDate" />
 												</c:if></td>
 											<td class="center txt-weight"><c:if
-													test="${link.lid !=null }">
-													<c:out value="${link.lid}" />
-													<input type="hidden" value="${link.lid}" name="lid" />
+													test="${linkrecv.username !=null}">
+													<c:out value="${linkrecv.username}" />
+													<input type="hidden" value="${linkrecv.username}"
+														name="username" />
+												</c:if></td>
+											<td class="center txt-weight"><c:if
+													test="${linkrecv.lid !=null}">
+													<c:out value="${linkrecv.lid}" />
+													<input type="hidden" value="${linkrecv.lid}" name="lid" />
 												</c:if></td>
 											<td><div class="input-field">
-													<input id="input_text" type="text" class="validate">
-													<label for="input_text" class="">Enter Visited Ad
-														page URL</label>
+													<input id="adurl" name="adurl" type="text"> <label
+														for="input_text">Enter Visited Ad page URL</label>
 												</div></td>
-											<td>
-												<form action="/file-upload" class="dropzone"
-													id="my-dropzone"></form>
-											</td>
-											<td class="center"><input type="checkbox" id="check1" />
-												<label for="check1"></label></td>
+
+											<td><div class="input-field">
+													<input id="videourl" type="text" name="videourl"> <label
+														for="input_text">Video captured? URL plz</label>
+												</div></td>
 										</tr>
+
 									</tbody>
+
 								</table>
 							</div>
 							<!--end .table-responsive -->
@@ -217,27 +200,21 @@
 					</div>
 					<div class="col s6 l6">
 						<ul class="note">
-							<li class="warning confirm right"><input type="submit"
-								class="btn waves-effect lb waves-light tooltipped"
-								data-position="left" data-delay="50"
-								data-tooltip="Broadcast My Selected Link to Other Players"
-								value="Plz Verify" /></li>
+							<li class="warning confirm ">
+								<button class="btn waves-effect lb waves-light tooltipped"
+									data-position="left" data-delay="50"
+									data-tooltip="Send The Link (s) for Verification" type="submit">
+									PLz Verify!! <i class="fa fa-bullhorn"></i>
+								</button>
+							</li>
 						</ul>
 					</div>
-				</form>
+				</sf:form>
 				<!--end .row -->
 				<!-- Modal Trigger -->
 				<div class="row">
 					<div class="col s6 l6">
-						<a class="waves-effect waves-light btn modal-trigger tooltipped"
-							data-position="right" data-delay="50"
-							data-tooltip="Click To Lodge Complaint" href="#Complaint">Something
-							Fishy<i class="fa fa-thumbs-down right"></i>
-						</a>
-
-
-
-
+						
 						<!-- Modal Structure -->
 						<div id="Complaint" class="card modal-f blue white-text">
 							<h3 class="center">Lodge Complaint</h3>
@@ -555,59 +532,59 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/assets/core/ckeditor/ckeditor.js"></script>
 	<script>
-    CKEDITOR.inline( 'ckeditor1' );
-  </script>
+		CKEDITOR.inline('ckeditor1');
+	</script>
 	<!-- /Init CKEditor -->
 	<!-- endbuild -->
 	<script>
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: '/./music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  '/./music/ding.mp3'
-            });
-			
-						// Complaint
-document.querySelector('ul.note li.warning.confirm button').onclick = function(){
-	swal({
-		title: "Are you sure?",
-		text: "False Complaint Will Go Against You!",
-		type: "warning",
-		showCancelButton: true,
-		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, Do IT!',
-		closeOnConfirm: false
-	},
-	function(){
-		swal("Disapproved!", "Your Complaint has been successfully Lodged!", "success");
-	});
-};
+		// elevator.
+		var elementButton = document.querySelector('footer');
+		var elevator = new Elevator({
+			element : elementButton,
+			mainAudio : '/./music/elevator-music.mp3', // Music from http://www.bensound.com/
+			endAudio : '/./music/ding.mp3'
+		});
+
+		// Complaint
+		document.querySelector('ul.note li.warning.confirm button').onclick = function() {
+			swal({
+				title : "Are you sure?",
+				text : "False Complaint Will Go Against You!",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : '#DD6B55',
+				confirmButtonText : 'Yes, Do IT!',
+				closeOnConfirm : false
+			}, function() {
+				swal("Disapproved!",
+						"Your Complaint has been successfully Lodged!",
+						"success");
+			});
+		};
 
 		// Verify
-			document.querySelector('ul.note a.success.vfy').onclick = function(){
-		swal({ 
-		title:  "Well Done Username",
-		text: "Links are send for Verification Successfully !!!",
-		timer: 3000,
-		type: "success",
-		showConfirmButton: false
-		
-	});
-};
-  </script>
+		document.querySelector('ul.note a.success.vfy').onclick = function() {
+			swal({
+				title : "Well Done Username",
+				text : "Links are send for Verification Successfully !!!",
+				timer : 3000,
+				type : "success",
+				showConfirmButton : false
+
+			});
+		};
+	</script>
 	<script>
-    		
-    		$(window).load(function(){
-	            $('code.language-javascript').mCustomScrollbar();
-	        });
-            var nt_title = $('#nt-title').newsTicker({
-                row_height: 40,
-                max_rows: 1,
-                duration: 3000,
-                pauseOnHover: 1
-            });
-        </script>
+		$(window).load(function() {
+			$('code.language-javascript').mCustomScrollbar();
+		});
+		var nt_title = $('#nt-title').newsTicker({
+			row_height : 40,
+			max_rows : 1,
+			duration : 3000,
+			pauseOnHover : 1
+		});
+	</script>
 
 
 </body>

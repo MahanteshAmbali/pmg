@@ -33,8 +33,7 @@ public abstract class BasicDaoImpl<T extends BasicEntity> {
 	}
 
 	public String add(T t) {
-		final String COLLECTION_NAME = mongoTemplate.getCollectionName(t
-				.getClass());
+		final String COLLECTION_NAME = mongoTemplate.getCollectionName(t.getClass());
 		if (!mongoTemplate.collectionExists(COLLECTION_NAME)) {
 			mongoTemplate.createCollection(COLLECTION_NAME);
 		}
@@ -44,16 +43,14 @@ public abstract class BasicDaoImpl<T extends BasicEntity> {
 	}
 
 	public void delete(T t) {
-		final String COLLECTION_NAME = mongoTemplate.getCollectionName(t
-				.getClass());
+		final String COLLECTION_NAME = mongoTemplate.getCollectionName(t.getClass());
 		mongoTemplate.remove(t, COLLECTION_NAME);
 	}
 
 	public T findOne(T t) {
 		Query query = new Query();
-		query.addCriteria(null);
-		final String COLLECTION_NAME = mongoTemplate.getCollectionName(t
-				.getClass());
+		// query.addCriteria(null);
+		final String COLLECTION_NAME = mongoTemplate.getCollectionName(t.getClass());
 		return (T) mongoTemplate.findOne(query, t.getClass(), COLLECTION_NAME);
 	}
 
@@ -62,11 +59,10 @@ public abstract class BasicDaoImpl<T extends BasicEntity> {
 		return (List<T>) mongoTemplate.findAll(clazz, COLLECTION_NAME);
 	}
 
-	public int count(Class<T> clazz) {
+	public long count(Class<T> clazz) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").exists(true));
-		mongoTemplate.count(query, clazz);
-		return 0;
+		return mongoTemplate.count(query, clazz);
 	}
 
 	public T findById(String id, Class<T> clazz) {

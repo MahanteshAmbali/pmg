@@ -42,57 +42,68 @@
 <!-- IonIcons -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/ionicons/css/ionicons.min.css" />
+<SCRIPT type="text/javascript">
+	var message = "function disabled";
+	function rtclickcheck(keyp) {
+
+		if (navigator.appName == "Netscape" && keyp.which == 3) {
+			alert(message);
+			return false;
+		}
+
+	}
+	document.onmousedown = rtclickcheck;
+</SCRIPT>
 <script type="text/javascript">
-            (
-            function($){
+	(function($) {
 
-                $.fn.shuffle = function() {
-                    return this.each(function(){
-                        var items = $(this).children();
+		$.fn.shuffle = function() {
+			return this.each(function() {
+				var items = $(this).children();
 
-                        return (items.length)
-                            ? $(this).html($.shuffle(items,$(this)))
-                        : this;
-                    });
-                }
+				return (items.length) ? $(this).html($.shuffle(items, $(this)))
+						: this;
+			});
+		}
 
-                $.fn.validate = function() {
-                    var res = false;
-                    this.each(function(){
-                        var arr = $(this).children();
-                        res =    ((arr[0].innerHTML=="P")&&
-                            (arr[1].innerHTML=="ro")&&
-                            (arr[2].innerHTML=="Ma")&&
-                            (arr[3].innerHTML=="G")&&
-                            (arr[4].innerHTML=="iz")&&
-                            (arr[5].innerHTML=="mo"));
-                    });
-                    return res;
-                }
+		$.fn.validate = function() {
+			var res = false;
+			this
+					.each(function() {
+						var arr = $(this).children();
+						res = ((arr[0].innerHTML == "P")
+								&& (arr[1].innerHTML == "ro")
+								&& (arr[2].innerHTML == "Ma")
+								&& (arr[3].innerHTML == "G")
+								&& (arr[4].innerHTML == "iz") && (arr[5].innerHTML == "mo"));
+					});
+			return res;
+		}
 
-                $.shuffle = function(arr,obj) {
-                    for(
-                    var j, x, i = arr.length; i;
-                    j = parseInt(Math.random() * i),
-                    x = arr[--i], arr[i] = arr[j], arr[j] = x
-                );
-                    if(arr[0].innerHTML=="P") obj.html($.shuffle(arr,obj))
-                    else return arr;
-                }
+		$.shuffle = function(arr, obj) {
+			for (var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x)
+				;
+			if (arr[0].innerHTML == "P")
+				obj.html($.shuffle(arr, obj))
+			else
+				return arr;
+		}
 
-            })(jQuery);
+	})(jQuery);
 
-            $(function() {
-                $("#sortable").sortable();
-                $("#sortable").disableSelection();
-                $('ul').shuffle();
+	$(function() {
+		$("#sortable").sortable();
+		$("#sortable").disableSelection();
+		$('ul').shuffle();
 
-                $("#formsubmit").click(function(){
-                    ($('ul').validate()) ? swal("Yeah, You Spelled It Right!", "Welcome To ProMaGizmo | PMG :)") : swal("No, It Ain't Right!", "Try Again ;(");
-                });
-            });
-			
-        </script>
+		$("#formsubmit").click(
+				function() {
+					($('ul').validate()) ? swal("Yeah, You Spelled It Right!",
+							"Welcome To ProMaGizmo | PMG :)") : swal(
+							"No, It Ain't Right!", "Try Again ;(");
+				});
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -106,14 +117,14 @@
 					class="input__field input__field--nao" type="text" id="input-1"
 					name="email" /> <label class="input__label input__label--nao"
 					for="input-1"> <span
-						class="input__label-content input__label-content--nao">Username/E-Mail*</span>
+						class="input__label-content input__label-content--nao">E-Mail*</span>
 				</label> <svg class="graphic graphic--nao" width="300%" height="100%"
 						viewBox="0 0 1200 60" preserveAspectRatio="none">
 						<path
 							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg>
 				</span> <span class="input input--nao "> <input
-					class="input__field input__field--nao" type="text" id="input-1"
+					class="input__field input__field--nao" type="password" id="input-1"
 					name="password" /> <label class="input__label input__label--nao"
 					for="input-17"> <span
 						class="input__label-content input__label-content--nao">Password*</span>
@@ -123,27 +134,14 @@
 							d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
 					</svg></span>
 
-				<ul>
-					<li><input id="cb6" name="cb6" type="checkbox"><label
-						for="cb6">Save Password</label></li>
-				</ul>
-				<fieldset>
-					<legend>
-						Drag & Spell </b>"ProMaGizmo"
-					</legend>
-
-					<div class="captcha_wrap">
-
-						<ul id="sortable">
-							<li class="captchaItem">P</li>
-							<li class="captchaItem">ro</li>
-							<li class="captchaItem">Ma</li>
-							<li class="captchaItem">G</li>
-							<li class="captchaItem">iz</li>
-							<li class="captchaItem">mo</li>
-						</ul>
+				<c:if test="${not empty loginfailed}">
+					<div style="color: red;">
+						<c:out value="${loginfailed}"></c:out>
 					</div>
-					<input type="submit" class="button">Sign-In </input>
+
+				</c:if>
+				<fieldset>
+					<input type="submit" class="button" value="SignIn" />
 				</fieldset>
 
 			</form>
@@ -155,8 +153,10 @@
 								</section>
 				 -->
 			<section>
-				<a href="reset.html">
-					<h3>Password Reset</h3>
+				<a href="resetpasswd">
+					<h5>Forgot Password</h5>
+				</a> <a href="signup">
+					<h5>Register</h5>
 				</a>
 			</section>
 		</section>
@@ -165,131 +165,9 @@
 	</div>
 	<!-- /container -->
 	<footer>
-		&copy; 2015 <strong>ProMaGizmo | PMG</strong>. All rights reserved.
+		&copy; 2016 <strong>ProMaGizmo | PMG</strong>. All rights reserved.
 	</footer>
-	<script
-		src="${pageContext.request.contextPath}/static/assets/front/sign/js/classie.js"></script>
-	<script>
-			(function() {
-				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
-				if (!String.prototype.trim) {
-					(function() {
-						// Make sure we trim BOM and NBSP
-						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-						String.prototype.trim = function() {
-							return this.replace(rtrim, '');
-						};
-					})();
-				}
 
-				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
-					// in case the input is already filled..
-					if( inputEl.value.trim() !== '' ) {
-						classie.add( inputEl.parentNode, 'input--filled' );
-					}
 
-					// events:
-					inputEl.addEventListener( 'focus', onInputFocus );
-					inputEl.addEventListener( 'blur', onInputBlur );
-				} );
-
-				function onInputFocus( ev ) {
-					classie.add( ev.target.parentNode, 'input--filled' );
-				}
-
-				function onInputBlur( ev ) {
-					if( ev.target.value.trim() === '' ) {
-						classie.remove( ev.target.parentNode, 'input--filled' );
-					}
-				}
-			})();
-		</script>
-	<!--Alert-->
-	<script type="text/javascript"
-		src="assets/core/alert/sweetalert.min.js"></script>
-	<script type="text/javascript"
-		src="assets/front/sign/js/uiMorphingButton_fixed.js"></script>
-	<script>
-			(function() {	
-				var docElem = window.document.documentElement, didScroll, scrollPosition;
-
-				// trick to prevent scrolling when opening/closing button
-				function noScrollFn() {
-					window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
-				}
-
-				function noScroll() {
-					window.removeEventListener( 'scroll', scrollHandler );
-					window.addEventListener( 'scroll', noScrollFn );
-				}
-
-				function scrollFn() {
-					window.addEventListener( 'scroll', scrollHandler );
-				}
-
-				function canScroll() {
-					window.removeEventListener( 'scroll', noScrollFn );
-					scrollFn();
-				}
-
-				function scrollHandler() {
-					if( !didScroll ) {
-						didScroll = true;
-						setTimeout( function() { scrollPage(); }, 60 );
-					}
-				};
-
-				function scrollPage() {
-					scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
-					didScroll = false;
-				};
-
-				scrollFn();
-				
-				var el = document.querySelector( '.morph-button' );
-				
-				new UIMorphingButton( el, {
-					closeEl : '.icon-close',
-					onBeforeOpen : function() {
-						// don't allow to scroll
-						noScroll();
-					},
-					onAfterOpen : function() {
-						// can scroll again
-						canScroll();
-						// add class "noscroll" to body
-						classie.addClass( document.body, 'noscroll' );
-						// add scroll class to main el
-						classie.addClass( el, 'scroll' );
-					},
-					onBeforeClose : function() {
-						// remove class "noscroll" to body
-						classie.removeClass( document.body, 'noscroll' );
-						// remove scroll class from main el
-						classie.removeClass( el, 'scroll' );
-						// don't allow to scroll
-						noScroll();
-					},
-					onAfterClose : function() {
-						// can scroll again
-						canScroll();
-					}
-				} );
-			})();
-		</script>
-	<script
-		src="${pageContext.request.contextPath}/static/assets/front/sign/js/svgcheckbx.js"></script>
-	<!--On top-->
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/static/assets/core/elevator/elevator.js"></script>
-	<script>
-            // elevator.
-            var elementButton = document.querySelector('footer');
-            var elevator = new Elevator({
-                element: elementButton,
-                mainAudio: './music/elevator-music.mp3', // Music from http://www.bensound.com/
-                endAudio:  './music/ding.mp3'
-            });
-			</script>
 </body>
 </html>
