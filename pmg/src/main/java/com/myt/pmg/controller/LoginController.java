@@ -18,6 +18,7 @@ public class LoginController {
 			@RequestParam(value = "resetpass", required = false) String resetpass,
 			@RequestParam(value = "loggedout", required = false) String loggedout,
 			@RequestParam(value = "ipban", required = false) String ipban, Model model) {
+		
 		logger.info("In Login controller");
 		if (signupcomplete != null) {
 			model.addAttribute("signupcomplete",

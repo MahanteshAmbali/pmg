@@ -72,11 +72,9 @@ public class UserService {
 
 	}
 
-	public boolean usernameTaken(String email, String domain) {
+	public boolean usernameExists(String email) {
 
-		//System.out.println("User Email :: " + userDao.usernameExists(email, domain));
-		//System.out.println("User Domain :: " + userDao.domainExists(domain));
-		return userDao.usernameExists(email, domain);
+		return userDao.usernameExists(email);
 	}
 
 	public boolean domainExists(String domain) {

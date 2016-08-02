@@ -18,15 +18,23 @@ public class UserDao extends BasicDaoImpl<User> {
 		return (List<User>) getMongoTemplate().findAll(User.class, COLLECTION_NAME);
 	}
 
-	public boolean usernameExists(String email, String domain) {
+	public boolean usernameExists(String email) {
 		Query query = new Query();
-		Criteria criteria = new Criteria();
-		criteria.orOperator(Criteria.where("email").is(email), Criteria.where("domain").is(domain));
-		query.addCriteria(criteria);
+		query.addCriteria(Criteria.where("email").is(email));
 
 		if (getMongoTemplate().find(query, User.class).isEmpty())
-			// Empty then no User email and domain combination exists in DB , So
-			// allow to register
+			// Empty then no User email exists in DB , So allow to register
+			return false;
+		else
+			return true;
+	}
+
+	public boolean domainExists(String domain) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("domain").is(domain));
+
+		if (getMongoTemplate().find(query, User.class).isEmpty())
+			// Empty then no domain email exists in DB , So allow to register
 			return false;
 		else
 			return true;
@@ -139,12 +147,4 @@ public class UserDao extends BasicDaoImpl<User> {
 
 	}
 
-	public boolean domainExists(String domain) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("domain").is(domain));
-		if (getMongoTemplate().find(query, User.class) == null)
-			return false;
-		else
-			return true;
-	}
 }

@@ -156,13 +156,30 @@ public class UserController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String createAccount(@ModelAttribute("user") User user, HttpServletRequest request, Model model) {
 
-		if (userService.usernameTaken(user.getEmail(), user.getDomain())) {
+		boolean userExists = userService.usernameExists(user.getEmail());
+		boolean domainExists = userService.domainExists(user.getDomain());
+
+		if (userExists && domainExists) {
 			logger.warn("Username  Details Exists...!!!!!!!");
 			logger.warn("Domain Name" + user.getDomain());
 			logger.warn("User Email" + user.getEmail());
 			model.addAttribute("error", "Signupfailed");
 			model.addAttribute("domain", user.getDomain());
 			model.addAttribute("email", user.getEmail());
+			return "signup";
+		}
+
+		if (userExists) {
+			logger.warn("User Email" + user.getEmail());
+			model.addAttribute("error", "Signupfailed");
+			model.addAttribute("email", user.getEmail());
+			return "signup";
+		}
+
+		if (domainExists) {
+			logger.warn("Domain Name" + user.getDomain());
+			model.addAttribute("error", "Signupfailed");
+			model.addAttribute("domain", user.getDomain());
 			return "signup";
 		}
 

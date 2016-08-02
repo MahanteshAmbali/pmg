@@ -220,7 +220,7 @@ public class LinkController {
 			return "login";
 		}
 		String userid = user.getId();
-		
+
 		model.addAttribute("user", user);
 
 		List<Link> mylinksstatus = linkService.findByUserId(userid);
@@ -235,14 +235,17 @@ public class LinkController {
 			List<Link> links = linkService.findByUserId(buserid);
 
 			for (Link link : links) {
-				MyClickStatusDto myClickStatusDto = new MyClickStatusDto();
-				User contributor = userService.findById(link.getUserId());
-				myClickStatusDto.setLid(link.getLid());
-				myClickStatusDto.setClickedon(link.getLastTraveredTime());
-				myClickStatusDto.setOwnerId(contributor.getFirstname());
-				myClickStatusDto.setLinkstatus(link.getLinkstatus());
-				myClickStatusDto.setVerifierUrl(link.getAdurl());
-				myClickStatuslist.add(myClickStatusDto);
+				if (link.getLinkstatus().compareTo(Linkstatus.BROADCASTED) == 0) {
+					MyClickStatusDto myClickStatusDto = new MyClickStatusDto();
+					User contributor = userService.findById(link.getUserId());
+
+					myClickStatusDto.setLid(link.getLid());
+					myClickStatusDto.setClickedon(link.getLastTraveredTime());
+					myClickStatusDto.setOwnerId(contributor.getFirstname());
+					myClickStatusDto.setLinkstatus(link.getLinkstatus());
+					myClickStatusDto.setVerifierUrl(link.getAdurl());
+					myClickStatuslist.add(myClickStatusDto);
+				}
 			}
 			break;
 		}
