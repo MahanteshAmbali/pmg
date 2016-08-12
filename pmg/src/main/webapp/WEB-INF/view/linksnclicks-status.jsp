@@ -13,47 +13,6 @@
 
 <head>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script>
-	$(document).ready(function() {
-		
-		var myArray = [10,20,30];
-
-		jQuery.each( myArray, function(index, value) {
-		   console.log('element at index ' + index + ' is ' + value);
-		});
-		
-		var status = [];
-		<c:forEach items="${links}" var="link">
-			status.push('${link.linkstatus}');
-		</c:forEach>
-		
-		$.each(status, function(index, stat) {
-			
-			if (stat.toLowerCase().indexOf("clicked") >= 0) {
-				$("#cstatus").prop("checked", true);
-				return true;
-			}
-			
-			if (stat.toLowerCase().indexOf("broadcasted") >= 0) {
-				$("#bstatus").prop("checked", true);
-				
-				return true;
-			}
-			
-			if (stat.toLowerCase().indexOf("pending") >= 0) {
-				$("#pstatus").prop("checked", true);
-				alert('Here');
-				return true;
-			}
-			
-			if (stat.toLowerCase().indexOf("verified") >= 0) {
-				$("#vstatus").prop("checked", true);
-				return true;
-			}
-			
-		});
-	});
-</script>
 
 
 <meta charset="utf-8">
@@ -173,54 +132,18 @@
 					class="mdi-navigation-expand-less"></i>
 				</a>
 			</div>
+
 			<div class="content">
 				<!-- BEGIN DATATABLE 1 -->
 				<div class="row">
-					<div class="col s12 l2">
-						<h5>
-							<b>Action</b>
-						</h5>
-						<ul class="note">
-							<a href="#"
-								class="success ping waves-effect waves-light lighten-1 tooltipped"
-								data-tooltip="Ping your Clicker" data-position="top"> <i
-								class="mdi mdi-notification-vibration msize"></i></a>
-							<a href="#"
-								class="warning confirm del waves-effect waves-light lighten-1 tooltipped"
-								data-tooltip="Delete Your Verified Links" data-position="top">
-								<i class="mdi mdi-action-delete msize"></i>
-							</a>
-						</ul>
-					</div>
 
 					<div class="col s12 l3 order-status-select blue-text">
 						<h5>
-							<b>My Link Status </b>
+							<b>My Links Status</b>
 						</h5>
-						<select name="order-status">
-							<option value="p" selected>Pending</option>
-							<option value="v">Verified</option>
-						</select>
+
 					</div>
 
-					<div class="col s3 l3 ">
-						<h5>
-							<b>Select Period From</b>
-						</h5>
-						<div class="input-field">
-							<input class="datepicker" id="input_date" type="date"> <label
-								for="input_date">Date From</label>
-						</div>
-					</div>
-					<div class="col s3 l3 ">
-						<h5>
-							<b>Select Period To</b>
-						</h5>
-						<div class="input-field">
-							<input class="datepicker" id="input_date" type="date"> <label
-								for="input_date">Date To</label>
-						</div>
-					</div>
 
 				</div>
 
@@ -230,8 +153,9 @@
 							<table id="tableid" class="table table-bordered ">
 								<thead class="blue lighten-2 white-text">
 									<tr>
+
 										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Select to Ping / Delete">Select</th>
+											data-delay="50" data-tooltip="S.No.">#</th>
 										<th class="center tooltipped" data-position="top"
 											data-delay="50" data-tooltip="Broadcasted On">Date</th>
 										<th class="center tooltipped" data-position="top"
@@ -246,40 +170,19 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${links}" var="link">
+									<c:forEach items="${links}" var="link" varStatus="counter">
 										<tr id="trid" class="item">
-											<td class="center">
-												<p>
-													<input type="checkbox" id="check1" /> <label for="check1"></label>
-												</p>
-											</td>
+											<td class="center">${counter.count}</td>
 											<td class="center"><c:out
 													value="${link.lastTraveredTime}"></c:out></td>
 											<td class="center"><c:out value="${link.lid}"></c:out></td>
 											<td class="center"><c:out value="${link.adurl}"></c:out></td>
 											<td class="center"><c:out value="${link.keyword}"></c:out></td>
-											<td>
-											
-											<input id="bstatus" class="d-purple" name="bstatus" type="radio" /> 
-											<label for="broadcasted" class="tooltipped purple-text" data-position="left" data-delay="50" data-tooltip="This link is just broadcasted">
-													Broadcasted
-											</label>
-											
-											<input id="pstatus" class="d-blue" name="pstatus" type="radio" /> 
-											<label for="pending" class="tooltipped blue-text" data-position="left" data-delay="50" data-tooltip="This link is NOT Clicked YET">
-													Pending 
-											</label>
-											
-											<input id="cstatus" class="d-orange" name="cstatus" type="radio" /> 
-											<label for="clicked" class="tooltipped orange-text" data-position="left" data-delay="50" data-tooltip="Waiting Verification (Go To Link Verifier)">
-													Clicked 
-											</label> 
-											
-											<input id="vstatus" class="d-green" name="vstatus" type="radio" /> 
-											<label for="verified" class="tooltipped green-text" data-position="left" data-delay="50" data-tooltip="You have Verified IT">
-													Verified
-											</label>
-											</td>
+											<td><c:if test="${link.linkstatus !=null}">
+													<input id="status" name="status" type="radio" />
+													<label class="green-text" data-position="left"
+														data-delay="50"> ${link.linkstatus} </label>
+												</c:if></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -310,50 +213,14 @@
 			<div class="content">
 				<!-- BEGIN DATATABLE 1 -->
 				<div class="row">
-					<div class="col s12 l2">
-						<h5>
-							<b>Action</b>
-						</h5>
-						<ul class="note">
-							<a href="#"
-								class="success ping1 waves-effect waves-light lighten-1 tooltipped"
-								data-tooltip="Ping Link Owner" data-position="top"> <i
-								class="mdi mdi-notification-vibration msize"></i></a>
-							<a href="#"
-								class="warning confirm del1 waves-effect waves-light lighten-1 tooltipped"
-								data-tooltip="Delete Selected Verified Links"
-								data-position="top"> <i class="mdi mdi-action-delete msize"></i></a>
-						</ul>
-					</div>
 
 					<div class="col s12 l3 order-status-select blue-text">
 						<h5>
 							<b>My Click Status </b>
 						</h5>
-						<select name="order-status">
-							<option value="p" selected>Pending</option>
-							<option value="v">Awarded</option>
-						</select>
+
 					</div>
 
-					<div class="col s3 l3 ">
-						<h5>
-							<b>Select Period From</b>
-						</h5>
-						<div class="input-field">
-							<input class="datepicker" id="input_date" type="date"> <label
-								for="input_date">Date From</label>
-						</div>
-					</div>
-					<div class="col s3 l3 ">
-						<h5>
-							<b>Select Period To</b>
-						</h5>
-						<div class="input-field">
-							<input class="datepicker" id="input_date" type="date"> <label
-								for="input_date">Date To</label>
-						</div>
-					</div>
 
 				</div>
 
@@ -364,7 +231,7 @@
 								<thead class="blue lighten-2 white-text">
 									<tr>
 										<th class="center tooltipped" data-position="top"
-											data-delay="50" data-tooltip="Select to Ping / Delete">Select</th>
+											data-delay="50" data-tooltip="S.No.">#</th>
 										<th class="center tooltipped" data-position="top"
 											data-delay="50" data-tooltip="I Clicked On">Date</th>
 										<th class="center tooltipped" data-position="top"
@@ -378,13 +245,10 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${myClickStatuslist}" var="myclickstatus">
+									<c:forEach items="${myClickStatuslist}" var="myclickstatus"
+										varStatus="counter">
 										<tr>
-											<td class="center">
-												<p>
-													<input type="checkbox" id="check2" /> <label for="check2"></label>
-												</p>
-											</td>
+											<td class="center">${counter.count}</td>
 											<td class="center">${myclickstatus.clickedon}</td>
 											<td class="center">${myclickstatus.ownerId}</td>
 											<td class="center">
@@ -403,27 +267,11 @@
 													</div>
 												</div>
 											</td>
-											<td>
-											<input class="d-purple" name="state1" type="radio" id="p" /> 
-												<label for="p" class="tooltipped purple-text" data-position="left" data-delay="50" data-tooltip="Verification Of This Link Is Pending">
-													Broadcasted
-												</label> 
-												
-												<input class="d-blue" name="state1" type="radio" id="p" /> 
-												<label for="p" class="tooltipped blue-text" data-position="left" data-delay="50" data-tooltip="Verification Of This Link Is Pending">
-													Pending
-												</label> 
-												
-												<input class="d-red" name="state1" type="radio" id="p1" /> 
-												<label for="p1" class="tooltipped red-text" data-position="left" data-delay="50" data-tooltip="Verifier Has Rejected & lodged Complaint (Now PMG Will Check This Link)">
-													Rejected
-												</label> 
-												
-												<input class="d-green" name="state1" type="radio" id="p2" /> 
-												<label for="p2" class="tooltipped green-text" data-position="left" data-delay="50" data-tooltip="Verifier Has Accepted and Expressed Appriciation">
-													Awarded
-												</label></td>
-
+											<td><input class="d-purple" name="state1" type="radio"
+												id="p" /> <label for="p" class="tooltipped purple-text"
+												data-position="left" data-delay="50"
+												data-tooltip="Verification Of This Link Is Pending">
+													${myclickstatus.linkstatus} </label></td>
 										</tr>
 									</c:forEach>
 								</tbody>
