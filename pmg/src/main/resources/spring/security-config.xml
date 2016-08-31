@@ -24,6 +24,13 @@
 
 		<security:intercept-url pattern="/login*"
 			access="permitAll" />
+
+		<security:intercept-url pattern="/indexPage"
+			access="permitAll" />
+			
+			<security:intercept-url pattern="/RoE-Test"
+			access="permitAll" />
+			
 		<security:intercept-url pattern="/denied"
 			access="permitAll" />
 		<security:intercept-url pattern="/logout"
@@ -33,11 +40,11 @@
 
 		<security:intercept-url pattern="/resetpasswd/**"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/forgot/**"
 			access="permitAll" />
-			
-			<security:intercept-url pattern="/view/**"
+
+		<security:intercept-url pattern="/view/**"
 			access="permitAll" />
 
 		<security:intercept-url pattern="/createaccount"
@@ -57,7 +64,7 @@
 
 		<security:intercept-url pattern="/savepic"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/showpic"
 			access="permitAll" />
 
@@ -94,8 +101,8 @@
 
 		<security:intercept-url pattern="/profile"
 			access="hasRole('ROLE_USER')" />
-			
-			<security:intercept-url pattern="/edituser"
+
+		<security:intercept-url pattern="/edituser"
 			access="hasRole('ROLE_USER')" />
 
 
@@ -162,7 +169,7 @@
 
 	<bean id="authenticationEntryPoint"
 		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"
-		p:loginFormUrl="/login" />
+		p:loginFormUrl="/indexPage" />
 	<bean id="customAuthenticationSuccessHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler"
 		p:defaultTargetUrl="/dashboard" />

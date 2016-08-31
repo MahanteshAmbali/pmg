@@ -235,7 +235,7 @@ public class LinkController {
 			List<Link> links = linkService.findByUserId(buserid);
 
 			for (Link link : links) {
-				if (link.getLinkstatus().compareTo(Linkstatus.BROADCASTED) == 0) {
+				if (link.getLinkstatus().compareTo(Linkstatus.PENDING) != 0) {
 					MyClickStatusDto myClickStatusDto = new MyClickStatusDto();
 					User contributor = userService.findById(link.getUserId());
 
@@ -253,7 +253,8 @@ public class LinkController {
 		if (mylinksstatus != null)
 			model.addAttribute("links", mylinksstatus);
 
-		model.addAttribute("myClickStatuslist", myClickStatuslist);
+		if (myClickStatuslist != null)
+			model.addAttribute("myClickStatuslist", myClickStatuslist);
 
 		return "linksnclicks-status";
 
@@ -345,12 +346,15 @@ public class LinkController {
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/proofresult", method = RequestMethod.GET)
-	public String showLinkVerifierPage(HttpServletRequest request, HttpSession session, Model model) {
+	public String showLinkVerifierPage(@RequestParam("isApproved") String test, HttpServletRequest request,
+			HttpSession session, Model model) {
 		User user = UtilFunction.getCurrentUser(session);
 		if (user == null) {
 			session.invalidate();
 			return "logout";
 		}
+
+		boolean isApproved = Boolean.valueOf(request.getParameter("isApproved"));
 
 		List<UserLink> userlinks = userLinkService.findByBroadcasterId(user.getId());
 		LinkVerifierDTO linkVerifierDTO = new LinkVerifierDTO();
@@ -363,6 +367,12 @@ public class LinkController {
 			String linkId = userlink.getLinkId();
 			// CHANGE THIS ENUM
 			Link link = linkService.findByIdAndIsClicked(linkId);
+			if (isApproved) {
+				// Logic to update the links table
+				link.setApproved(isApproved);
+				link.setLinkstatus(Linkstatus.VERIFIED);
+				linkService.update(link);
+			}
 			if ("clicked".equalsIgnoreCase(link.getLinkstatus().name())) {
 				if (null != link) {
 					// Link Not Verified Yet

@@ -16,10 +16,8 @@ public class Link extends BasicEntity {
 	private String adurl;
 	private int lid = 0;
 
-	
-
 	public enum Linkstatus {
-		ACTIVE,NEWLINK, BROADCASTED, PENDING, CLICKED, VERIFIED, AWARDED, INACTIVE, EXPIRED, DELETED_BY_ADMIN;
+		ACTIVE, NEWLINK, BROADCASTED, PENDING, CLICKED, VERIFIED, AWARDED, INACTIVE, EXPIRED, DELETED_BY_ADMIN;
 	}
 
 	private Linkstatus linkstatus;
@@ -28,10 +26,10 @@ public class Link extends BasicEntity {
 
 	private String videourl;
 
+	private boolean isApproved;
 
-	private int approved = 0;
 	private Date creationTime;
-	private Date lastTraveredTime = null;
+	private Date lastTraveredTime;
 
 	/**
 	 * @return the userId
@@ -76,21 +74,6 @@ public class Link extends BasicEntity {
 	 */
 	public void setLid(int lid) {
 		this.lid = lid;
-	}
-
-	/**
-	 * @return the approved
-	 */
-	public int getApproved() {
-		return approved;
-	}
-
-	/**
-	 * @param approved
-	 *            the approved to set
-	 */
-	public void setApproved(int approved) {
-		this.approved = approved;
 	}
 
 	/**
@@ -181,6 +164,21 @@ public class Link extends BasicEntity {
 	 */
 	public void setLinkstatus(Linkstatus linkstatus) {
 		this.linkstatus = linkstatus;
+	}
+
+	/**
+	 * @return the isApproved
+	 */
+	public boolean isApproved() {
+		return isApproved;
+	}
+
+	/**
+	 * @param isApproved
+	 *            the isApproved to set
+	 */
+	public void setApproved(boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 
 	/*

@@ -22,7 +22,7 @@
 					</a></li>
 					<li><a href="linkreciever" class="waves-effect waves-blue">
 							Link Reciever</a></li>
-					<li><a href="proofresult" class="waves-effect waves-blue">
+					<li><a href="proofresult?isApproved=false" class="waves-effect waves-blue">
 							Link Verifier</a></li>
 				</ul></li>
 			<li class="tooltipped" data-position="right" data-delay="50"

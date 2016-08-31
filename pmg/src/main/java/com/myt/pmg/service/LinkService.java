@@ -131,6 +131,7 @@ public class LinkService {
 		 */
 	}
 
+
 	// Check user eligibility for posting links
 	public boolean linkSubmitionEligiblity(Link link) {
 		// Logic to check the best time in account.jsp

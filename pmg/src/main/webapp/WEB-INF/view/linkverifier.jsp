@@ -1,9 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@	page session="true"%>
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
- --%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -66,6 +61,16 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/assets/core/pmg/css/pmg.css" />
 <!-- endbuild -->
+
+<style type="text/css">
+table {
+	table-layout: fixed;
+}
+
+td#adurl {
+	word-wrap: break-word;
+}
+</style>
 
 
 </head>
@@ -144,45 +149,48 @@
 				</a>
 			</div>
 
-			<div class="content">
-				<table class="table table-bordered">
-					<thead>
-						<tr class="blue lighten-1 white-text">
-							<th style="width: 3%" class="center tooltipped"
-								data-position="top" data-delay="50" data-tooltip="S.No.">#</th>
-							<th class="center tooltipped" data-position="top" data-delay="50"
-								data-tooltip="Contibutor's ID">Contributor's ID</th>
-							<th class="center tooltipped" data-position="top" data-delay="50"
-								data-tooltip="URLs ID">LID</th>
-							<th class="center tooltipped" data-position="top" data-delay="50"
-								data-tooltip="My URLs">My URLs</th>
-							<th class="center tooltipped" data-position="top" data-delay="50"
-								data-tooltip="My Ad URLs">My Ad URLs</th>
-							<th class="center tooltipped" data-position="top" data-delay="50"
-								data-tooltip="Submitted On" style="width: 12%">Submision
-								Date</th>
+			<div class="row">
+				<div class="col l12">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr class="blue lighten-1 white-text">
+									<th style="width: 3%" class="center tooltipped"
+										data-position="top" data-delay="50" data-tooltip="S.No.">#</th>
+									<th class="center tooltipped" data-position="top"
+										data-delay="50" data-tooltip="Contibutor's ID">Contributor's
+										ID</th>
+									<th class="center tooltipped" data-position="top"
+										data-delay="50" data-tooltip="URLs ID">LID</th>
+									<th class="center tooltipped" data-position="top"
+										data-delay="50" data-tooltip="My URLs">My URLs</th>
+									<th class="center tooltipped" data-position="top"
+										data-delay="50" data-tooltip="My Ad URLs">My Ad URLs</th>
+									<th class="center tooltipped" data-position="top"
+										data-delay="50" data-tooltip="Submitted On" style="width: 12%">Submision
+										Date</th>
 
-						</tr>
-					</thead>
-					<tbody>
+								</tr>
+							</thead>
+							<tbody>
 
-						<c:if test="${linkVerifierDTO!=null}">
+								<c:if test="${linkVerifierDTO!=null}">
 
-							<tr>
-								<th>1</th>
-								<td>${linkVerifierDTO.userName }</td>
-								<td>${linkVerifierDTO.linkId}</td>
-								<td>${linkVerifierDTO.domain }</td>
-								<td>${linkVerifierDTO.myAdurl }</td>
-								<td>${linkVerifierDTO.submissionDate }</td>
+									<tr>
+										<th>1</th>
+										<td>${linkVerifierDTO.userName }</td>
+										<td>${linkVerifierDTO.linkId}</td>
+										<td>${linkVerifierDTO.domain }</td>
+										<td id="adurl">${linkVerifierDTO.myAdurl }</td>
+										<td>${linkVerifierDTO.submissionDate }</td>
 
-							</tr>
-						</c:if>
-					</tbody>
-				</table>
+									</tr>
+								</c:if>
+							</tbody>
+						</table>
 
-
-
+					</div>
+				</div>
 
 				<!-- Modal Trigger -->
 				<a class="waves-effect waves-light btn modal-trigger tooltipped"
@@ -231,10 +239,8 @@
 							</div>
 
 						</div>
-						<form></form>
-						<div class="col s12 l9 blue-text">
-							<form action="dropzone.php" class="dropzone" id="my-dropzone"></form>
-						</div>
+
+
 					</div>
 
 					<div class="row white-text">
@@ -283,7 +289,6 @@
 					</div>
 				</div>
 
-
 				<a
 					class="waves-effect waves-light btn right modal-trigger tooltipped"
 					data-position="left" data-delay="50"
@@ -291,7 +296,7 @@
 					class="fa fa-thumbs-up right"></i></a>
 
 				<!-- Modal Structure -->
-				<div id="EoA" class="modal blue white-text">
+				<div id="EoA" class="modal orange white-text">
 					<h3 class="center">Express Your Appriciation</h3>
 					<hr class="white-text">
 					<ul class="center">
@@ -311,24 +316,18 @@
 						</div>
 						<!-- /Ratings with Stars -->
 					</ul>
+
 					<div class="row">
 						<div class="col s12 l12">
 							<ul class="note">
-								<li class="warning confirm right">
-									<button
-										class="btn waves-effect waves-blue ya white blue-text modal-close tooltipped"
-										data-position="top" data-delay="50"
-										data-tooltip="Delete Selected FAQ" type="submit" name="action">
-										I Appriciate <i class="fa fa-star right"></i>
-									</button>
-								</li>
+								<li class="warning confirm right white-text"><a
+									href="proofresult?isApproved=true">I Approve</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-
 				<!--button-->
-
+				<br />
 
 				<!--/button-->
 
