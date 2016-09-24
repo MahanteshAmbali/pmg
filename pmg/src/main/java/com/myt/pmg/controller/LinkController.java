@@ -27,13 +27,11 @@ import com.myt.pmg.dto.LUV;
 import com.myt.pmg.dto.LinkRecieverDTO;
 import com.myt.pmg.dto.LinkVerifierDTO;
 import com.myt.pmg.dto.MyClickStatusDto;
-import com.myt.pmg.model.Feedback;
 import com.myt.pmg.model.Link;
 import com.myt.pmg.model.Link.Linkstatus;
 import com.myt.pmg.model.User;
 import com.myt.pmg.model.UserLink;
 import com.myt.pmg.service.AccountService;
-import com.myt.pmg.service.FeedbackService;
 import com.myt.pmg.service.LinkService;
 import com.myt.pmg.service.UserLinkService;
 import com.myt.pmg.service.UserService;
@@ -48,13 +46,6 @@ public class LinkController {
 	@Autowired
 	private UserLinkService userLinkService;
 
-	/*
-	 * @Autowired private ProolinkbfService proofService;
-	 */
-
-	@Autowired
-	private FeedbackService feedbackService;
-
 	@Autowired
 	private UserService userService;
 
@@ -63,10 +54,6 @@ public class LinkController {
 
 	public void setLinkService(LinkService linkService) {
 		this.linkService = linkService;
-	}
-
-	public void setFeedbackService(FeedbackService feedbackService) {
-		this.feedbackService = feedbackService;
 	}
 
 	public void setUserLinkService(UserLinkService userLinkService) {
@@ -194,24 +181,6 @@ public class LinkController {
 		return linklist;
 	}
 
-	/*
-	 * @PreAuthorize(value = "hasRole('ROLE_USER')")
-	 * 
-	 * @RequestMapping(value = "/linkrecieverdata", produces =
-	 * "application/json")
-	 * 
-	 * @ResponseBody // @RequestMapping(value="/linkreciever") public
-	 * List<LinkRecieverDTO> linkReciever(HttpSession session,
-	 * HttpServletResponse response) { // Here Add Logic to get top N Link and N
-	 * will be coming from Requet // Parameter for eg N and Pass N to database
-	 * so we will not be loading // all Link and thas has not upload proof User
-	 * user = UtilFunction.getCurrentUser(session); if (user == null) {
-	 * session.invalidate(); } String userid = user.getId();
-	 * List<LinkRecieverDTO> linklist =
-	 * linkService.getLinksPostedToUser(userid); if (linklist.isEmpty()) {
-	 * logger.error("list is empty"); } return linklist; }
-	 */
-
 	@RequestMapping(value = "/linkstatus", method = RequestMethod.GET)
 	public String linkStatus(HttpSession session, HttpServletResponse response, ModelMap model) {
 		User user = UtilFunction.getCurrentUser(session);
@@ -233,21 +202,35 @@ public class LinkController {
 		for (UserLink userLink : userLinks) {
 			String buserid = userLink.getBroadcasterUserId();
 			List<Link> links = linkService.findByUserId(buserid);
+			// System.out.println("Reciever User Name::" +
+			// userLink.getUserId());
+			User recverUser = userService.findById(userLink.getUserId());
 
+			// LID reciever
 			for (Link link : links) {
 				if (link.getLinkstatus().compareTo(Linkstatus.PENDING) != 0) {
-					MyClickStatusDto myClickStatusDto = new MyClickStatusDto();
-					User contributor = userService.findById(link.getUserId());
+					if (recverUser.getId().equalsIgnoreCase(userid)
+							&& userLink.getLinkId().equalsIgnoreCase(link.getId())) {
 
-					myClickStatusDto.setLid(link.getLid());
-					myClickStatusDto.setClickedon(link.getLastTraveredTime());
-					myClickStatusDto.setOwnerId(contributor.getFirstname());
-					myClickStatusDto.setLinkstatus(link.getLinkstatus());
-					myClickStatusDto.setVerifierUrl(link.getAdurl());
-					myClickStatuslist.add(myClickStatusDto);
+						MyClickStatusDto myClickStatusDto = new MyClickStatusDto();
+						User contributor = userService.findById(link.getUserId());
+						myClickStatusDto.setLid(link.getLid());
+						myClickStatusDto.setClickedon(link.getLastTraveredTime());
+						myClickStatusDto.setOwnerId(contributor.getFirstname());
+						myClickStatusDto.setLinkstatus(link.getLinkstatus());
+						myClickStatusDto.setVerifierUrl(link.getAdurl());
+
+						System.out.println("Broadcaster User Name: " + contributor.getFirstname());
+						System.out.println("::Reciever User Name::" + recverUser.getFirstname());
+						// System.out.println("LInk ID for the broadcasted
+						// User:" + link.getLid());
+						// System.out.println("Link Recieved By :" +
+						// userLink.getLinkId());
+						myClickStatuslist.add(myClickStatusDto);
+					}
 				}
 			}
-			break;
+			// break;
 		}
 
 		if (mylinksstatus != null)
@@ -330,7 +313,6 @@ public class LinkController {
 
 		Link link = linkService.findByLid(lid);
 		if (link != null) {
-			// link.setClicked(true);
 			// Linkstatus status = Linkstatus.CLICKED;
 			link.setLinkstatus(Linkstatus.CLICKED);
 
@@ -338,16 +320,16 @@ public class LinkController {
 			link.setVideourl(videourl);
 			link.setAdurl(adurl);
 			linkService.update(link);
+			return "redirect:/linkreciever?verify=false";
 		}
 
-		return "dashboard";
+		return "linkreciever";
 
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")
 	@RequestMapping(value = "/proofresult", method = RequestMethod.GET)
-	public String showLinkVerifierPage(@RequestParam("isApproved") String test, HttpServletRequest request,
-			HttpSession session, Model model) {
+	public String showLinkVerifierPage(HttpServletRequest request, HttpSession session, Model model) {
 		User user = UtilFunction.getCurrentUser(session);
 		if (user == null) {
 			session.invalidate();
@@ -367,73 +349,45 @@ public class LinkController {
 			String linkId = userlink.getLinkId();
 			// CHANGE THIS ENUM
 			Link link = linkService.findByIdAndIsClicked(linkId);
-			if (isApproved) {
-				// Logic to update the links table
-				link.setApproved(isApproved);
-				link.setLinkstatus(Linkstatus.VERIFIED);
-				linkService.update(link);
-			}
-			if ("clicked".equalsIgnoreCase(link.getLinkstatus().name())) {
-				if (null != link) {
-					// Link Not Verified Yet
-					System.out.println("*******LINK" + link);
 
-					User contributor = userService.findById(link.getUserId());
-					System.out.println("Contributor ID" + contributor.getFirstname());
-
-					// LOGIC to replace the watch with embed in the URL
-					String youtubestr = link.getVideourl();
-					if (youtubestr != null) {
-						StringBuilder builder = new StringBuilder(youtubestr);
-						builder.replace(24, 32, "embed/");
-
-						linkVerifierDTO.setDomain(user.getDomain());
-						linkVerifierDTO.setLinkId(link.getLid());
-						linkVerifierDTO.setUserName(contributor.getFirstname());
-
-						linkVerifierDTO.setProofFileName(builder.toString());
-						linkVerifierDTO.setSubmissionDate(new Date());
-						linkVerifierDTO.setDomain(link.getUrl());
-						linkVerifierDTO.setMyAdurl(link.getAdurl());
-					}
-					model.addAttribute("linkVerifierDTO", linkVerifierDTO);
-					break;
-
+			if (null != link) {
+				// Link Not Verified Yet
+				if (isApproved) {
+					// Logic to update the links table
+					link.setApproved(isApproved);
+					link.setLinkstatus(Linkstatus.VERIFIED);
+					linkService.update(link);
+					return "redirect:/proofresult?isApproved=false";
 				}
+
+				System.out.println("*******LINK" + link);
+
+				User contributor = userService.findById(userlink.getUserId());
+				System.out.println("Contributor ID" + contributor.getFirstname());
+
+				// LOGIC to replace the watch with embed in the URL
+				String youtubestr = link.getVideourl();
+				if (youtubestr != null) {
+					StringBuilder builder = new StringBuilder(youtubestr);
+					builder.replace(24, 32, "embed/");
+
+					linkVerifierDTO.setDomain(user.getDomain());
+					linkVerifierDTO.setLinkId(link.getLid());
+					linkVerifierDTO.setUserName(contributor.getFirstname());
+
+					linkVerifierDTO.setProofFileName(builder.toString());
+					linkVerifierDTO.setSubmissionDate(new Date());
+					linkVerifierDTO.setDomain(link.getUrl());
+					linkVerifierDTO.setMyAdurl(link.getAdurl());
+				}
+				model.addAttribute("linkVerifierDTO", linkVerifierDTO);
+				break;
+
 			}
+
 		}
 		model.addAttribute("user", user);
 		return "linkverifier";
-	}
-
-	@PreAuthorize(value = "hasRole('ROLE_USER')")
-	@RequestMapping(value = "/proofresult", method = RequestMethod.POST)
-	@ResponseBody
-	public String showLinkVerifier(HttpServletRequest request, HttpSession session) {
-		User user = UtilFunction.getCurrentUser(session);
-		if (user == null) {
-			session.invalidate();
-		}
-		int i = 0;
-		while (request.getParameter("linkId" + i) != null) {
-			UserLink userlink = userLinkService.findByLinkId(request.getParameter("linkId" + i));
-			if (userlink != null) {
-				int rating = Integer.parseInt(request.getParameter("rating" + i));
-				if (rating == -99) {
-					// proofService.delete(userlink.getProofId());
-					// userlink.setVerified(false);
-				} else {
-					// userlink.setVerified(true);
-					Feedback fb = new Feedback();
-					fb.setUserId(userlink.getUserId());
-					fb.setRating(rating);
-					feedbackService.create(fb);
-				}
-				userLinkService.update(userlink);
-				i++;
-			}
-		}
-		return "dashboard";
 	}
 
 	@PreAuthorize(value = "hasRole('ROLE_USER')")

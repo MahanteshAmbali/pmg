@@ -232,4 +232,8 @@ public class LinkService {
 		return linkDao.findByIdAndIsClicked(linkId);
 	}
 
+	public Link findByIdAndIsClickedAndIsNotApproved(String linkId) {
+		return linkDao.findByIdAndIsClickedAndIsNotApproved(linkId);
+	}
+
 }

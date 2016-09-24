@@ -214,7 +214,7 @@
 				<!-- Modal Trigger -->
 				<div class="row">
 					<div class="col s6 l6">
-						
+
 						<!-- Modal Structure -->
 						<div id="Complaint" class="card modal-f blue white-text">
 							<h3 class="center">Lodge Complaint</h3>

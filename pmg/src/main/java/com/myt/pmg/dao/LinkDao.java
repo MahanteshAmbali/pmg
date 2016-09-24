@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.myt.pmg.model.Link;
-import com.myt.pmg.model.Link.Linkstatus;
 import com.myt.pmg.model.UserLink;
 
 @Repository
@@ -130,9 +129,11 @@ public class LinkDao extends BasicDaoImpl<Link> {
 	public List<Link> findByUserId(String userid) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("userId").is(userid));
-	/*	query.addCriteria(Criteria.where("clicked").is(false));
-		query.addCriteria(Criteria.where("verified").is(false));
-		query.addCriteria(Criteria.where("active").is(true));*/
+		/*
+		 * query.addCriteria(Criteria.where("clicked").is(false));
+		 * query.addCriteria(Criteria.where("verified").is(false));
+		 * query.addCriteria(Criteria.where("active").is(true));
+		 */
 		return getMongoTemplate().find(query, Link.class);
 	}
 
@@ -153,8 +154,17 @@ public class LinkDao extends BasicDaoImpl<Link> {
 
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(linkId));
-		//query.addCriteria(Criteria.where("clicked").is(true));
-		
+		query.addCriteria(Criteria.where("linkstatus").is("CLICKED"));
+
+		return getMongoTemplate().findOne(query, Link.class);
+	}
+
+	public Link findByIdAndIsClickedAndIsNotApproved(String linkId) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(linkId));
+		query.addCriteria(Criteria.where("linkstatus").is("CLICKED"));
+		query.addCriteria(Criteria.where("isApproved").is(false));
+
 		return getMongoTemplate().findOne(query, Link.class);
 	}
 

@@ -28,8 +28,8 @@
 			<a href="RoE">GO To Rules Of Engagement</a>
 		</div>
 		<div class="pmg-top clearfix">
-			<a href="RoE.html"><span>Skip to Rules of Engagement</span></a> <span
-				class="left"><a href="sign-in.html"><span>Go To
+			<a href="RoE"><span>Skip to Rules of Engagement</span></a> <span
+				class="left"><a href="login"><span>Go To
 						Log-In Page</span></a></span>
 		</div>
 	</div>

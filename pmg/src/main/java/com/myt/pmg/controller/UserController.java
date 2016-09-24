@@ -315,8 +315,16 @@ public class UserController {
 		User user = UtilFunction.getCurrentUser(session);
 		if (user == null)
 			return "redirect:/login?session=false";
+		String filename = gridFSService.getpic(user, session);
+		
+		System.out.println("Pic Exists..." + filename);
+		if(!filename.isEmpty()){
+			//Pic Already Exists...
+			gridFSService.deletepic(user);
+		}
 
-		String pic_id = gridFSService.save(file);
+		String pic_id = gridFSService.save(file, user);
+		
 
 		System.out.println("Profile Image uploaded Succussfully!!!!!!!!!!");
 		System.out.println("PIC ID::" + pic_id);
@@ -326,7 +334,7 @@ public class UserController {
 			userService.updateUser(user);
 		}
 
-		return "redirect:/profile";
+		return "redirect:/showpic";
 
 	}
 

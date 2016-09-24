@@ -25,12 +25,22 @@ public class GridFSService {
 	@Autowired
 	GridFsTemplate gridFsTemplate;
 
-	public String save(MultipartFile file) throws IOException {
+	public String save(MultipartFile file, User user) throws IOException {
 		DBObject metaData = new BasicDBObject();
 		metaData.put("file", file.getOriginalFilename());
+		metaData.put("user", user.getEmail());
 
 		return gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metaData)
 				.getId().toString();
+	}
+
+	public void deletepic(User user) {
+
+		GridFSDBFile gridFsdbFile = gridFsTemplate
+				.findOne(new Query(Criteria.where("metadata.user").is(user.getEmail())));
+		if (gridFsdbFile != null) {
+			gridFsTemplate.delete(new Query(Criteria.where("_id").is(user.getPic_id())));
+		}
 	}
 
 	public String getpic(User user, HttpSession session) throws IOException {
@@ -49,9 +59,9 @@ public class GridFSService {
 			try {
 				gFile.writeTo(dirpath + "\\static\\" + gFile.getFilename());
 				// gFile.writeTo(dirpath + gFile.getFilename());
-				
+
 				session.setAttribute("path", gFile.getFilename());
-				
+
 				return gFile.getFilename();
 			} catch (IOException e) {
 				throw e;
